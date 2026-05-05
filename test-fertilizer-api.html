@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fertilizer API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Fertilizer API</h1>
+    <p>Click the button to test the fertilizer recommendation API</p>
+    
+    <button onclick="testAPI()">Test API</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '⏳ Testing API...';
+            
+            const testData = {
+                crop: 'Rice',
+                nitrogen: 250,
+                phosphorus: 30,
+                potassium: 150
+            };
+            
+            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api/fertilizer/recommend` : 'http://10.232.236.239:5001/api/fertilizer/recommend';
+            
+            try {
+                console.log('📤 Sending request to:', apiUrl);
+                console.log('📦 Data:', testData);
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                console.log('📥 Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Response data:', data);
+                
+                resultDiv.innerHTML = `<div class="success">
+✅ API is working!
+
+Response:
+${JSON.stringify(data, null, 2)}
+
+Recommended Fertilizer: ${data.recommendedFertilizer || 'Not found'}
+                </div>`;
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                
+                resultDiv.innerHTML = `<div class="error">
+❌ API Error!
+
+Error: ${error.message}
+
+Possible reasons:
+1. Backend server is not running
+2. Backend IP/Port is incorrect
+3. CORS is not configured
+4. Network connection issue
+
+Check console (F12) for more details.
+
+Expected URL: ${apiUrl}
+                </div>`;
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://10.232.236.239:5001/api';
+            console.log('🔍 Fertilizer API Test Page Loaded');
+            console.log('Backend URL:', apiUrl);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Recommendation - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fertilizer-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .fertilizer-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .fertilizer-header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .fertilizer-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .fertilizer-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .input-with-unit {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .input-with-unit input {
+            flex: 1;
+        }
+
+        .input-with-unit span {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .npk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .recommend-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .recommend-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .recommend-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-container {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-header h2 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fertilizer-badge {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .npk-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .npk-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .npk-card.nitrogen {
+            border-left: 4px solid #2196F3;
+        }
+
+        .npk-card.phosphorus {
+            border-left: 4px solid #FF9800;
+        }
+
+        .npk-card.potassium {
+            border-left: 4px solid #9C27B0;
+        }
+
+        .npk-card h3 {
+            color: #2c5530;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .npk-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .fertilizer-info {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .fertilizer-info h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fertilizer-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fertilizer-info li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .fertilizer-info li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .info-section {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .info-section h3 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-section p {
+            color: #856404;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+
+        .npk-guide {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .npk-guide h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .npk-guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .npk-guide-item {
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .npk-guide-item h4 {
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+        }
+
+        .npk-guide-item p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌱 Smart Agriculture Assistant</h1>
+                <p>Fertilizer Recommendation System</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="fertilizer-container">
+        <a href="index.html" class="back-btn" style="margin-bottom: 2rem;">← Back to Home</a>
+        
+        <div class="fertilizer-header">
+            <h1>🧪 Fertilizer Recommendation</h1>
+            <p>Get personalized fertilizer suggestions based on your crop and soil nutrients</p>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h3>📋 Understanding NPK</h3>
+            <p><strong>N-P-K</strong> stands for Nitrogen, Phosphorus, and Potassium - the three primary nutrients plants need. Get your soil tested to know current NPK levels, then use this tool to find the right fertilizer for your crop.</p>
+        </div>
+
+        <!-- NPK Guide -->
+        <div class="npk-guide">
+            <h3>🔬 What Each Nutrient Does</h3>
+            <div class="npk-guide-grid">
+                <div class="npk-guide-item" style="border-left: 4px solid #2196F3;">
+                    <h4>Nitrogen (N)</h4>
+                    <p>Promotes leaf growth and green color. Essential for photosynthesis and protein production.</p>
+                </div>
+                <div class="npk-guide-item" style="border-left: 4px solid #FF9800;">
+                    <h4>Phosphorus (P)</h4>
+                    <p>Supports root development, flowering, and fruiting. Critical for energy transfer in plants.</p>
+                </div>
+                <div class="npk-guide-item" style="border-left: 4px solid #9C27B0;">
+                    <h4>Potassium (K)</h4>
+                    <p>Strengthens plant immunity, improves drought resistance, and enhances fruit quality.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fertilizer Recommendation Form -->
+        <div class="fertilizer-form">
+            <form id="fertilizerForm">
+                <div class="form-group">
+                    <label for="cropType">Select Your Crop</label>
+                    <select id="cropType" name="cropType" required>
+                        <option value="">-- Choose a crop --</option>
+                        <option value="Rice">Rice (ಭತ್ತ / चावल / तांदूळ)</option>
+                        <option value="Wheat">Wheat (ಗೋಧಿ / गेहूं / गहू)</option>
+                        <option value="Maize">Maize (ಮೆಕ್ಕೆಜೋಳ / मक्का / मका)</option>
+                        <option value="Cotton">Cotton (ಹತ್ತಿ / कपास / कापूस)</option>
+                        <option value="Sugarcane">Sugarcane (ಕಬ್ಬು / गन्ना / ऊस)</option>
+                        <option value="Tomato">Tomato (ಟೊಮೇಟೊ / टमाटर / टोमॅटो)</option>
+                        <option value="Potato">Potato (ಆಲೂಗಡ್ಡೆ / आलू / बटाटा)</option>
+                        <option value="Onion">Onion (ಈರುಳ್ಳಿ / प्याज / कांदा)</option>
+                        <option value="Chili">Chili (ಮೆಣಸಿನಕಾಯಿ / मिर्च / मिरची)</option>
+                        <option value="Cabbage">Cabbage (ಎಲೆಕೋಸು / पत्तागोभी / कोबी)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Soil NPK Levels</label>
+                    <small>Enter the current nutrient levels in your soil (kg/ha)</small>
+                </div>
+
+                <div class="npk-grid">
+                    <div class="form-group">
+                        <label for="nitrogen">Nitrogen (N)</label>
+                        <div class="input-with-unit">
+                            <input 
+                                type="number" 
+                                id="nitrogen" 
+                                name="nitrogen" 
+                                step="0.1" 
+                                min="0" 
+                                max="1000" 
+                                placeholder="250"
+                                required
+                            >
+                            <span>kg/ha</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phosphorus">Phosphorus (P)</label>
+                        <div class="input-with-unit">
+                            <input 
+                                type="number" 
+                                id="phosphorus" 
+                                name="phosphorus" 
+                                step="0.1" 
+                                min="0" 
+                                max="200" 
+                                placeholder="30"
+                                required
+                            >
+                            <span>kg/ha</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="potassium">Potassium (K)</label>
+                        <div class="input-with-unit">
+                            <input 
+                                type="number" 
+                                id="potassium" 
+                                name="potassium" 
+                                step="0.1" 
+                                min="0" 
+                                max="500" 
+                                placeholder="150"
+                                required
+                            >
+                            <span>kg/ha</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="recommend-btn" id="recommendBtn">
+                    🧪 Get Fertilizer Recommendation
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing soil nutrients and finding best fertilizer...</p>
+        </div>
+
+        <!-- Results Container -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2>Recommended Fertilizer</h2>
+                <div class="fertilizer-badge" id="fertilizerBadge">NPK 20-20-20</div>
+            </div>
+
+            <div class="npk-display">
+                <div class="npk-card nitrogen">
+                    <h3>Nitrogen (N)</h3>
+                    <p id="resultNitrogen">-</p>
+                </div>
+                <div class="npk-card phosphorus">
+                    <h3>Phosphorus (P)</h3>
+                    <p id="resultPhosphorus">-</p>
+                </div>
+                <div class="npk-card potassium">
+                    <h3>Potassium (K)</h3>
+                    <p id="resultPotassium">-</p>
+                </div>
+                <div class="npk-card" style="border-left: 4px solid #4CAF50;">
+                    <h3>Crop</h3>
+                    <p id="resultCrop" style="font-size: 1.2rem;">-</p>
+                </div>
+            </div>
+
+            <div class="fertilizer-info">
+                <h3>💊 Application Guidelines</h3>
+                <ul id="guidelinesList">
+                    <!-- Guidelines will be added here -->
+                </ul>
+            </div>
+
+            <div class="fertilizer-info" style="background: #fff3e0;">
+                <h3>⚠️ Important Tips</h3>
+                <ul id="tipsList">
+                    <!-- Tips will be added here -->
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="recommend-btn" onclick="resetForm()" style="max-width: 300px; margin-top: 1rem;">
+                    🔄 Check Another Crop
+                </button>
+                <br>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load configuration and scripts -->
+    <script src="./config.js"></script>
+    <script src="./script/fertilizerRoutes.js"></script>
+    <script>
+        // Fertilizer Recommendation Logic
+        const fertilizerForm = document.getElementById('fertilizerForm');
+        const loading = document.getElementById('loading');
+        const resultContainer = document.getElementById('resultContainer');
+        const recommendBtn = document.getElementById('recommendBtn');
+
+        fertilizerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const crop = document.getElementById('cropType').value;
+            const nitrogen = parseFloat(document.getElementById('nitrogen').value);
+            const phosphorus = parseFloat(document.getElementById('phosphorus').value);
+            const potassium = parseFloat(document.getElementById('potassium').value);
+
+            // Show loading
+            loading.classList.add('show');
+            recommendBtn.disabled = true;
+            resultContainer.classList.remove('show');
+
+            try {
+                // Call the fertilizer recommendation API
+                const result = await getFertilizerRecommendation(crop, nitrogen, phosphorus, potassium);
+
+                // Hide loading
+                loading.classList.remove('show');
+                recommendBtn.disabled = false;
+
+                if (result) {
+                    displayResults(crop, nitrogen, phosphorus, potassium, result);
+                } else {
+                    alert('Failed to get fertilizer recommendation. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loading.classList.remove('show');
+                recommendBtn.disabled = false;
+                alert('An error occurred. Please check your connection and try again.');
+            }
+        });
+
+        function displayResults(crop, nitrogen, phosphorus, potassium, fertilizerName) {
+            // Display NPK values
+            document.getElementById('resultNitrogen').textContent = nitrogen.toFixed(1) + ' kg/ha';
+            document.getElementById('resultPhosphorus').textContent = phosphorus.toFixed(1) + ' kg/ha';
+            document.getElementById('resultPotassium').textContent = potassium.toFixed(1) + ' kg/ha';
+            document.getElementById('resultCrop').textContent = crop;
+
+            // Display fertilizer name
+            document.getElementById('fertilizerBadge').textContent = fertilizerName;
+
+            // Generate guidelines
+            const guidelines = generateGuidelines(fertilizerName, crop);
+            const guidelinesList = document.getElementById('guidelinesList');
+            guidelinesList.innerHTML = '';
+            guidelines.forEach(guideline => {
+                const li = document.createElement('li');
+                li.textContent = guideline;
+                guidelinesList.appendChild(li);
+            });
+
+            // Generate tips
+            const tips = generateTips(nitrogen, phosphorus, potassium);
+            const tipsList = document.getElementById('tipsList');
+            tipsList.innerHTML = '';
+            tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsList.appendChild(li);
+            });
+
+            // Show results
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateGuidelines(fertilizerName, crop) {
+            return [
+                `Apply ${fertilizerName} at the recommended dosage for ${crop}`,
+                'Split application into 2-3 doses during the growing season',
+                'Apply fertilizer when soil is moist for better absorption',
+                'Keep fertilizer 5-7 cm away from plant stem to avoid burning',
+                'Water the field immediately after fertilizer application',
+                'Apply during early morning or late evening to reduce losses',
+                'Mix fertilizer with soil for better nutrient availability',
+                'Follow safety precautions: wear gloves and mask during application'
+            ];
+        }
+
+        function generateTips(nitrogen, phosphorus, potassium) {
+            const tips = [
+                'Store fertilizers in a cool, dry place away from direct sunlight',
+                'Keep fertilizers away from food, feed, and water sources',
+                'Do not mix different fertilizers unless recommended',
+                'Conduct soil tests every 6-12 months to monitor nutrient levels',
+                'Consider organic alternatives like compost and manure',
+                'Avoid over-application as it can harm plants and environment'
+            ];
+
+            if (nitrogen < 200) {
+                tips.unshift('Your soil is low in nitrogen - consider additional nitrogen-rich fertilizers');
+            }
+            
+            if (phosphorus < 20) {
+                tips.unshift('Low phosphorus detected - apply phosphate fertilizers for better root growth');
+            }
+            
+            if (potassium < 100) {
+                tips.unshift('Potassium levels are low - supplement with potash for better plant health');
+            }
+
+            return tips;
+        }
+
+        function resetForm() {
+            fertilizerForm.reset();
+            resultContainer.classList.remove('show');
+            document.querySelector('.fertilizer-form').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

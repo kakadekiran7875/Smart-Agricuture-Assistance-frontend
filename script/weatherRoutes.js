@@ -1,3 +1,8 @@
+// Use shared API base URL
+const API_BASE = (typeof window !== 'undefined' && window.API_CONFIG)
+  ? window.API_CONFIG.BASE_URL
+  : 'http://10.232.236.239:5001';
+
 async function getWeather(location) {
   try {
     const res = await fetch(`${API_BASE}/api/weather/${encodeURIComponent(location)}`);

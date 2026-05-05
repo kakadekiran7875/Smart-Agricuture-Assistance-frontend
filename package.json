@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite --host --mode dev",
+    "dev": "vite --mode dev",
     "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && npm run preview",
     "lint": "echo 'linted'"
   },
   "keywords": [],

@@ -690,11 +690,8 @@
 
         // Helper function to get API URL
         function apiUrl(path) {
-            const config = window.CONFIG || {
-                BACKEND_IP: '10.175.34.239',
-                BACKEND_PORT: '5001'
-            };
-            return `http://${config.BACKEND_IP}:${config.BACKEND_PORT}${path}`;
+            const base = window.API_CONFIG ? window.API_CONFIG.BASE_URL : 'http://10.232.236.239:5001';
+            return `${base}${path}`;
         }
     </script>
 </body>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Detection - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pest-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .pest-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .pest-header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .pest-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .pest-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+            font-size: 1rem;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .symptoms-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .detect-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .detect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .detect-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-container {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .result-header h2 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pest-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background: #ff5722;
+            color: white;
+        }
+
+        .pest-badge.no-pest {
+            background: #4CAF50;
+        }
+
+        .pest-details {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .pest-details h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pest-details p {
+            color: #856404;
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+
+        .treatment-section {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .treatment-section h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .treatment-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .treatment-section li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .treatment-section li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .info-card h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 0.3rem 0;
+            color: #555;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-box p {
+            margin: 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌱 Smart Agriculture Assistant</h1>
+                <p>Pest Detection & Control</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="pest-container">
+        <a href="index.html" class="back-btn" style="margin-bottom: 2rem;">← Back to Home</a>
+        
+        <div class="pest-header">
+            <h1>🐛 Pest Detection</h1>
+            <p>Identify pests affecting your crops and get treatment recommendations</p>
+        </div>
+
+        <!-- Alert Box -->
+        <div class="alert-box">
+            <p>⚠️ <strong>Note:</strong> For accurate pest identification, observe your crops carefully and select all visible symptoms. Early detection helps prevent crop damage!</p>
+        </div>
+
+        <!-- Pest Detection Form -->
+        <div class="pest-form">
+            <form id="pestForm">
+                <div class="form-group">
+                    <label for="cropType">Select Your Crop</label>
+                    <select id="cropType" name="cropType" required>
+                        <option value="">-- Choose a crop --</option>
+                        <option value="Rice">Rice (ಭತ್ತ / चावल / तांदूळ)</option>
+                        <option value="Wheat">Wheat (ಗೋಧಿ / गेहूं / गहू)</option>
+                        <option value="Maize">Maize (ಮೆಕ್ಕೆಜೋಳ / मक्का / मका)</option>
+                        <option value="Cotton">Cotton (ಹತ್ತಿ / कपास / कापूस)</option>
+                        <option value="Sugarcane">Sugarcane (ಕಬ್ಬು / गन्ना / ऊस)</option>
+                        <option value="Tomato">Tomato (ಟೊಮೇಟೊ / टमाटर / टोमॅटो)</option>
+                        <option value="Potato">Potato (ಆಲೂಗಡ್ಡೆ / आलू / बटाटा)</option>
+                        <option value="Onion">Onion (ಈರುಳ್ಳಿ / प्याज / कांदा)</option>
+                        <option value="Chili">Chili (ಮೆಣಸಿನಕಾಯಿ / मिर्च / मिरची)</option>
+                        <option value="Brinjal">Brinjal (ಬದನೆಕಾಯಿ / बैंगन / वांगी)</option>
+                        <option value="Cabbage">Cabbage (ಎಲೆಕೋಸು / पत्तागोभी / कोबी)</option>
+                        <option value="Cauliflower">Cauliflower (ಹೂಕೋಸು / फूलगोभी / फ्लॉवर)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Visible Symptoms</label>
+                    <small>Check all symptoms you observe on your crops</small>
+                    <div class="symptoms-checkboxes">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom1" value="Leaf damage">
+                            <label for="symptom1">Leaf damage</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom2" value="Holes in leaves">
+                            <label for="symptom2">Holes in leaves</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom3" value="Yellowing leaves">
+                            <label for="symptom3">Yellowing leaves</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom4" value="Wilting">
+                            <label for="symptom4">Wilting</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom5" value="Stunted growth">
+                            <label for="symptom5">Stunted growth</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom6" value="Webbing on plants">
+                            <label for="symptom6">Webbing on plants</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom7" value="Sticky residue">
+                            <label for="symptom7">Sticky residue</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom8" value="Fruit damage">
+                            <label for="symptom8">Fruit damage</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom9" value="Root damage">
+                            <label for="symptom9">Root damage</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom10" value="Stem boring">
+                            <label for="symptom10">Stem boring</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom11" value="White powder on leaves">
+                            <label for="symptom11">White powder</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom12" value="Black spots">
+                            <label for="symptom12">Black spots</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalInfo">Additional Observations (Optional)</label>
+                    <textarea 
+                        id="additionalInfo" 
+                        name="additionalInfo" 
+                        placeholder="Describe any other symptoms, pest sightings, or damage patterns you've noticed..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="detect-btn" id="detectBtn">
+                    🔍 Detect Pest
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing pest symptoms...</p>
+        </div>
+
+        <!-- Results Container -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2>Detection Results</h2>
+                <div class="pest-badge" id="pestBadge">Pest Detected</div>
+            </div>
+
+            <div class="pest-details" id="pestDetails">
+                <h3>🐛 Identified Pest</h3>
+                <p id="pestName"><strong>Name:</strong> -</p>
+                <p id="pestDescription">-</p>
+            </div>
+
+            <div class="treatment-section" id="treatmentSection">
+                <h3>💊 Treatment Recommendations</h3>
+                <ul id="treatmentList">
+                    <!-- Treatments will be added here -->
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>📋 Prevention Tips</h3>
+                <ul>
+                    <li>• Regular crop inspection (at least twice a week)</li>
+                    <li>• Maintain proper field hygiene</li>
+                    <li>• Use crop rotation practices</li>
+                    <li>• Remove and destroy infected plants</li>
+                    <li>• Use pest-resistant crop varieties</li>
+                    <li>• Encourage natural predators</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="detect-btn" onclick="resetForm()" style="max-width: 300px; margin-top: 1rem;">
+                    🔄 Check Another Crop
+                </button>
+                <br>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load configuration and scripts -->
+    <script src="./config.js"></script>
+    <script src="./script/pestRoutes.js"></script>
+    <script>
+        // Pest Detection Logic
+        const pestForm = document.getElementById('pestForm');
+        const loading = document.getElementById('loading');
+        const resultContainer = document.getElementById('resultContainer');
+        const detectBtn = document.getElementById('detectBtn');
+
+        pestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const crop = document.getElementById('cropType').value;
+            const additionalInfo = document.getElementById('additionalInfo').value;
+
+            // Get selected symptoms
+            const symptoms = [];
+            document.querySelectorAll('.checkbox-item input[type="checkbox"]:checked').forEach(checkbox => {
+                symptoms.push(checkbox.value);
+            });
+
+            if (symptoms.length === 0) {
+                alert('Please select at least one symptom!');
+                return;
+            }
+
+            // Show loading
+            loading.classList.add('show');
+            detectBtn.disabled = true;
+            resultContainer.classList.remove('show');
+
+            try {
+                // Call the pest detection API
+                const symptomsString = symptoms.join(', ') + (additionalInfo ? '. ' + additionalInfo : '');
+                const result = await detectPest(crop, symptomsString);
+
+                // Hide loading
+                loading.classList.remove('show');
+                detectBtn.disabled = false;
+
+                if (result) {
+                    displayResults(crop, symptoms, result);
+                } else {
+                    displayNoResults(crop, symptoms);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loading.classList.remove('show');
+                detectBtn.disabled = false;
+                alert('An error occurred. Please check your connection and try again.');
+            }
+        });
+
+        function displayResults(crop, symptoms, pestName) {
+            // Display pest name
+            document.getElementById('pestName').innerHTML = `<strong>Pest:</strong> ${pestName}`;
+            document.getElementById('pestDescription').textContent = `This pest has been detected in your ${crop} crop based on the symptoms you reported.`;
+
+            // Set pest badge
+            const badge = document.getElementById('pestBadge');
+            badge.textContent = '🐛 Pest Detected';
+            badge.classList.remove('no-pest');
+
+            // Generate treatment recommendations
+            const treatments = generateTreatments(pestName, crop);
+            const treatmentList = document.getElementById('treatmentList');
+            treatmentList.innerHTML = '';
+            treatments.forEach(treatment => {
+                const li = document.createElement('li');
+                li.textContent = treatment;
+                treatmentList.appendChild(li);
+            });
+
+            // Show results
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function displayNoResults(crop, symptoms) {
+            // Display no pest message
+            document.getElementById('pestName').innerHTML = `<strong>Status:</strong> No Pest Detected`;
+            document.getElementById('pestDescription').textContent = `Based on the symptoms you reported, no specific pest was identified in your ${crop} crop. However, continue monitoring your crops regularly.`;
+
+            // Set badge
+            const badge = document.getElementById('pestBadge');
+            badge.textContent = '✅ No Pest Detected';
+            badge.classList.add('no-pest');
+
+            // General recommendations
+            const treatmentList = document.getElementById('treatmentList');
+            treatmentList.innerHTML = '';
+            const generalTips = [
+                'Continue regular crop monitoring',
+                'Maintain proper field sanitation',
+                'Ensure adequate plant nutrition',
+                'Monitor weather conditions',
+                'Contact agricultural expert if symptoms worsen'
+            ];
+            generalTips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                treatmentList.appendChild(li);
+            });
+
+            // Show results
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateTreatments(pestName, crop) {
+            // Generic treatment recommendations
+            const treatments = [
+                `Apply appropriate pesticide recommended for ${pestName} control`,
+                'Use neem-based organic pesticides as a safer alternative',
+                'Spray during early morning or late evening for better effectiveness',
+                'Remove and destroy heavily infested plants',
+                'Maintain proper spacing between plants for air circulation',
+                'Use yellow sticky traps to monitor and control pest population',
+                'Consult with local agricultural extension officer for specific pesticide recommendations',
+                'Follow recommended dosage and safety precautions when applying pesticides',
+                'Implement integrated pest management (IPM) practices',
+                'Keep records of pest occurrence for future reference'
+            ];
+
+            return treatments;
+        }
+
+        function resetForm() {
+            pestForm.reset();
+            resultContainer.classList.remove('show');
+            document.querySelector('.pest-form').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

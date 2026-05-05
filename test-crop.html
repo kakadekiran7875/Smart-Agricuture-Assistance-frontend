@@ -133,7 +133,7 @@
         <div style="margin-top: 30px;">
             <h3>📝 API Call Code:</h3>
             <div class="code-display">
-const response = await fetch('http://10.98.15.239:5001/api/crop/recommend', {
+const response = await fetch(`${API_CONFIG.BASE_URL}/api/crop/recommend`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nitrogen: 90, phosphorus: 42 })
@@ -168,7 +168,7 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
             
             try {
                 // Make API call to backend using config
-                const apiUrl = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://10.175.34.239:5001/api';
+                const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://10.232.236.239:5001/api';
                 const response = await fetch(`${apiUrl}/crop/recommend`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -230,7 +230,7 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
         
         // Test on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const apiUrl = window.CONFIG ? window.CONFIG.API_BASE_URL : 'http://10.175.34.239:5001/api';
+            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://10.232.236.239:5001/api';
             console.log('🌾 Test page loaded!');
             console.log('Backend URL:', apiUrl + '/crop/recommend');
             console.log('Click "Test API Call" button to test connection');

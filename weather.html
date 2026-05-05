@@ -65,9 +65,165 @@
                 </div>
             </section>
 
+            <!-- Multi-Location Weather -->
+            <section class="locations-section">
+                <h2>Weather Across Multiple Locations</h2>
+                <div class="locations-grid">
+                    <!-- Karnataka -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Karnataka</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Bangalore')">
+                                <span class="city-name">Bangalore</span>
+                                <span class="city-temp">28°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Mysore')">
+                                <span class="city-name">Mysore</span>
+                                <span class="city-temp">27°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Hubli')">
+                                <span class="city-name">Hubli</span>
+                                <span class="city-temp">30°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Mangalore')">
+                                <span class="city-name">Mangalore</span>
+                                <span class="city-temp">29°C 🌧️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maharashtra -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Maharashtra</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Mumbai')">
+                                <span class="city-name">Mumbai</span>
+                                <span class="city-temp">32°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Pune')">
+                                <span class="city-name">Pune</span>
+                                <span class="city-temp">29°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Nagpur')">
+                                <span class="city-name">Nagpur</span>
+                                <span class="city-temp">31°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Nashik')">
+                                <span class="city-name">Nashik</span>
+                                <span class="city-temp">30°C ☁️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamil Nadu -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Tamil Nadu</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Chennai')">
+                                <span class="city-name">Chennai</span>
+                                <span class="city-temp">33°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Coimbatore')">
+                                <span class="city-name">Coimbatore</span>
+                                <span class="city-temp">28°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Madurai')">
+                                <span class="city-name">Madurai</span>
+                                <span class="city-temp">32°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Salem')">
+                                <span class="city-name">Salem</span>
+                                <span class="city-temp">30°C ☁️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kerala -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Kerala</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Kochi')">
+                                <span class="city-name">Kochi</span>
+                                <span class="city-temp">30°C 🌧️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Trivandrum')">
+                                <span class="city-name">Trivandrum</span>
+                                <span class="city-temp">31°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Kozhikode')">
+                                <span class="city-name">Kozhikode</span>
+                                <span class="city-temp">29°C 🌧️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Thrissur')">
+                                <span class="city-name">Thrissur</span>
+                                <span class="city-temp">30°C ☁️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Andhra Pradesh -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Andhra Pradesh</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Visakhapatnam')">
+                                <span class="city-name">Visakhapatnam</span>
+                                <span class="city-temp">31°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Vijayawada')">
+                                <span class="city-name">Vijayawada</span>
+                                <span class="city-temp">33°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Tirupati')">
+                                <span class="city-name">Tirupati</span>
+                                <span class="city-temp">30°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Guntur')">
+                                <span class="city-name">Guntur</span>
+                                <span class="city-temp">32°C ☀️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Telangana -->
+                    <div class="location-card">
+                        <div class="location-header">
+                            <h3>🏛️ Telangana</h3>
+                        </div>
+                        <div class="location-cities">
+                            <div class="city-weather" onclick="loadCityWeather('Hyderabad')">
+                                <span class="city-name">Hyderabad</span>
+                                <span class="city-temp">32°C ☀️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Warangal')">
+                                <span class="city-name">Warangal</span>
+                                <span class="city-temp">31°C 🌤️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Nizamabad')">
+                                <span class="city-name">Nizamabad</span>
+                                <span class="city-temp">30°C ☁️</span>
+                            </div>
+                            <div class="city-weather" onclick="loadCityWeather('Karimnagar')">
+                                <span class="city-name">Karimnagar</span>
+                                <span class="city-temp">31°C ☀️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- 5-Day Forecast -->
             <section class="forecast-section">
-                <h2>5-Day Forecast</h2>
+                <h2>5-Day Forecast - <span id="selectedCity">Bangalore</span></h2>
                 <div class="forecast-grid" id="forecastGrid">
                     <!-- Forecast will be loaded here -->
                 </div>
@@ -216,6 +372,69 @@
         .condition {
             font-size: 1.2rem;
             opacity: 0.9;
+        }
+
+        /* Multi-Location Styles */
+        .locations-section {
+            margin: 2rem 0;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .location-header h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .location-cities {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .city-weather {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .city-weather:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .city-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .city-temp {
+            font-weight: bold;
+            color: #4CAF50;
         }
 
         .weather-details {
@@ -468,12 +687,13 @@
         }
     </style>
 
+    <script src="./config.js"></script>
     <script src="./script.js"></script>
     <script>
         // Weather page specific functionality
         document.addEventListener('DOMContentLoaded', function() {
             updateLastUpdated();
-            loadForecast();
+            loadWeatherData();
             showCropWeather('tomato');
             initializeWeatherChart();
         });
@@ -488,12 +708,47 @@
             document.getElementById('lastUpdated').textContent = timeString;
         }
 
-        function loadForecast() {
+        // Fetch real weather data from backend
+        async function loadWeatherData() {
+            try {
+                const config = window.API_CONFIG 
+                    ? { API_BASE_URL: `${window.API_CONFIG.BASE_URL}/api` }
+                    : { API_BASE_URL: 'http://10.232.236.239:5001/api' };
+                const response = await fetch(`${config.API_BASE_URL}/weather/Bangalore`);
+                
+                if (!response.ok) {
+                    throw new Error('Weather API failed');
+                }
+                
+                const data = await response.json();
+                displayWeatherData(data);
+                loadForecast(data);
+            } catch (error) {
+                console.error('❌ Weather API Error:', error);
+                // Fall back to demo data
+                loadForecastDemo();
+            }
+        }
+
+        function displayWeatherData(data) {
+            // Update current weather display
+            if (data.current) {
+                document.querySelector('.temperature').textContent = `${data.current.temp}°C`;
+                document.querySelector('.condition').textContent = data.current.condition;
+                // Update other fields as needed
+            }
+        }
+
+        function loadForecast(data) {
             const forecastGrid = document.getElementById('forecastGrid');
-            const weatherData = getWeatherData();
+            
+            if (!data || !data.forecast) {
+                loadForecastDemo();
+                return;
+            }
             
             let forecastHTML = '';
-            weatherData.forecast.forEach(day => {
+            data.forecast.forEach(day => {
                 const iconMap = {
                     'Partly Cloudy': '🌤️',
                     'Sunny': '☀️',
@@ -505,6 +760,71 @@
                     <div class="forecast-item">
                         <div class="forecast-day">${day.day}</div>
                         <div class="forecast-icon">${iconMap[day.condition] || '🌤️'}</div>
+                        <div class="forecast-temp">${day.temp}</div>
+                        <div class="forecast-condition">${day.condition}</div>
+                        <div class="forecast-rain">Rain: ${day.rain}</div>
+                    </div>
+                `;
+            });
+            
+            forecastGrid.innerHTML = forecastHTML;
+        }
+
+        // Load weather for selected city
+        async function loadCityWeather(cityName) {
+            try {
+                // Update selected city display
+                document.getElementById('selectedCity').textContent = cityName;
+                document.querySelector('.weather-header h2').textContent = `Current Weather - ${cityName}`;
+                
+                // Fetch weather data for selected city
+                const config = window.API_CONFIG 
+                    ? { API_BASE_URL: `${window.API_CONFIG.BASE_URL}/api` }
+                    : { API_BASE_URL: 'http://10.232.236.239:5001/api' };
+                const response = await fetch(`${config.API_BASE_URL}/weather/${cityName}`);
+                
+                if (!response.ok) {
+                    throw new Error('Weather API failed');
+                }
+                
+                const data = await response.json();
+                displayWeatherData(data);
+                loadForecast(data);
+                
+                // Scroll to forecast section
+                document.querySelector('.forecast-section').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('❌ City Weather Error:', error);
+                // Show demo data for selected city
+                document.getElementById('selectedCity').textContent = cityName;
+                loadForecastDemo();
+            }
+        }
+
+        // Demo data fallback
+        function loadForecastDemo() {
+            const forecastGrid = document.getElementById('forecastGrid');
+            const demoData = [
+                { day: 'Today', condition: 'Partly Cloudy', temp: '28°C', rain: '0mm' },
+                { day: 'Tomorrow', condition: 'Sunny', temp: '30°C', rain: '0mm' },
+                { day: 'Day 3', condition: 'Rainy', temp: '26°C', rain: '15mm' },
+                { day: 'Day 4', condition: 'Cloudy', temp: '27°C', rain: '5mm' },
+                { day: 'Day 5', condition: 'Partly Cloudy', temp: '29°C', rain: '0mm' }
+            ];
+            
+            const iconMap = {
+                'Partly Cloudy': '🌤️',
+                'Sunny': '☀️',
+                'Rainy': '🌧️',
+                'Cloudy': '☁️'
+            };
+            
+            let forecastHTML = '';
+            demoData.forEach(day => {
+                forecastHTML += `
+                    <div class="forecast-item">
+                        <div class="forecast-day">${day.day}</div>
+                        <div class="forecast-icon">${iconMap[day.condition]}</div>
                         <div class="forecast-temp">${day.temp}</div>
                         <div class="forecast-condition">${day.condition}</div>
                         <div class="forecast-rain">Rain: ${day.rain}</div>

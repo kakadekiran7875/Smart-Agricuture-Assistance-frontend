@@ -1,6 +1,11 @@
+// Use shared API base URL
+const API_BASE = (typeof window !== 'undefined' && window.API_CONFIG)
+  ? window.API_CONFIG.BASE_URL
+  : 'http://10.232.236.239:5001';
+
 async function getFertilizerRecommendation(crop, nitrogen, phosphorus, potassium) {
   try {
-    const res = await fetch("http://10.226.13.239:5001/api/fertilizer/recommend", {
+    const res = await fetch(`${API_BASE}/api/fertilizer/recommend`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ crop, nitrogen, phosphorus, potassium }),

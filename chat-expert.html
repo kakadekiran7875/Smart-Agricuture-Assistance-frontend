@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Expert - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-header h1 {
+            font-size: 2rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .message.expert .message-bubble {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-bubble {
+            background: #2c5530;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+        }
+
+        .message.expert .message-avatar {
+            background: #4CAF50;
+        }
+
+        .message.user .message-avatar {
+            background: #2c5530;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.3rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #4CAF50;
+        }
+
+        .send-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .expert-status {
+            padding: 0.5rem 1rem;
+            background: #e8f5e9;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 0.5rem 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .typing-indicator.show {
+            display: block;
+        }
+
+        .quick-questions {
+            margin-top: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .quick-questions h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .quick-question-btn {
+            display: inline-block;
+            margin: 0.3rem;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-question-btn:hover {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌱 Smart Agriculture Assistant</h1>
+                <p>Chat with Agricultural Expert</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="chat-container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <div class="chat-header">
+            <h1>💬 Chat with Expert</h1>
+            <p>Get instant answers to your farming questions</p>
+        </div>
+
+        <!-- Chat Box -->
+        <div class="chat-box">
+            <!-- Expert Status -->
+            <div class="expert-status">
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span><strong>Expert Online</strong> - Dr. Ramesh Kumar</span>
+                </div>
+                <small>Avg. response time: 2 min</small>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message expert">
+                    <div class="message-avatar">👨‍🌾</div>
+                    <div>
+                        <div class="message-bubble">
+                            Hello! I'm Dr. Ramesh Kumar, agricultural expert. How can I help you today?
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                Expert is typing...
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your question here..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()">Send 📤</button>
+            </div>
+        </div>
+
+        <!-- Quick Questions -->
+        <div class="quick-questions">
+            <h3>💡 Quick Questions</h3>
+            <div class="quick-question-btn" onclick="askQuestion('What is the best season to plant rice?')">
+                Best season for rice?
+            </div>
+            <div class="quick-question-btn" onclick="askQuestion('How to control pests organically?')">
+                Organic pest control?
+            </div>
+            <div class="quick-question-btn" onclick="askQuestion('What fertilizer for wheat crop?')">
+                Fertilizer for wheat?
+            </div>
+            <div class="quick-question-btn" onclick="askQuestion('How to improve soil quality?')">
+                Improve soil quality?
+            </div>
+            <div class="quick-question-btn" onclick="askQuestion('Water management tips?')">
+                Water management?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated expert responses (In production, connect to real chat API)
+        const expertResponses = {
+            'rice': 'Rice is best planted during the Kharif season (June-July) when monsoon rains begin. Ensure your field has good water retention capacity.',
+            'pest': 'For organic pest control, use neem oil spray, introduce beneficial insects like ladybugs, and practice crop rotation. Maintain proper plant spacing for air circulation.',
+            'wheat': 'For wheat, use NPK fertilizer in ratio 120:60:40 kg/ha. Apply nitrogen in 3 splits - at sowing, tillering, and flowering stages.',
+            'soil': 'To improve soil quality: 1) Add organic compost regularly, 2) Practice crop rotation, 3) Use green manure, 4) Maintain proper pH levels, 5) Avoid over-tilling.',
+            'water': 'Water management tips: 1) Use drip irrigation to save 40-60% water, 2) Water early morning or evening, 3) Mulch to reduce evaporation, 4) Harvest rainwater.',
+            'default': 'That\'s a great question! Based on your query, I recommend: 1) Consult your local agricultural office for region-specific advice, 2) Test your soil before making decisions, 3) Consider weather patterns in your area. Would you like more specific information?'
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTyping();
+            
+            // Simulate expert response after 2 seconds
+            setTimeout(() => {
+                hideTyping();
+                const response = getExpertResponse(message);
+                addMessage(response, 'expert');
+            }, 2000);
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${sender === 'expert' ? '👨‍🌾' : '👤'}</div>
+                <div>
+                    <div class="message-bubble">${text}</div>
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function getExpertResponse(question) {
+            const lowerQuestion = question.toLowerCase();
+            
+            if (lowerQuestion.includes('rice') || lowerQuestion.includes('धान')) {
+                return expertResponses.rice;
+            } else if (lowerQuestion.includes('pest') || lowerQuestion.includes('कीट')) {
+                return expertResponses.pest;
+            } else if (lowerQuestion.includes('wheat') || lowerQuestion.includes('गेहूं')) {
+                return expertResponses.wheat;
+            } else if (lowerQuestion.includes('soil') || lowerQuestion.includes('मिट्टी')) {
+                return expertResponses.soil;
+            } else if (lowerQuestion.includes('water') || lowerQuestion.includes('पानी')) {
+                return expertResponses.water;
+            } else {
+                return expertResponses.default;
+            }
+        }
+
+        function showTyping() {
+            document.getElementById('typingIndicator').classList.add('show');
+        }
+
+        function hideTyping() {
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        function askQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Auto-focus on input
+        document.getElementById('chatInput').focus();
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

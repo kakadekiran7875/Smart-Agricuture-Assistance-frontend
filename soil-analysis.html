@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Analysis - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .soil-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .soil-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .soil-header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .soil-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .soil-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .analyze-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .analyze-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-container {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-header h2 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .quality-excellent {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .quality-good {
+            background: #8BC34A;
+            color: white;
+        }
+
+        .quality-fair {
+            background: #FFC107;
+            color: #333;
+        }
+
+        .quality-poor {
+            background: #FF5722;
+            color: white;
+        }
+
+        .soil-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .detail-card h3 {
+            color: #2c5530;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .detail-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .recommendations {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .recommendations h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendations li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .recommendations li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+
+        .info-section {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .info-section h3 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-section p {
+            color: #856404;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1 id="appTitle">🌱 Smart Agriculture Assistant</h1>
+                <p id="appSubtitle">Soil Analysis & Testing</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="soil-container">
+        <a href="index.html" class="back-btn" style="margin-bottom: 2rem;">← Back to Home</a>
+        
+        <div class="soil-header">
+            <h1>🌍 Soil Analysis</h1>
+            <p>Analyze your soil quality and get personalized recommendations</p>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h3>📋 How to Test Your Soil</h3>
+            <p>Use a soil testing kit or visit your local agricultural office to get accurate pH and organic carbon measurements. This will help us provide the best recommendations for your farm.</p>
+        </div>
+
+        <!-- Soil Analysis Form -->
+        <div class="soil-form">
+            <form id="soilForm">
+                <div class="form-group">
+                    <label for="phLevel">Soil pH Level</label>
+                    <input 
+                        type="number" 
+                        id="phLevel" 
+                        name="phLevel" 
+                        step="0.1" 
+                        min="0" 
+                        max="14" 
+                        placeholder="e.g., 6.5"
+                        required
+                    >
+                    <small>Normal range: 5.5 - 7.5 (neutral soil is around 7.0)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="organicCarbon">Organic Carbon (%)</label>
+                    <input 
+                        type="number" 
+                        id="organicCarbon" 
+                        name="organicCarbon" 
+                        step="0.1" 
+                        min="0" 
+                        max="10" 
+                        placeholder="e.g., 1.5"
+                        required
+                    >
+                    <small>Normal range: 0.5% - 3.0% (higher is better for soil health)</small>
+                </div>
+
+                <button type="submit" class="analyze-btn" id="analyzeBtn">
+                    🔬 Analyze Soil Quality
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing your soil sample...</p>
+        </div>
+
+        <!-- Results Container -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2>Analysis Results</h2>
+                <div class="quality-badge" id="qualityBadge">Excellent</div>
+            </div>
+
+            <div class="soil-details">
+                <div class="detail-card">
+                    <h3>pH Level</h3>
+                    <p id="resultPh">-</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Organic Carbon</h3>
+                    <p id="resultCarbon">-</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Soil Quality</h3>
+                    <p id="resultQuality">-</p>
+                </div>
+            </div>
+
+            <div class="recommendations" id="recommendations">
+                <h3>💡 Recommendations</h3>
+                <ul id="recommendationList">
+                    <!-- Recommendations will be added here -->
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="analyze-btn" onclick="resetForm()" style="max-width: 300px; margin-top: 1rem;">
+                    🔄 Analyze Another Sample
+                </button>
+                <br>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load configuration and scripts -->
+    <script src="./config.js"></script>
+    <script src="./script/soil.Routes.js"></script>
+    <script>
+        // Soil Analysis Logic
+        const soilForm = document.getElementById('soilForm');
+        const loading = document.getElementById('loading');
+        const resultContainer = document.getElementById('resultContainer');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+
+        soilForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const ph = parseFloat(document.getElementById('phLevel').value);
+            const organicCarbon = parseFloat(document.getElementById('organicCarbon').value);
+
+            // Show loading
+            loading.classList.add('show');
+            analyzeBtn.disabled = true;
+            resultContainer.classList.remove('show');
+
+            try {
+                // Call the soil analysis API
+                const result = await analyzeSoil(ph, organicCarbon);
+
+                // Hide loading
+                loading.classList.remove('show');
+                analyzeBtn.disabled = false;
+
+                if (result) {
+                    displayResults(ph, organicCarbon, result);
+                } else {
+                    alert('Failed to analyze soil. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loading.classList.remove('show');
+                analyzeBtn.disabled = false;
+                alert('An error occurred. Please check your connection and try again.');
+            }
+        });
+
+        function displayResults(ph, organicCarbon, quality) {
+            // Display pH and Carbon values
+            document.getElementById('resultPh').textContent = ph.toFixed(1);
+            document.getElementById('resultCarbon').textContent = organicCarbon.toFixed(1) + '%';
+            document.getElementById('resultQuality').textContent = quality;
+
+            // Set quality badge
+            const badge = document.getElementById('qualityBadge');
+            badge.textContent = quality;
+            badge.className = 'quality-badge';
+            
+            if (quality.toLowerCase().includes('excellent')) {
+                badge.classList.add('quality-excellent');
+            } else if (quality.toLowerCase().includes('good')) {
+                badge.classList.add('quality-good');
+            } else if (quality.toLowerCase().includes('fair') || quality.toLowerCase().includes('moderate')) {
+                badge.classList.add('quality-fair');
+            } else {
+                badge.classList.add('quality-poor');
+            }
+
+            // Generate recommendations
+            const recommendations = generateRecommendations(ph, organicCarbon, quality);
+            const recommendationList = document.getElementById('recommendationList');
+            recommendationList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recommendationList.appendChild(li);
+            });
+
+            // Show results
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateRecommendations(ph, organicCarbon, quality) {
+            const recommendations = [];
+
+            // pH recommendations
+            if (ph < 5.5) {
+                recommendations.push('Your soil is acidic. Add lime (calcium carbonate) to raise pH levels.');
+                recommendations.push('Consider growing acid-loving crops like blueberries, potatoes, or tea.');
+            } else if (ph > 7.5) {
+                recommendations.push('Your soil is alkaline. Add sulfur or organic matter to lower pH.');
+                recommendations.push('Suitable for crops like asparagus, cabbage, and cauliflower.');
+            } else {
+                recommendations.push('Your soil pH is in the optimal range for most crops.');
+                recommendations.push('Maintain current pH levels with regular testing and balanced fertilization.');
+            }
+
+            // Organic carbon recommendations
+            if (organicCarbon < 0.5) {
+                recommendations.push('Low organic matter. Add compost, manure, or cover crops to improve soil health.');
+                recommendations.push('Consider crop rotation and reduced tillage to build organic matter.');
+            } else if (organicCarbon > 2.5) {
+                recommendations.push('Excellent organic matter content! Continue current soil management practices.');
+                recommendations.push('Your soil has good water retention and nutrient-holding capacity.');
+            } else {
+                recommendations.push('Moderate organic matter. Continue adding compost annually.');
+                recommendations.push('Mulching and cover crops will help maintain organic carbon levels.');
+            }
+
+            // General recommendations
+            recommendations.push('Conduct soil tests annually to monitor changes and adjust practices.');
+            recommendations.push('Consult with local agricultural experts for crop-specific recommendations.');
+
+            return recommendations;
+        }
+
+        function resetForm() {
+            soilForm.reset();
+            resultContainer.classList.remove('show');
+            document.querySelector('.soil-form').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

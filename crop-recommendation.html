@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .crop-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .crop-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .crop-header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .crop-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .crop-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .input-with-unit {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .input-with-unit input {
+            flex: 1;
+        }
+
+        .input-with-unit span {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .recommend-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .recommend-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .recommend-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-container {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-header h2 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .crop-badge {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .soil-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .detail-card h3 {
+            color: #2c5530;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .detail-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .crop-info {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .crop-info h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .crop-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .crop-info li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .crop-info li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .info-section {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .info-section h3 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-section p {
+            color: #856404;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+
+        .nutrient-guide {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .nutrient-guide h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .nutrient-guide table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .nutrient-guide th,
+        .nutrient-guide td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nutrient-guide th {
+            background: #f8f9fa;
+            color: #2c5530;
+            font-weight: 600;
+        }
+
+        .level-low { color: #ff5722; }
+        .level-medium { color: #ffc107; }
+        .level-high { color: #4CAF50; }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌱 Smart Agriculture Assistant</h1>
+                <p>Crop Recommendation System</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="crop-container">
+        <a href="index.html" class="back-btn" style="margin-bottom: 2rem;">← Back to Home</a>
+        
+        <div class="crop-header">
+            <h1>🌾 Crop Recommendation</h1>
+            <p>Get personalized crop suggestions based on your soil nutrient levels</p>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h3>📋 How to Get Soil Nutrient Data</h3>
+            <p>Visit your local agricultural office or use a soil testing kit to measure Nitrogen (N) and Phosphorus (P) levels in your soil. These nutrients are crucial for determining which crops will thrive in your field.</p>
+        </div>
+
+        <!-- Nutrient Guide -->
+        <div class="nutrient-guide">
+            <h3>📊 Nutrient Level Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Low</th>
+                        <th>Medium</th>
+                        <th>High</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nitrogen (N)</strong></td>
+                        <td class="level-low">&lt; 200 kg/ha</td>
+                        <td class="level-medium">200-400 kg/ha</td>
+                        <td class="level-high">&gt; 400 kg/ha</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phosphorus (P)</strong></td>
+                        <td class="level-low">&lt; 20 kg/ha</td>
+                        <td class="level-medium">20-40 kg/ha</td>
+                        <td class="level-high">&gt; 40 kg/ha</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Crop Recommendation Form -->
+        <div class="crop-form">
+            <form id="cropForm">
+                <div class="form-group">
+                    <label for="nitrogen">Nitrogen (N) Level</label>
+                    <div class="input-with-unit">
+                        <input 
+                            type="number" 
+                            id="nitrogen" 
+                            name="nitrogen" 
+                            step="0.1" 
+                            min="0" 
+                            max="1000" 
+                            placeholder="e.g., 250"
+                            required
+                        >
+                        <span>kg/ha</span>
+                    </div>
+                    <small>Enter the nitrogen content in your soil (0-1000 kg/ha)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="phosphorus">Phosphorus (P) Level</label>
+                    <div class="input-with-unit">
+                        <input 
+                            type="number" 
+                            id="phosphorus" 
+                            name="phosphorus" 
+                            step="0.1" 
+                            min="0" 
+                            max="200" 
+                            placeholder="e.g., 30"
+                            required
+                        >
+                        <span>kg/ha</span>
+                    </div>
+                    <small>Enter the phosphorus content in your soil (0-200 kg/ha)</small>
+                </div>
+
+                <button type="submit" class="recommend-btn" id="recommendBtn">
+                    🌾 Get Crop Recommendation
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing soil nutrients and finding best crops...</p>
+        </div>
+
+        <!-- Results Container -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2>Recommended Crop</h2>
+                <div class="crop-badge" id="cropBadge">Rice</div>
+            </div>
+
+            <div class="soil-details">
+                <div class="detail-card">
+                    <h3>Nitrogen (N)</h3>
+                    <p id="resultNitrogen">-</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Phosphorus (P)</h3>
+                    <p id="resultPhosphorus">-</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Soil Status</h3>
+                    <p id="soilStatus">-</p>
+                </div>
+            </div>
+
+            <div class="crop-info" id="cropInfo">
+                <h3>🌱 Why This Crop?</h3>
+                <ul id="reasonsList">
+                    <!-- Reasons will be added here -->
+                </ul>
+            </div>
+
+            <div class="crop-info" style="background: #fff3e0;">
+                <h3>💡 Growing Tips</h3>
+                <ul id="tipsList">
+                    <!-- Tips will be added here -->
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="recommend-btn" onclick="resetForm()" style="max-width: 300px; margin-top: 1rem;">
+                    🔄 Check Another Soil Sample
+                </button>
+                <br>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load configuration and scripts -->
+    <script src="./config.js"></script>
+    <script src="./script/cropRoutes.js"></script>
+    <script>
+        // Crop Recommendation Logic
+        const cropForm = document.getElementById('cropForm');
+        const loading = document.getElementById('loading');
+        const resultContainer = document.getElementById('resultContainer');
+        const recommendBtn = document.getElementById('recommendBtn');
+
+        cropForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nitrogen = parseFloat(document.getElementById('nitrogen').value);
+            const phosphorus = parseFloat(document.getElementById('phosphorus').value);
+
+            // Show loading
+            loading.classList.add('show');
+            recommendBtn.disabled = true;
+            resultContainer.classList.remove('show');
+
+            try {
+                // Call the crop recommendation API
+                const result = await getRecommendedCrop(nitrogen, phosphorus);
+
+                // Hide loading
+                loading.classList.remove('show');
+                recommendBtn.disabled = false;
+
+                if (result) {
+                    displayResults(nitrogen, phosphorus, result);
+                } else {
+                    alert('Failed to get crop recommendation. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loading.classList.remove('show');
+                recommendBtn.disabled = false;
+                alert('An error occurred. Please check your connection and try again.');
+            }
+        });
+
+        function displayResults(nitrogen, phosphorus, cropName) {
+            // Display nutrient values
+            document.getElementById('resultNitrogen').textContent = nitrogen.toFixed(1) + ' kg/ha';
+            document.getElementById('resultPhosphorus').textContent = phosphorus.toFixed(1) + ' kg/ha';
+            
+            // Determine soil status
+            let status = 'Good';
+            if (nitrogen < 200 || phosphorus < 20) {
+                status = 'Low';
+            } else if (nitrogen > 400 || phosphorus > 40) {
+                status = 'High';
+            }
+            document.getElementById('soilStatus').textContent = status;
+
+            // Display crop name
+            document.getElementById('cropBadge').textContent = cropName;
+
+            // Generate reasons
+            const reasons = generateReasons(nitrogen, phosphorus, cropName);
+            const reasonsList = document.getElementById('reasonsList');
+            reasonsList.innerHTML = '';
+            reasons.forEach(reason => {
+                const li = document.createElement('li');
+                li.textContent = reason;
+                reasonsList.appendChild(li);
+            });
+
+            // Generate tips
+            const tips = generateTips(cropName, nitrogen, phosphorus);
+            const tipsList = document.getElementById('tipsList');
+            tipsList.innerHTML = '';
+            tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsList.appendChild(li);
+            });
+
+            // Show results
+            resultContainer.classList.add('show');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generateReasons(nitrogen, phosphorus, cropName) {
+            const reasons = [];
+            
+            reasons.push(`${cropName} is well-suited for your soil's nutrient profile`);
+            
+            if (nitrogen >= 200 && nitrogen <= 400) {
+                reasons.push('Optimal nitrogen levels support healthy crop growth');
+            } else if (nitrogen < 200) {
+                reasons.push(`${cropName} can tolerate lower nitrogen levels`);
+            } else {
+                reasons.push(`${cropName} thrives in nitrogen-rich soil`);
+            }
+            
+            if (phosphorus >= 20 && phosphorus <= 40) {
+                reasons.push('Phosphorus levels are ideal for root development');
+            } else if (phosphorus < 20) {
+                reasons.push(`${cropName} has moderate phosphorus requirements`);
+            } else {
+                reasons.push('High phosphorus supports strong flowering and fruiting');
+            }
+            
+            reasons.push('This crop is suitable for your regional climate');
+            reasons.push('Good market demand and profitability');
+            
+            return reasons;
+        }
+
+        function generateTips(cropName, nitrogen, phosphorus) {
+            const tips = [
+                `Prepare the field 2-3 weeks before planting ${cropName}`,
+                'Ensure proper drainage and irrigation facilities',
+                'Use certified seeds from reliable sources',
+                'Follow recommended spacing for optimal growth',
+                'Monitor for pests and diseases regularly',
+                'Apply fertilizers based on soil test recommendations',
+                'Maintain proper weed control throughout the season',
+                'Harvest at the right maturity stage for best quality'
+            ];
+
+            if (nitrogen < 200) {
+                tips.unshift('Consider adding nitrogen-rich fertilizers or organic matter');
+            }
+            
+            if (phosphorus < 20) {
+                tips.unshift('Apply phosphate fertilizers to improve soil phosphorus');
+            }
+
+            return tips;
+        }
+
+        function resetForm() {
+            cropForm.reset();
+            resultContainer.classList.remove('show');
+            document.querySelector('.crop-form').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

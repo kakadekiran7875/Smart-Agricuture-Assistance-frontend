@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .loan-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .loan-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .loan-header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .loan-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .calculator-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .slider-container {
+            margin-top: 0.5rem;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .value-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calculate-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .results-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .results-card.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .result-value.large {
+            font-size: 2.5rem;
+        }
+
+        .breakdown-table {
+            background: white;
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .breakdown-table h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .breakdown-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #4CAF50;
+        }
+
+        .loan-schemes {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .loan-schemes h3 {
+            color: #2c5530;
+            margin-bottom: 1.5rem;
+        }
+
+        .scheme-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .scheme-card h4 {
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .scheme-card p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .scheme-card .highlight {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.8rem 2rem;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a3d1f;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <span id="langText">हिन्दी</span>
+        </button>
+        <div class="language-info">
+            <small>EN → KN → HI → MR</small>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌱 Smart Agriculture Assistant</h1>
+                <p>Agricultural Loan Calculator</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="loan-container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <div class="loan-header">
+            <h1>💰 Loan Calculator</h1>
+            <p>Calculate your agricultural loan EMI and plan your finances</p>
+        </div>
+
+        <!-- Calculator Form -->
+        <div class="calculator-card">
+            <h2 style="color: #2c5530; margin-bottom: 1.5rem;">Loan Details</h2>
+            
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount (₹)</label>
+                <input type="number" id="loanAmount" value="500000" min="10000" max="10000000" oninput="updateSlider('loanAmount')">
+                <input type="range" class="slider" id="loanAmountSlider" min="10000" max="10000000" value="500000" step="10000" oninput="updateInput('loanAmount')">
+                <div class="value-display">
+                    <span>₹10,000</span>
+                    <span>₹1,00,00,000</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (% per year)</label>
+                <input type="number" id="interestRate" value="7" min="1" max="20" step="0.1" oninput="updateSlider('interestRate')">
+                <input type="range" class="slider" id="interestRateSlider" min="1" max="20" value="7" step="0.1" oninput="updateInput('interestRate')">
+                <div class="value-display">
+                    <span>1%</span>
+                    <span>20%</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="loanTenure">Loan Tenure (Years)</label>
+                <input type="number" id="loanTenure" value="5" min="1" max="30" oninput="updateSlider('loanTenure')">
+                <input type="range" class="slider" id="loanTenureSlider" min="1" max="30" value="5" oninput="updateInput('loanTenure')">
+                <div class="value-display">
+                    <span>1 Year</span>
+                    <span>30 Years</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="loanType">Loan Type</label>
+                <select id="loanType">
+                    <option value="crop">Crop Loan</option>
+                    <option value="equipment">Equipment Purchase</option>
+                    <option value="land">Land Purchase</option>
+                    <option value="irrigation">Irrigation System</option>
+                    <option value="livestock">Livestock</option>
+                    <option value="storage">Storage Facility</option>
+                </select>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateLoan()">Calculate EMI 📊</button>
+        </div>
+
+        <!-- Results -->
+        <div class="results-card" id="resultsCard">
+            <h2 style="margin-bottom: 1.5rem;">💡 Your Loan Summary</h2>
+            
+            <div class="result-item">
+                <div class="result-label">Monthly EMI</div>
+                <div class="result-value large" id="emiAmount">₹0</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="result-item">
+                    <div class="result-label">Total Interest</div>
+                    <div class="result-value" id="totalInterest">₹0</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Total Amount</div>
+                    <div class="result-value" id="totalAmount">₹0</div>
+                </div>
+            </div>
+
+            <div class="breakdown-table">
+                <h3>Payment Breakdown</h3>
+                <div class="breakdown-row">
+                    <span>Principal Amount</span>
+                    <span id="principalBreakdown">₹0</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>Interest Amount</span>
+                    <span id="interestBreakdown">₹0</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>Total Payable</span>
+                    <span id="totalBreakdown">₹0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loan Schemes -->
+        <div class="loan-schemes">
+            <h3>🏦 Popular Agricultural Loan Schemes</h3>
+            
+            <div class="scheme-card">
+                <h4>Kisan Credit Card (KCC)</h4>
+                <p>Short-term credit for crop production and allied activities</p>
+                <p><span class="highlight">Interest Rate:</span> 4% (with subsidy)</p>
+                <p><span class="highlight">Loan Amount:</span> Up to ₹3 lakhs</p>
+            </div>
+
+            <div class="scheme-card">
+                <h4>PM-KISAN Scheme</h4>
+                <p>Direct income support to farmers</p>
+                <p><span class="highlight">Benefit:</span> ₹6,000 per year in 3 installments</p>
+                <p><span class="highlight">Eligibility:</span> All landholding farmers</p>
+            </div>
+
+            <div class="scheme-card">
+                <h4>Agriculture Infrastructure Fund</h4>
+                <p>Financing for post-harvest management infrastructure</p>
+                <p><span class="highlight">Interest Rate:</span> 3% interest subvention</p>
+                <p><span class="highlight">Loan Amount:</span> Up to ₹2 crores</p>
+            </div>
+
+            <div class="scheme-card">
+                <h4>Dairy Entrepreneurship Development Scheme</h4>
+                <p>Support for dairy farming and processing</p>
+                <p><span class="highlight">Subsidy:</span> Up to 25% of project cost</p>
+                <p><span class="highlight">Loan Amount:</span> Based on project size</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateSlider(inputId) {
+            const input = document.getElementById(inputId);
+            const slider = document.getElementById(inputId + 'Slider');
+            slider.value = input.value;
+        }
+
+        function updateInput(inputId) {
+            const input = document.getElementById(inputId);
+            const slider = document.getElementById(inputId + 'Slider');
+            input.value = slider.value;
+        }
+
+        function calculateLoan() {
+            // Get input values
+            const principal = parseFloat(document.getElementById('loanAmount').value);
+            const annualRate = parseFloat(document.getElementById('interestRate').value);
+            const years = parseFloat(document.getElementById('loanTenure').value);
+
+            // Calculate monthly interest rate
+            const monthlyRate = annualRate / 12 / 100;
+            const months = years * 12;
+
+            // Calculate EMI using formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1]
+            const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                        (Math.pow(1 + monthlyRate, months) - 1);
+
+            // Calculate total amount and interest
+            const totalAmount = emi * months;
+            const totalInterest = totalAmount - principal;
+
+            // Display results
+            document.getElementById('emiAmount').textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
+            document.getElementById('totalInterest').textContent = '₹' + Math.round(totalInterest).toLocaleString('en-IN');
+            document.getElementById('totalAmount').textContent = '₹' + Math.round(totalAmount).toLocaleString('en-IN');
+            
+            document.getElementById('principalBreakdown').textContent = '₹' + principal.toLocaleString('en-IN');
+            document.getElementById('interestBreakdown').textContent = '₹' + Math.round(totalInterest).toLocaleString('en-IN');
+            document.getElementById('totalBreakdown').textContent = '₹' + Math.round(totalAmount).toLocaleString('en-IN');
+
+            // Show results card
+            document.getElementById('resultsCard').classList.add('show');
+            
+            // Scroll to results
+            document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Calculate on page load with default values
+        window.addEventListener('load', function() {
+            calculateLoan();
+        });
+    </script>
+
+    <!-- Load configuration and main script for language support -->
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

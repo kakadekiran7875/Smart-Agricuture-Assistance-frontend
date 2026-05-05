@@ -6,13 +6,82 @@
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
     color: #333;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    background-attachment: fixed;
+    line-height: 1.6;
     position: relative;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .header {
+    background: linear-gradient(135deg, #1B5E20 0%, #0d3d13 100%);
+}
+
+body.dark-mode .hero {
+    background: linear-gradient(rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.08));
+}
+
+body.dark-mode .features,
+body.dark-mode .quick-actions {
+    background: #242424;
+}
+
+body.dark-mode .feature-card,
+body.dark-mode .glass-card {
+    background: rgba(40, 40, 40, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .feature-card:hover {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+body.dark-mode .modal-content {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #333;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .footer {
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+}
+
+body.dark-mode .language-info small {
+    background: rgba(40, 40, 40, 0.9);
+    color: #aaa;
+}
+
+body.dark-mode .ai-chatbox {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+body.dark-mode .chat-message.bot {
+    background: #333;
+}
+
+body.dark-mode .chat-message.user {
+    background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
 }
 
 /* Animated Background with Sliding Images */
@@ -116,7 +185,7 @@ body::after {
 .language-toggle {
     position: fixed;
     top: 20px;
-    right: 20px;
+    right: 80px;
     z-index: 1000;
     text-align: center;
 }
@@ -155,6 +224,61 @@ body::after {
     padding: 2px 6px;
     border-radius: 10px;
     white-space: nowrap;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dark-mode-toggle button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-mode-toggle button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.sun-icon, .moon-icon {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+body.dark-mode .sun-icon {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+    position: absolute;
+}
+
+body.dark-mode .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+body:not(.dark-mode) .moon-icon {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+    position: absolute;
+}
+
+body:not(.dark-mode) .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
 }
 
 /* Header */
@@ -491,12 +615,51 @@ body::after {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 .quick-btn:hover {
     background: #45a049;
     transform: translateY(-3px);
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Tooltip Styles */
+.quick-btn .tooltip {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    max-width: 250px;
+    white-space: normal;
+    text-align: center;
+}
+
+.quick-btn .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #333;
+}
+
+.quick-btn:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 130%;
 }
 
 .quick-btn.emergency {
@@ -1734,6 +1897,47 @@ button:hover {
     animation: particle 2s ease-out infinite;
 }
 
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 1.2rem 2rem;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10000;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.toast.show {
+    top: 30px;
+}
+
+.toast-icon {
+    font-size: 2rem;
+    animation: bounceIn 0.6s ease;
+}
+
+.toast-message {
+    font-size: 1rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
 /* Ripple Effect */
 @keyframes ripple {
     0% {
@@ -1757,6 +1961,132 @@ button:hover {
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
     animation: ripple 1s ease-out;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.faq-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c5530;
+    margin-bottom: 1rem;
+}
+
+.faq-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: white;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.faq-question {
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c5530;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: #f8f9fa;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+    transition: transform 0.3s ease;
+    min-width: 30px;
+    text-align: center;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #f8f9fa;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 1.5rem 2rem;
+}
+
+.faq-answer p {
+    margin: 0;
+    color: #555;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* Dark Mode FAQ Styles */
+body.dark-mode .faq-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+body.dark-mode .faq-section h2 {
+    color: #4CAF50;
+}
+
+body.dark-mode .faq-subtitle {
+    color: #aaa;
+}
+
+body.dark-mode .faq-item {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+body.dark-mode .faq-question {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .faq-question:hover {
+    background: #333;
+}
+
+body.dark-mode .faq-answer {
+    background: #1f1f1f;
+}
+
+body.dark-mode .faq-answer p {
+    color: #ccc;
 }
 
 /* Performance Optimization */
