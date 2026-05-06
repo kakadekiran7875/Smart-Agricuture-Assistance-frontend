@@ -17,7 +17,7 @@ Analyzes soil quality based on pH level and organic carbon content.
 
 ### **URL**
 ```
-POST http://10.232.236.239:5001/api/soil/analyze
+POST http://localhost:5001/api/soil/analyze
 ```
 
 ### **Headers**
@@ -158,7 +158,7 @@ def calculate_soil_quality(ph, organic_carbon):
 ### **Example 1: Excellent Soil**
 **Request:**
 ```bash
-curl -X POST http://10.232.236.239:5001/api/soil/analyze \
+curl -X POST http://localhost:5001/api/soil/analyze \
   -H "Content-Type: application/json" \
   -d '{
     "ph": 6.8,
@@ -179,7 +179,7 @@ curl -X POST http://10.232.236.239:5001/api/soil/analyze \
 ### **Example 2: Poor Soil**
 **Request:**
 ```bash
-curl -X POST http://10.232.236.239:5001/api/soil/analyze \
+curl -X POST http://localhost:5001/api/soil/analyze \
   -H "Content-Type: application/json" \
   -d '{
     "ph": 4.5,
@@ -200,7 +200,7 @@ curl -X POST http://10.232.236.239:5001/api/soil/analyze \
 ### **Example 3: Invalid Input**
 **Request:**
 ```bash
-curl -X POST http://10.232.236.239:5001/api/soil/analyze \
+curl -X POST http://localhost:5001/api/soil/analyze \
   -H "Content-Type: application/json" \
   -d '{
     "ph": 15.0,

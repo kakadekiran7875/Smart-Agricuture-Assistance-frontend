@@ -713,7 +713,7 @@
             try {
                 const config = window.API_CONFIG 
                     ? { API_BASE_URL: `${window.API_CONFIG.BASE_URL}/api` }
-                    : { API_BASE_URL: 'http://10.232.236.239:5001/api' };
+                    : { API_BASE_URL: 'http://localhost:5001/api' };
                 const response = await fetch(`${config.API_BASE_URL}/weather/Bangalore`);
                 
                 if (!response.ok) {
@@ -780,7 +780,7 @@
                 // Fetch weather data for selected city
                 const config = window.API_CONFIG 
                     ? { API_BASE_URL: `${window.API_CONFIG.BASE_URL}/api` }
-                    : { API_BASE_URL: 'http://10.232.236.239:5001/api' };
+                    : { API_BASE_URL: 'http://localhost:5001/api' };
                 const response = await fetch(`${config.API_BASE_URL}/weather/${cityName}`);
                 
                 if (!response.ok) {

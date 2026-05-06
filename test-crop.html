@@ -18,6 +18,7 @@
         .test-form {
             display: grid;
             gap: 15px;
+            
             margin: 20px 0;
         }
         
@@ -168,7 +169,7 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
             
             try {
                 // Make API call to backend using config
-                const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://10.232.236.239:5001/api';
+                const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://localhost:5001/api';
                 const response = await fetch(`${apiUrl}/crop/recommend`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -230,7 +231,7 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
         
         // Test on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://10.232.236.239:5001/api';
+            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://localhost:5001/api';
             console.log('🌾 Test page loaded!');
             console.log('Backend URL:', apiUrl + '/crop/recommend');
             console.log('Click "Test API Call" button to test connection');

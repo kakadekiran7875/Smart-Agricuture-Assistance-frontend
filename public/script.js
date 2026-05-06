@@ -13,11 +13,11 @@ function getConfig() {
         };
     }
     // Fallback defaults if config.js not loaded yet
-    const fallbackBase = 'http://10.232.236.239:5001';
+    const fallbackBase = 'http://localhost:5001';
     return {
-        BACKEND_IP: '10.232.236.239',
+        BACKEND_IP: 'localhost',
         BACKEND_PORT: '5001',
-        FRONTEND_IP: '10.232.236.239',
+        FRONTEND_IP: 'localhost',
         DATABASE_IP: '172.17.75.120',
         API_BASE_URL: `${fallbackBase}/api`,
         API_CONFIG: {
