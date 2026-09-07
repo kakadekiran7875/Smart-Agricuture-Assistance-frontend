@@ -1,45 +1,38 @@
-import { defineConfig } from 'vite';
+﻿import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-    // Base public path - use '/' for root deployment
     base: '/',
-
-    // Server configuration for development
     server: {
         port: 5173,
-        open: true, // Automatically open browser when dev server starts
-        host: true, // Allow access from network
+        open: true,
+        host: true,
     },
-
-    // Build configuration
     build: {
         outDir: 'dist',
         assetsDir: 'assets',
-        // Generate sourcemaps for debugging
         sourcemap: false,
-        // Rollup options
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
-                diagnosis: resolve(__dirname, 'diagnosis.html'),
-                market: resolve(__dirname, 'market.html'),
-                subsidies: resolve(__dirname, 'subsidies.html'),
-                weather: resolve(__dirname, 'weather.html'),
-                'soil-analysis': resolve(__dirname, 'soil-analysis.html'),
-                'pest-detection': resolve(__dirname, 'pest-detection.html'),
-                'crop-recommendation': resolve(__dirname, 'crop-recommendation.html'),
-                'fertilizer-recommendation': resolve(__dirname, 'fertilizer-recommendation.html'),
-                'chat-expert': resolve(__dirname, 'chat-expert.html'),
-                'loan-calculator': resolve(__dirname, 'loan-calculator.html'),
-                'yield-prediction': resolve(__dirname, 'yield-prediction.html'),
-                'training-videos': resolve(__dirname, 'training-videos.html'),
-                'nearby-stores': resolve(__dirname, 'nearby-stores.html'),
+                diagnosis: resolve(__dirname, 'pages/diagnosis.html'),
+                market: resolve(__dirname, 'pages/market.html'),
+                subsidies: resolve(__dirname, 'pages/subsidies.html'),
+                weather: resolve(__dirname, 'pages/weather.html'),
+                'soil-analysis': resolve(__dirname, 'pages/soil-analysis.html'),
+                'pest-detection': resolve(__dirname, 'pages/pest-detection.html'),
+                'crop-recommendation': resolve(__dirname, 'pages/crop-recommendation.html'),
+                'fertilizer-recommendation': resolve(__dirname, 'pages/fertilizer-recommendation.html'),
+                'chat-expert': resolve(__dirname, 'pages/chat-expert.html'),
+                'loan-calculator': resolve(__dirname, 'pages/loan-calculator.html'),
+                'yield-prediction': resolve(__dirname, 'pages/yield-prediction.html'),
+                'training-videos': resolve(__dirname, 'pages/training-videos.html'),
+                'nearby-stores': resolve(__dirname, 'pages/nearby-stores.html'),
+                'test-crop': resolve(__dirname, 'pages/test-crop.html'),
+                'test-fertilizer-api': resolve(__dirname, 'pages/test-fertilizer-api.html'),
             },
         },
     },
-
-    // Ensure proper module resolution
     resolve: {
         extensions: ['.js', '.json'],
     },

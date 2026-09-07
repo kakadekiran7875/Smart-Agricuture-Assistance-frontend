@@ -10,24 +10,60 @@
 </head>
 
 <body>
-    <!-- Language Toggle -->
-    <div class="language-toggle">
-        <button id="langToggle" onclick="toggleLanguage()">
-            <span id="langText">ಕನ್ನಡ</span>
-        </button>
-    </div>
 
-    <!-- Navigation Header -->
-    <nav class="nav-header">
+    <!-- Redesigned Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
         <div class="container">
-            <div class="nav-content">
-                <h1 class="nav-title">🏪 Find Nearby Stores</h1>
-                <button class="back-btn" onclick="goBack()">← Back</button>
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Custom Dropdown Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
+                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
+                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાती</button>
+                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
+                <a href="index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="page-content">
         <div class="container">
             <!-- Location Search -->
@@ -423,7 +459,7 @@
         }
     </style>
 
-    <script src="./script.js"></script>
+    <script src="../assets/js/script.js"></script>
     <script>
         let userLocation = null;
 

@@ -105,7 +105,7 @@
 </head>
 <body>
     <div class="test-container">
-        <a href="index.html" class="back-link">← Back to Home</a>
+        <a href="../index.html" class="back-link">← Back to Home</a>
         
         <h1>🌾 Test Crop Recommendation API</h1>
         <p>Test your backend connection by getting crop recommendations based on soil nutrients.</p>
@@ -154,8 +154,8 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
         </div>
     </div>
 
-    <script src="./config.js"></script>
-    <script src="./script.js"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/script.js"></script>
     <script>
         async function testCropRecommendation() {
             const nitrogen = parseFloat(document.getElementById('nitrogen').value);
@@ -239,6 +239,6 @@ console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
     </script>
     
     <!-- Load config before other scripts -->
-    <script src="./config.js"></script>
+    <script src="../assets/js/config.js"></script>
 </body>
 </html>
