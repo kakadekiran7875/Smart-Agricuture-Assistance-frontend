@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Market Prices - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Redesigned Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Custom Dropdown Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
+                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
+                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાती</button>
+                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
+                <a href="index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="container">
+            <!-- Market Overview -->
+            <section class="market-overview">
+                <div class="overview-card">
+                    <h2>Today's Market Overview</h2>
+                    <div class="market-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">₹2,450</span>
+                            <span class="stat-label">Avg. Price/Quintal</span>
+                            <span class="stat-change positive">+2.5%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">50+</span>
+                            <span class="stat-label">Active Markets</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">1,250</span>
+                            <span class="stat-label">Tons Traded</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Price Search -->
+            <section class="price-search">
+                <div class="search-card">
+                    <h2>Search Crop Prices</h2>
+                    <div class="search-filters">
+                        <select id="cropSelect">
+                            <option value="">Select Crop</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="onion">Onion</option>
+                            <option value="potato">Potato</option>
+                            <option value="rice">Rice</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="sugarcane">Sugarcane</option>
+                        </select>
+                        <select id="marketSelect">
+                            <option value="">Select Market</option>
+                            <option value="akola">Akola</option>
+                            <option value="amaravati">Amaravati</option>
+                            <option value="arvi">Arvi</option>
+                            <option value="ashti">Ashti</option>
+                            <option value="badnera">Badnera</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="barshi">Barshi</option>
+                            <option value="beed">Beed</option>
+                            <option value="belgaum">Belgaum</option>
+                            <option value="bhandara">Bhandara</option>
+                            <option value="bhusawal">Bhusawal</option>
+                            <option value="bidar">Bidar</option>
+                            <option value="chandrapur">Chandrapur</option>
+                            <option value="davangere">Davangere</option>
+                            <option value="dharashiv">Dharashiv</option>
+                            <option value="dhule">Dhule</option>
+                            <option value="gadchiroli">Gadchiroli</option>
+                            <option value="gondia">Gondia</option>
+                            <option value="gulbarga">Gulbarga</option>
+                            <option value="hassan">Hassan</option>
+                            <option value="hingoli">Hingoli</option>
+                            <option value="hubli">Hubli</option>
+                            <option value="jalgaon">Jalgaon</option>
+                            <option value="jalna">Jalna</option>
+                            <option value="kalyan">Kalyan</option>
+                            <option value="karanja">Karanja</option>
+                            <option value="kolhapur">Kolhapur</option>
+                            <option value="latur">Latur</option>
+                            <option value="mandya">Mandya</option>
+                            <option value="mangalore">Mangalore</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="mysore">Mysore</option>
+                            <option value="nagpur">Nagpur</option>
+                            <option value="nanded">Nanded</option>
+                            <option value="nashik">Nashik</option>
+                            <option value="navi-mumbai">Navi Mumbai</option>
+                            <option value="parbhani">Parbhani</option>
+                            <option value="pune">Pune</option>
+                            <option value="raichur">Raichur</option>
+                            <option value="ratnagiri">Ratnagiri</option>
+                            <option value="sangli">Sangli</option>
+                            <option value="satara">Satara</option>
+                            <option value="shimoga">Shimoga</option>
+                            <option value="solapur">Solapur</option>
+                            <option value="thane">Thane</option>
+                            <option value="tumkur">Tumkur</option>
+                            <option value="udupi">Udupi</option>
+                            <option value="wardha">Wardha</option>
+                            <option value="washim">Washim</option>
+                            <option value="yavatmal">Yavatmal</option>
+                        </select>
+                        <button class="search-btn" onclick="searchPrices()">Search Prices</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Prices -->
+            <section class="live-prices">
+                <h2>Live Market Prices</h2>
+                <div class="prices-grid" id="pricesGrid">
+                    <!-- Prices will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Price Trends -->
+            <section class="price-trends">
+                <div class="trends-card">
+                    <h2>Price Trends (Last 7 Days)</h2>
+                    <div class="trend-chart">
+                        <canvas id="priceChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market News -->
+            <section class="market-news">
+                <h2>Market News & Updates</h2>
+                <div class="news-grid">
+                    <div class="news-item">
+                        <div class="news-date">Today</div>
+                        <h3>Tomato prices surge due to heavy rains</h3>
+                        <p>Prices increased by 15% across major markets in Karnataka due to supply shortage.</p>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">Yesterday</div>
+                        <h3>Rice export demand boosts local prices</h3>
+                        <p>Strong export demand from neighboring states pushes rice prices up by 8%.</p>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">2 days ago</div>
+                        <h3>Onion storage facilities expanded</h3>
+                        <p>New cold storage facilities help stabilize onion prices in major markets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Price Alerts -->
+            <section class="price-alerts">
+                <div class="alerts-card">
+                    <h2>Set Price Alerts</h2>
+                    <p>Get notified when your crop reaches your target price</p>
+                    <form class="alert-form">
+                        <select id="alertCrop" required>
+                            <option value="">Select Crop</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="onion">Onion</option>
+                            <option value="potato">Potato</option>
+                            <option value="rice">Rice</option>
+                        </select>
+                        <input type="number" id="targetPrice" placeholder="Target Price (₹/Quintal)" required>
+                        <input type="tel" id="alertPhone" placeholder="Your Phone Number" required>
+                        <button type="submit" class="alert-btn">Set Alert</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <style>
+        .market-overview {
+            margin-bottom: 2rem;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .market-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .stat-change {
+            display: block;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .stat-change.positive {
+            color: #81C784;
+        }
+
+        .stat-change.negative {
+            color: #E57373;
+        }
+
+        .search-card, .alerts-card, .trends-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-filters select {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-btn, .alert-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .search-btn:hover, .alert-btn:hover {
+            background: #45a049;
+        }
+
+        .prices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .price-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .crop-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c5530;
+        }
+
+        .price-change {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .price-change.up {
+            background: #E8F5E8;
+            color: #2E7D32;
+        }
+
+        .price-change.down {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .market-info {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .trend-chart {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .news-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .news-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .news-date {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-item h3 {
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .alert-form select,
+        .alert-form input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-filters,
+            .alert-form {
+                flex-direction: column;
+            }
+            
+            .search-filters select,
+            .alert-form select,
+            .alert-form input {
+                min-width: 100%;
+            }
+            
+            .market-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Market page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language
+            if (typeof updateLanguage === 'function') {
+                updateLanguage();
+            }
+            
+            loadLivePrices();
+            initializePriceChart();
+            initializeAlertForm();
+        });
+
+        function searchPrices() {
+            const crop = document.getElementById('cropSelect').value;
+            const market = document.getElementById('marketSelect').value;
+            
+            if (!crop) {
+                alert('Please select a crop to search prices');
+                return;
+            }
+            
+            // Simulate search results
+            const searchResults = `
+                <div class="search-results">
+                    <h3>Search Results for ${crop}</h3>
+                    <div class="price-card">
+                        <div class="price-header">
+                            <span class="crop-name">${crop.charAt(0).toUpperCase() + crop.slice(1)}</span>
+                            <span class="price-change up">+3%</span>
+                        </div>
+                        <div class="current-price">₹${Math.floor(Math.random() * 1000) + 1500}</div>
+                        <div class="market-info">${market || 'Multiple Markets'}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('pricesGrid').innerHTML = searchResults;
+        }
+
+        function initializePriceChart() {
+            const canvas = document.getElementById('priceChart');
+            const ctx = canvas.getContext('2d');
+            
+            // Simple line chart simulation
+            const data = [2200, 2250, 2180, 2300, 2280, 2350, 2400];
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw axes
+            ctx.strokeStyle = '#ddd';
+            ctx.beginPath();
+            ctx.moveTo(50, 20);
+            ctx.lineTo(50, 180);
+            ctx.lineTo(380, 180);
+            ctx.stroke();
+            
+            // Draw data line
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            data.forEach((value, index) => {
+                const x = 50 + (index * 50);
+                const y = 180 - ((value - 2000) / 500 * 160);
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                // Draw points
+                ctx.fillStyle = '#4CAF50';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+            
+            ctx.stroke();
+            
+            // Draw labels
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Arial';
+            labels.forEach((label, index) => {
+                const x = 45 + (index * 50);
+                ctx.fillText(label, x, 195);
+            });
+        }
+
+        function initializeAlertForm() {
+            const alertForm = document.querySelector('.alert-form');
+            alertForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const crop = document.getElementById('alertCrop').value;
+                const price = document.getElementById('targetPrice').value;
+                const phone = document.getElementById('alertPhone').value;
+                
+                alert(`Price alert set for ${crop} at ₹${price}/quintal. You'll receive SMS at ${phone} when target is reached.`);
+                
+                alertForm.reset();
+            });
+        }
+
+        // Load live prices from various markets
+        function loadLivePrices() {
+            const markets = [
+                { crop: 'Tomato', price: '₹2,850', change: '+5.2%', market: 'Bangalore', trend: 'up' },
+                { crop: 'Onion', price: '₹1,950', change: '-2.1%', market: 'Nashik', trend: 'down' },
+                { crop: 'Potato', price: '₹1,650', change: '+1.8%', market: 'Hassan', trend: 'up' },
+                { crop: 'Rice', price: '₹3,200', change: '+3.5%', market: 'Mandya', trend: 'up' },
+                { crop: 'Wheat', price: '₹2,450', change: '+0.5%', market: 'Tumkur', trend: 'up' },
+                { crop: 'Cotton', price: '₹6,800', change: '+4.2%', market: 'Nagpur', trend: 'up' },
+                { crop: 'Sugarcane', price: '₹3,100', change: '-1.5%', market: 'Kolhapur', trend: 'down' },
+                { crop: 'Maize', price: '₹1,850', change: '+2.3%', market: 'Davangere', trend: 'up' },
+                { crop: 'Groundnut', price: '₹5,200', change: '+6.1%', market: 'Dharwad', trend: 'up' },
+                { crop: 'Soybean', price: '₹4,350', change: '+3.8%', market: 'Latur', trend: 'up' },
+                { crop: 'Chilli', price: '₹8,900', change: '+7.2%', market: 'Solapur', trend: 'up' },
+                { crop: 'Turmeric', price: '₹7,650', change: '-0.8%', market: 'Sangli', trend: 'down' }
+            ];
+
+            const pricesGrid = document.getElementById('pricesGrid');
+            pricesGrid.innerHTML = markets.map(item => `
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="crop-name">${item.crop}</span>
+                        <span class="price-change ${item.trend}">${item.change}</span>
+                    </div>
+                    <div class="current-price">${item.price}</div>
+                    <div class="market-info">📍 ${item.market}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+
+</html>

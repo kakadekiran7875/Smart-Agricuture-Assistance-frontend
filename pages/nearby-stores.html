@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Find Nearby Stores - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Redesigned Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Custom Dropdown Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
+                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
+                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાती</button>
+                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
+                <a href="index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="container">
+            <!-- Location Search -->
+            <section class="location-search">
+                <div class="search-card">
+                    <h2>Find Agricultural Stores Near You</h2>
+                    <div class="location-controls">
+                        <button class="location-btn" onclick="getCurrentLocation()">
+                            📍 Use My Current Location
+                        </button>
+                        <div class="or-divider">OR</div>
+                        <div class="manual-location">
+                            <input type="text" id="locationInput" placeholder="Enter your location (e.g., Bangalore)">
+                            <button class="search-btn" onclick="searchByLocation()">Search</button>
+                        </div>
+                    </div>
+                    <div class="filters">
+                        <label>Store Type:</label>
+                        <select id="storeType">
+                            <option value="all">All Stores</option>
+                            <option value="seeds">Seeds & Nursery</option>
+                            <option value="fertilizers">Fertilizers</option>
+                            <option value="pesticides">Pesticides</option>
+                            <option value="equipment">Farm Equipment</option>
+                            <option value="organic">Organic Products</option>
+                        </select>
+                        <label>Radius:</label>
+                        <select id="searchRadius">
+                            <option value="5">5 km</option>
+                            <option value="10" selected>10 km</option>
+                            <option value="20">20 km</option>
+                            <option value="50">50 km</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Current Location Display -->
+            <section class="current-location" id="currentLocationSection" style="display: none;">
+                <div class="location-card">
+                    <h3>📍 Your Location</h3>
+                    <p id="locationDisplay">Detecting location...</p>
+                </div>
+            </section>
+
+            <!-- Stores List -->
+            <section class="stores-section">
+                <div class="stores-header">
+                    <h2>Nearby Agricultural Stores</h2>
+                    <span id="storeCount" class="store-count">0 stores found</span>
+                </div>
+                <div id="storesGrid" class="stores-grid">
+                    <!-- Stores will be loaded here -->
+                    <div class="empty-state">
+                        <p>🔍 Use your location or search to find nearby agricultural stores</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Section (Optional) -->
+            <section class="map-section" id="mapSection" style="display: none;">
+                <div class="map-card">
+                    <h2>📍 Store Locations on Map</h2>
+                    <div id="storeMap" class="store-map">
+                        <p style="text-align: center; padding: 2rem; color: #666;">
+                            Map will be displayed here when stores are found
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <style>
+        .location-search {
+            margin-bottom: 2rem;
+        }
+
+        .search-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .location-controls {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .location-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .location-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .or-divider {
+            margin: 1.5rem 0;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .manual-location {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .manual-location input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #45a049;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filters label {
+            font-weight: 500;
+            color: #2c5530;
+        }
+
+        .filters select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .current-location {
+            margin-bottom: 2rem;
+        }
+
+        .location-card {
+            background: #E8F5E9;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .location-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #2c5530;
+        }
+
+        .location-card p {
+            margin: 0;
+            color: #555;
+        }
+
+        .stores-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .store-count {
+            background: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .store-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #4CAF50;
+            transition: transform 0.2s ease;
+        }
+
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .store-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .store-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c5530;
+            margin: 0;
+        }
+
+        .store-distance {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .store-type {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+
+        .store-address {
+            color: #555;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .store-contact {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .call-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .call-btn:hover {
+            background: #45a049;
+        }
+
+        .directions-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .directions-btn:hover {
+            background: #1976D2;
+        }
+
+        .store-products {
+            margin-top: 1rem;
+        }
+
+        .store-products h4 {
+            font-size: 0.9rem;
+            color: #2c5530;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .product-tag {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .store-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .stars {
+            color: #FFC107;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .loading-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .map-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .store-map {
+            height: 400px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .stores-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .manual-location {
+                flex-direction: column;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stores-header {
+                flex-direction: column;
+                align-items: start;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <script src="../assets/js/script.js"></script>
+    <script>
+        let userLocation = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language
+            if (typeof updateLanguage === 'function') {
+                updateLanguage();
+            }
+        });
+
+        // Get user's current location
+        function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by your browser');
+                return;
+            }
+
+            showLoading();
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    userLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    
+                    displayCurrentLocation(userLocation);
+                    searchNearbyStores(userLocation);
+                },
+                function(error) {
+                    hideLoading();
+                    alert('Unable to get your location. Please enter manually.');
+                    console.error('Geolocation error:', error);
+                }
+            );
+        }
+
+        // Search by manual location input
+        async function searchByLocation() {
+            const location = document.getElementById('locationInput').value.trim();
+            
+            if (!location) {
+                alert('Please enter a location');
+                return;
+            }
+
+            showLoading();
+
+            // In a real app, you would geocode the location first
+            // For now, we'll use sample coordinates for Bangalore
+            const sampleLocation = {
+                latitude: 12.9716,
+                longitude: 77.5946,
+                address: location
+            };
+
+            userLocation = sampleLocation;
+            displayCurrentLocation(sampleLocation);
+            searchNearbyStores(sampleLocation);
+        }
+
+        // Display current location
+        function displayCurrentLocation(location) {
+            const section = document.getElementById('currentLocationSection');
+            const display = document.getElementById('locationDisplay');
+            
+            section.style.display = 'block';
+            
+            if (location.address) {
+                display.textContent = location.address;
+            } else {
+                display.textContent = `Lat: ${location.latitude.toFixed(4)}, Lng: ${location.longitude.toFixed(4)}`;
+            }
+        }
+
+        // Search nearby stores from backend
+        async function searchNearbyStores(location) {
+            const storeType = document.getElementById('storeType').value;
+            const radius = parseInt(document.getElementById('searchRadius').value);
+
+            try {
+                // Call backend API
+                const response = await fetch(apiUrl('/api/stores/nearby'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                        radius: radius,
+                        store_type: storeType === 'all' ? null : storeType
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch stores from backend');
+                }
+
+                const data = await response.json();
+                displayStores(data.stores);
+                
+            } catch (error) {
+                console.error('Error fetching stores:', error);
+                // Show sample stores if backend is not available
+                displaySampleStores(location);
+            }
+        }
+
+        // Display sample stores (fallback when backend is not available)
+        function displaySampleStores(location) {
+            const sampleStores = [
+                {
+                    id: 'STORE001',
+                    name: 'Krishi Kendra Seeds & Fertilizers',
+                    type: 'Seeds & Fertilizers',
+                    distance: 2.3,
+                    address: 'MG Road, Bangalore, Karnataka 560001',
+                    phone: '+91 9876543210',
+                    products: ['Seeds', 'Fertilizers', 'Pesticides'],
+                    rating: 4.5,
+                    reviews: 120
+                },
+                {
+                    id: 'STORE002',
+                    name: 'Green Valley Organic Store',
+                    type: 'Organic Products',
+                    distance: 3.7,
+                    address: 'Jayanagar 4th Block, Bangalore 560011',
+                    phone: '+91 9876543211',
+                    products: ['Organic Seeds', 'Bio-Fertilizers', 'Compost'],
+                    rating: 4.8,
+                    reviews: 95
+                },
+                {
+                    id: 'STORE003',
+                    name: 'Farmers Equipment Hub',
+                    type: 'Farm Equipment',
+                    distance: 5.2,
+                    address: 'Yeshwanthpur, Bangalore 560022',
+                    phone: '+91 9876543212',
+                    products: ['Tractors', 'Irrigation', 'Tools'],
+                    rating: 4.3,
+                    reviews: 78
+                },
+                {
+                    id: 'STORE004',
+                    name: 'Agri Solutions Center',
+                    type: 'All Products',
+                    distance: 4.1,
+                    address: 'Rajajinagar, Bangalore 560010',
+                    phone: '+91 9876543213',
+                    products: ['Seeds', 'Fertilizers', 'Equipment', 'Pesticides'],
+                    rating: 4.6,
+                    reviews: 150
+                },
+                {
+                    id: 'STORE005',
+                    name: 'Modern Nursery & Seeds',
+                    type: 'Seeds & Nursery',
+                    distance: 6.8,
+                    address: 'Whitefield, Bangalore 560066',
+                    phone: '+91 9876543214',
+                    products: ['Vegetable Seeds', 'Flower Seeds', 'Saplings'],
+                    rating: 4.4,
+                    reviews: 88
+                },
+                {
+                    id: 'STORE006',
+                    name: 'Pesticide & Crop Care',
+                    type: 'Pesticides',
+                    distance: 3.5,
+                    address: 'Malleshwaram, Bangalore 560003',
+                    phone: '+91 9876543215',
+                    products: ['Pesticides', 'Fungicides', 'Herbicides'],
+                    rating: 4.2,
+                    reviews: 65
+                }
+            ];
+
+            displayStores(sampleStores);
+        }
+
+        // Display stores in the grid
+        function displayStores(stores) {
+            hideLoading();
+            
+            const grid = document.getElementById('storesGrid');
+            const countDisplay = document.getElementById('storeCount');
+            
+            countDisplay.textContent = `${stores.length} stores found`;
+
+            if (stores.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><p>😔 No stores found in this area. Try increasing the search radius.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = stores.map(store => `
+                <div class="store-card">
+                    <div class="store-header">
+                        <div>
+                            <h3 class="store-name">${store.name}</h3>
+                            <p class="store-type">📦 ${store.type}</p>
+                        </div>
+                        <span class="store-distance">${store.distance} km</span>
+                    </div>
+                    
+                    <p class="store-address">📍 ${store.address}</p>
+                    
+                    ${store.rating ? `
+                        <div class="store-rating">
+                            <span class="stars">${'⭐'.repeat(Math.floor(store.rating))}</span>
+                            <span class="rating-text">${store.rating} (${store.reviews} reviews)</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="store-contact">
+                        <button class="contact-btn call-btn" onclick="callStore('${store.phone}')">
+                            📞 Call
+                        </button>
+                        <button class="contact-btn directions-btn" onclick="getDirections('${store.address}')">
+                            🗺️ Directions
+                        </button>
+                    </div>
+                    
+                    ${store.products && store.products.length > 0 ? `
+                        <div class="store-products">
+                            <h4>Available Products:</h4>
+                            <div class="product-tags">
+                                ${store.products.map(product => `<span class="product-tag">${product}</span>`).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Call store
+        function callStore(phone) {
+            window.location.href = `tel:${phone}`;
+        }
+
+        // Get directions
+        function getDirections(address) {
+            const encodedAddress = encodeURIComponent(address);
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`, '_blank');
+        }
+
+        // Show loading state
+        function showLoading() {
+            const grid = document.getElementById('storesGrid');
+            grid.innerHTML = `
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Searching for nearby stores...</p>
+                </div>
+            `;
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            // Loading will be replaced by results
+        }
+
+        // Helper function to get API URL
+        function apiUrl(path) {
+            const base = window.API_CONFIG ? window.API_CONFIG.BASE_URL : 'http://localhost:5001';
+            return `${base}${path}`;
+        }
+    </script>
+</body>
+
+</html>

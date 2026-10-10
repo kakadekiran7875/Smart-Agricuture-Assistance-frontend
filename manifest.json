@@ -1,0 +1,16 @@
+{
+  "name": "Smart Agriculture Assistant",
+  "short_name": "SmartAgri",
+  "description": "AI-powered agriculture assistant for farmers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "https://public-frontend-cos.metadl.com/mgx/img/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

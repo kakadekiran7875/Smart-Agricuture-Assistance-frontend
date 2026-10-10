@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Crop Diagnosis - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Redesigned Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Custom Dropdown Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
+                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
+                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાती</button>
+                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
+                <a href="index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="container">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <h2 id="uploadTitle">Upload Crop Image for Analysis</h2>
+                    <p id="uploadDesc">Take a clear photo of the affected plant or upload an existing image for AI-powered diagnosis.</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📸</div>
+                        <p id="uploadText">Click to upload or drag and drop image</p>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        <button class="upload-btn" id="uploadBtn" onclick="document.getElementById('imageInput').click()">
+                            Choose Image
+                        </button>
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImg" alt="Uploaded crop image">
+                        <button class="analyze-btn" id="analyzeBtn" onclick="analyzeCrop()">
+                            🔍 Analyze Crop
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-card">
+                    <h2 id="resultsTitle">Diagnosis Results</h2>
+                    <div id="diagnosisResults"></div>
+                </div>
+            </section>
+
+            <!-- Quick Tips -->
+            <section class="tips-section">
+                <h2 id="tipsTitle">Photography Tips for Better Diagnosis</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">💡</div>
+                        <h3 id="tip1Title">Good Lighting</h3>
+                        <p id="tip1Desc">Take photos in natural daylight for best results. Avoid shadows and artificial lighting.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🎯</div>
+                        <h3 id="tip2Title">Focus on Problem</h3>
+                        <p id="tip2Desc">Capture the affected area clearly. Include both healthy and diseased parts for comparison.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">📏</div>
+                        <h3 id="tip3Title">Proper Distance</h3>
+                        <p id="tip3Desc">Maintain 6-12 inches distance from the plant. Ensure the image is not blurry.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🌿</div>
+                        <h3 id="tip4Title">Multiple Angles</h3>
+                        <p id="tip4Desc">Take photos from different angles - top, side, and close-up of affected areas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Issues -->
+            <section class="common-issues">
+                <h2 id="commonTitle">Common Crop Issues in Karnataka</h2>
+                <div class="issues-grid">
+                    <div class="issue-card">
+                        <h3>🍅 Tomato Early Blight</h3>
+                        <p><strong>Symptoms:</strong> Dark spots with concentric rings on leaves</p>
+                        <p><strong>Treatment:</strong> Copper-based fungicides, proper spacing</p>
+                    </div>
+                    <div class="issue-card">
+                        <h3>🌾 Rice Blast</h3>
+                        <p><strong>Symptoms:</strong> Diamond-shaped lesions on leaves</p>
+                        <p><strong>Treatment:</strong> Resistant varieties, balanced fertilization</p>
+                    </div>
+                    <div class="issue-card">
+                        <h3>🌽 Corn Borer</h3>
+                        <p><strong>Symptoms:</strong> Holes in leaves and stems</p>
+                        <p><strong>Treatment:</strong> Bt corn, biological control agents</p>
+                    </div>
+                    <div class="issue-card">
+                        <h3>🥔 Potato Late Blight</h3>
+                        <p><strong>Symptoms:</strong> Water-soaked spots turning brown</p>
+                        <p><strong>Treatment:</strong> Preventive fungicide sprays</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h3 id="loadingTitle">Analyzing Your Crop...</h3>
+                <p id="loadingDesc">Our AI is examining the image and comparing it with thousands of crop diseases.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .upload-section {
+            margin-bottom: 3rem;
+        }
+
+        .upload-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .upload-card h2 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #4CAF50;
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            background: #f8fff8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #45a049;
+            background: #f0fff0;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #45a049;
+        }
+
+        .image-preview {
+            margin-top: 2rem;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .analyze-btn {
+            background: #FF9800;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .analyze-btn:hover {
+            background: #F57C00;
+        }
+
+        .results-section {
+            margin-bottom: 3rem;
+        }
+
+        .results-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .diagnosis-result {
+            background: #f8fff8;
+            border-left: 5px solid #4CAF50;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .confidence-bar {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            background: #4CAF50;
+            height: 100%;
+            transition: width 1s ease;
+        }
+
+        .tips-section, .common-issues {
+            margin-bottom: 3rem;
+        }
+
+        .tips-grid, .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tip-card, .issue-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h3, .issue-card h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+        }
+
+        .loading-content {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+            
+            .tips-grid, .issues-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Diagnosis page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language
+            if (typeof updateLanguage === 'function') {
+                updateLanguage();
+            }
+            
+            const imageInput = document.getElementById('imageInput');
+            const previewImg = document.getElementById('previewImg');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            imageInput.addEventListener('change', function() {
+                handleImageUpload(this, previewImg);
+                imagePreview.style.display = 'block';
+            });
+        });
+
+        async function analyzeCrop() {
+            const imageInput = document.getElementById('imageInput');
+            const loadingModal = document.getElementById('loadingModal');
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsDiv = document.getElementById('diagnosisResults');
+            
+            // Check if image is selected
+            if (!imageInput.files || !imageInput.files[0]) {
+                alert('Please select an image first!');
+                return;
+            }
+            
+            const imageFile = imageInput.files[0];
+            
+            // Show loading modal
+            loadingModal.style.display = 'block';
+            
+            try {
+                // Call backend API to detect disease
+                const diagnosis = await window.agricultureAPI.detectCropDisease(imageFile);
+                
+                // Hide loading modal
+                loadingModal.style.display = 'none';
+                
+                // Show results from backend
+                resultsDiv.innerHTML = `
+                    <div class="diagnosis-result">
+                        <h3>🎯 Detected Issue: ${diagnosis.disease || diagnosis.class || 'Unknown'}</h3>
+                        <div class="confidence-section">
+                            <p><strong>Confidence Level: ${diagnosis.confidence ? (diagnosis.confidence * 100).toFixed(1) : '0'}%</strong></p>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: ${diagnosis.confidence ? (diagnosis.confidence * 100) : 0}%"></div>
+                            </div>
+                        </div>
+                        <div class="treatment-section">
+                            <h4>💊 Recommended Treatment:</h4>
+                            <p>${diagnosis.treatment || diagnosis.recommendation || 'Consult with an agricultural expert for specific treatment.'}</p>
+                        </div>
+                        <div class="prevention-section">
+                            <h4>🛡️ Prevention Tips:</h4>
+                            <p>${diagnosis.prevention || diagnosis.preventive_measures || 'Maintain proper crop spacing, use disease-resistant varieties, and practice crop rotation.'}</p>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="contactExpert()">
+                                <span class="btn-text" data-en="👨‍🌾 Contact Expert" data-hi="👨‍🌾 विशेषज्ञ से संपर्क करें" data-mr="👨‍🌾 तज्ञांशी संपर्क साधा" data-kn="👨‍🌾 ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಿ">👨‍🌾 Contact Expert</span>
+                            </button>
+                            <button class="action-btn" onclick="findNearbyStore()">
+                                <span class="btn-text" data-en="🏪 Find Nearby Store" data-hi="🏪 नजदीकी दुकान खोजें" data-mr="🏪 जवळचे दुकान शोधा" data-kn="🏪 ಹತ್ತಿರದ ಅಂಗಡಿ ಹುಡುಕಿ">🏪 Find Nearby Store</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                loadingModal.style.display = 'none';
+                console.error('Analysis error:', error);
+                
+                // Show detailed error in results section
+                resultsDiv.innerHTML = `
+                    <div class="diagnosis-result" style="border-left-color: #f44336; background: #fff3f3;">
+                        <h3>❌ Analysis Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;">
+                            <h4>🔧 Troubleshooting Steps:</h4>
+                            <ol style="text-align: left; margin-left: 1rem;">
+                                <li><strong>Check Backend Server:</strong> Ensure backend is running on <code>http://localhost:5001</code></li>
+                                <li><strong>Test Backend:</strong> Open <code>http://localhost:5001/health</code> in browser</li>
+                                <li><strong>Check Endpoint:</strong> Verify <code>/detect</code> endpoint exists on backend</li>
+                                <li><strong>CORS Settings:</strong> Backend must allow requests from frontend</li>
+                                <li><strong>Image Format:</strong> Ensure image is JPG, PNG, or supported format</li>
+                                <li><strong>Network:</strong> Check if frontend can reach backend IP</li>
+                            </ol>
+                            <p style="margin-top: 1rem;"><strong>Console:</strong> Press F12 to see detailed error logs</p>
+                        </div>
+                    </div>
+                `;
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        async function contactExpert() {
+            const modal = document.getElementById('loadingModal');
+            const loadingTitle = document.getElementById('loadingTitle');
+            const loadingDesc = document.getElementById('loadingDesc');
+            
+            const lang = currentLang || 'en';
+            const messages = {
+                en: {
+                    loading: 'Connecting to Expert...',
+                    loadingDesc: 'Finding the best agricultural expert for your issue.',
+                    assigned: 'Expert Assigned!',
+                    name: 'Name',
+                    specialization: 'Specialization',
+                    phone: 'Phone',
+                    email: 'Email',
+                    location: 'Location',
+                    availability: 'Availability',
+                    requestId: 'Request ID',
+                    estimatedResponse: 'Estimated Response',
+                    error: 'Failed to contact expert. Please try again or call helpline: 1800-180-1551'
+                },
+                hi: {
+                    loading: 'विशेषज्ञ से संपर्क कर रहे हैं...',
+                    loadingDesc: 'आपकी समस्या के लिए सर्वोत्तम कृषि विशेषज्ञ खोज रहे हैं।',
+                    assigned: 'विशेषज्ञ नियुक्त!',
+                    name: 'नाम',
+                    specialization: 'विशेषज्ञता',
+                    phone: 'फोन',
+                    email: 'ईमेल',
+                    location: 'स्थान',
+                    availability: 'उपलब्धता',
+                    requestId: 'अनुरोध आईडी',
+                    estimatedResponse: 'अनुमानित प्रतिक्रिया',
+                    error: 'विशेषज्ञ से संपर्क करने में विफल। कृपया पुनः प्रयास करें या हेल्पलाइन पर कॉल करें: 1800-180-1551'
+                },
+                mr: {
+                    loading: 'तज्ञांशी संपर्क साधत आहे...',
+                    loadingDesc: 'तुमच्या समस्येसाठी सर्वोत्तम कृषी तज्ञ शोधत आहे।',
+                    assigned: 'तज्ञ नियुक्त!',
+                    name: 'नाव',
+                    specialization: 'विशेषज्ञता',
+                    phone: 'फोन',
+                    email: 'ईमेल',
+                    location: 'स्थान',
+                    availability: 'उपलब्धता',
+                    requestId: 'विनंती आयडी',
+                    estimatedResponse: 'अंदाजे प्रतिसाद',
+                    error: 'तज्ञांशी संपर्क साधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा किंवा हेल्पलाइनवर कॉल करा: 1800-180-1551'
+                },
+                kn: {
+                    loading: 'ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...',
+                    loadingDesc: 'ನಿಮ್ಮ ಸಮಸ್ಯೆಗೆ ಉತ್ತಮ ಕೃಷಿ ತಜ್ಞರನ್ನು ಹುಡುಕುತ್ತಿದೆ.',
+                    assigned: 'ತಜ್ಞರನ್ನು ನಿಯೋಜಿಸಲಾಗಿದೆ!',
+                    name: 'ಹೆಸರು',
+                    specialization: 'ವಿಶೇಷತೆ',
+                    phone: 'ಫೋನ್',
+                    email: 'ಇಮೇಲ್',
+                    location: 'ಸ್ಥಳ',
+                    availability: 'ಲಭ್ಯತೆ',
+                    requestId: 'ವಿನಂತಿ ಐಡಿ',
+                    estimatedResponse: 'ಅಂದಾಜು ಪ್ರತಿಕ್ರಿಯೆ',
+                    error: 'ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಹೆಲ್ಪ್‌ಲೈನ್‌ಗೆ ಕರೆ ಮಾಡಿ: 1800-180-1551'
+                }
+            };
+            
+            const msg = messages[lang] || messages.en;
+            
+            loadingTitle.textContent = msg.loading;
+            loadingDesc.textContent = msg.loadingDesc;
+            modal.style.display = 'block';
+            
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/expert/request`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Farmer',
+                        phone: '+91 9876543210',
+                        cropType: 'general',
+                        issue: 'Crop disease consultation needed',
+                        language: lang,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                if (!response.ok) throw new Error('Failed to contact expert');
+                
+                const data = await response.json();
+                modal.style.display = 'none';
+                
+                // Show expert details
+                if (data.success && data.expert_assigned) {
+                    alert(`${msg.assigned}\n\n${msg.name}: ${data.expert_assigned.name}\n${msg.specialization}: ${data.expert_assigned.specialization}\n${msg.phone}: ${data.expert_assigned.phone}\n\n${msg.requestId}: ${data.request_id}\n${msg.estimatedResponse}: ${data.estimated_callback_time}`);
+                } else {
+                    alert(`${msg.assigned}\n\n${msg.requestId}: ${data.request_id}\n${msg.estimatedResponse}: ${data.estimated_callback_time || '30 minutes'}`);
+                }
+                
+            } catch (error) {
+                modal.style.display = 'none';
+                console.error('Error contacting expert:', error);
+                // Fallback: Open expert contact modal instead
+                if (typeof showExpertContact === 'function') {
+                    showExpertContact();
+                } else {
+                    alert(msg.error);
+                }
+            }
+        }
+
+        async function findNearbyStore() {
+            const modal = document.getElementById('loadingModal');
+            const loadingTitle = document.getElementById('loadingTitle');
+            const loadingDesc = document.getElementById('loadingDesc');
+            
+            const lang = currentLang || 'en';
+            const messages = {
+                en: {
+                    loading: 'Finding Nearby Stores...',
+                    loadingDesc: 'Searching for agricultural stores in your area.',
+                    found: 'Found',
+                    storesNearby: 'Stores Nearby',
+                    type: 'Type',
+                    address: 'Address',
+                    phone: 'Phone',
+                    distance: 'Distance',
+                    rating: 'Rating',
+                    status: 'Status',
+                    openNow: 'Open Now',
+                    closed: 'Closed',
+                    services: 'Services',
+                    getDirections: 'Get Directions',
+                    error: 'Failed to find nearby stores. Please try again or search manually on Google Maps.'
+                },
+                hi: {
+                    loading: 'नजदीकी दुकानें खोज रहे हैं...',
+                    loadingDesc: 'आपके क्षेत्र में कृषि दुकानें खोज रहे हैं।',
+                    found: 'मिला',
+                    storesNearby: 'नजदीकी दुकानें',
+                    type: 'प्रकार',
+                    address: 'पता',
+                    phone: 'फोन',
+                    distance: 'दूरी',
+                    rating: 'रेटिंग',
+                    status: 'स्थिति',
+                    openNow: 'अभी खुला है',
+                    closed: 'बंद',
+                    services: 'सेवाएं',
+                    getDirections: 'दिशा-निर्देश प्राप्त करें',
+                    error: 'नजदीकी दुकानें खोजने में विफल। कृपया पुनः प्रयास करें या Google Maps पर मैन्युअल रूप से खोजें।'
+                },
+                mr: {
+                    loading: 'जवळची दुकाने शोधत आहे...',
+                    loadingDesc: 'तुमच्या क्षेत्रात कृषी दुकाने शोधत आहे.',
+                    found: 'सापडले',
+                    storesNearby: 'जवळची दुकाने',
+                    type: 'प्रकार',
+                    address: 'पत्ता',
+                    phone: 'फोन',
+                    distance: 'अंतर',
+                    rating: 'रेटिंग',
+                    status: 'स्थिती',
+                    openNow: 'आता उघडे आहे',
+                    closed: 'बंद',
+                    services: 'सेवा',
+                    getDirections: 'दिशानिर्देश मिळवा',
+                    error: 'जवळची दुकाने शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा किंवा Google Maps वर मॅन्युअली शोधा.'
+                },
+                kn: {
+                    loading: 'ಹತ್ತಿರದ ಅಂಗಡಿಗಳನ್ನು ಹುಡುಕುತ್ತಿದೆ...',
+                    loadingDesc: 'ನಿಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿ ಕೃಷಿ ಅಂಗಡಿಗಳನ್ನು ಹುಡುಕುತ್ತಿದೆ.',
+                    found: 'ಕಂಡುಬಂದಿದೆ',
+                    storesNearby: 'ಹತ್ತಿರದ ಅಂಗಡಿಗಳು',
+                    type: 'ಪ್ರಕಾರ',
+                    address: 'ವಿಳಾಸ',
+                    phone: 'ಫೋನ್',
+                    distance: 'ದೂರ',
+                    rating: 'ರೇಟಿಂಗ್',
+                    status: 'ಸ್ಥಿತಿ',
+                    openNow: 'ಈಗ ತೆರೆದಿದೆ',
+                    closed: 'ಮುಚ್ಚಲಾಗಿದೆ',
+                    services: 'ಸೇವೆಗಳು',
+                    getDirections: 'ನಿರ್ದೇಶನಗಳನ್ನು ಪಡೆಯಿರಿ',
+                    error: 'ಹತ್ತಿರದ ಅಂಗಡಿಗಳನ್ನು ಹುಡುಕಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ Google Maps ನಲ್ಲಿ ಹಸ್ತಚಾಲಿತವಾಗಿ ಹುಡುಕಿ.'
+                }
+            };
+            
+            const msg = messages[lang] || messages.en;
+            
+            loadingTitle.textContent = msg.loading;
+            loadingDesc.textContent = msg.loadingDesc;
+            modal.style.display = 'block';
+            
+            try {
+                // Get user location or use default (Bangalore)
+                const defaultLocation = {
+                    latitude: 12.9716,
+                    longitude: 77.5946
+                };
+                
+                const response = await fetch(`${CONFIG.API_BASE_URL}/stores/nearby`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        latitude: defaultLocation.latitude,
+                        longitude: defaultLocation.longitude,
+                        radius: 10,
+                        store_type: 'all'
+                    })
+                });
+                
+                if (!response.ok) throw new Error('Failed to find stores');
+                
+                const data = await response.json();
+                modal.style.display = 'none';
+                
+                // Create stores display
+                let storesHTML = '<div style="max-height: 400px; overflow-y: auto;">';
+                storesHTML += `<h3>🏪 ${msg.found} ${data.count} ${msg.storesNearby}</h3>`;
+                
+                data.stores.forEach(store => {
+                    storesHTML += `
+                        <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: white;">
+                            <h4 style="margin: 0 0 10px 0; color: #2c5530;">${store.name}</h4>
+                            <p style="margin: 5px 0;"><strong>${msg.type}:</strong> ${store.type}</p>
+                            <p style="margin: 5px 0;"><strong>${msg.address}:</strong> ${store.address}</p>
+                            <p style="margin: 5px 0;"><strong>${msg.phone}:</strong> ${store.phone}</p>
+                            <p style="margin: 5px 0;"><strong>${msg.distance}:</strong> ${store.distance} km</p>
+                            ${store.rating ? `<p style="margin: 5px 0;"><strong>${msg.rating}:</strong> ${'⭐'.repeat(Math.floor(store.rating))} ${store.rating}</p>` : ''}
+                            ${store.is_open !== undefined ? `<p style="margin: 5px 0;"><strong>${msg.status}:</strong> ${store.is_open ? '🟢 ' + msg.openNow : '🔴 ' + msg.closed}</p>` : ''}
+                            ${store.products && store.products.length > 0 ? `<p style="margin: 5px 0;"><strong>${msg.services}:</strong> ${store.products.join(', ')}</p>` : ''}
+                            <a href="https://www.google.com/maps?q=${store.latitude},${store.longitude}" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 15px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">📍 ${msg.getDirections}</a>
+                        </div>
+                    `;
+                });
+                
+                storesHTML += '</div>';
+                
+                // Show in results section
+                const resultsDiv = document.getElementById('diagnosisResults');
+                resultsDiv.innerHTML = storesHTML;
+                document.getElementById('resultsSection').style.display = 'block';
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                modal.style.display = 'none';
+                console.error('Error finding stores:', error);
+                alert(msg.error);
+            }
+        }
+    </script>
+</body>
+
+</html>
