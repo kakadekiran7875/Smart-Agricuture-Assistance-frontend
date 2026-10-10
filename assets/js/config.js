@@ -1,6 +1,6 @@
 ﻿// Central API configuration
 const API_CONFIG = {
-    BASE_URL: 'http://192.168.6.60:5001',
+    BASE_URL: 'https://smart-agricuture-assistance-backend.onrender.com',
     ENDPOINTS: {
         DISEASE_DETECT: '/detect',
         CROP_RECOMMEND: '/api/crop/recommend',
@@ -20,8 +20,8 @@ const API_CONFIG = {
 // Backward compatibility for older scripts that expect window.CONFIG / API_BASE_URL
 window.API_CONFIG = API_CONFIG;
 window.CONFIG = {
-    BACKEND_IP: '192.168.6.60',
-    BACKEND_PORT: '5001',
+    BACKEND_IP: 'smart-agricuture-assistance-backend.onrender.com',
+    BACKEND_PORT: '443',
     BACKEND_URL: API_CONFIG.BASE_URL,
     API_BASE_URL: API_CONFIG.BASE_URL + '/api'
 };
