@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "vite build && node scripts/copy-assets.js",
-    "type": "module",
     "preview": "vite preview",
     "deploy": "npm run build && npm run preview",
     "lint": "echo 'linted'"
