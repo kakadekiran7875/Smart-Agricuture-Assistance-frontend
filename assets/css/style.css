@@ -2372,6 +2372,52 @@ body.dark-mode .faq-answer p {
     color: #ccc;
 }
 
+/* ============================================
+   UNIVERSAL BACK BUTTON
+   ============================================ */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    margin: 1.5rem 0 1.5rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary, #2E7D32);
+    background: rgba(46, 125, 50, 0.08);
+    border: 1px solid rgba(46, 125, 50, 0.18);
+    border-radius: var(--border-radius-sm, 8px);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.back-btn:hover {
+    color: #ffffff;
+    background: var(--primary, #2E7D32);
+    border-color: var(--primary, #2E7D32);
+    transform: translateX(-4px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+}
+
+.back-btn:active {
+    transform: translateX(-2px) scale(0.98);
+}
+
+body.dark-mode .back-btn {
+    color: #81C784;
+    background: rgba(129, 199, 132, 0.12);
+    border-color: rgba(129, 199, 132, 0.25);
+}
+
+body.dark-mode .back-btn:hover {
+    color: #ffffff;
+    background: var(--primary-light, #388E3C);
+    border-color: var(--primary-light, #388E3C);
+}
+
 /* Performance Optimization */
 @media (prefers-reduced-motion: reduce) {
     *,
