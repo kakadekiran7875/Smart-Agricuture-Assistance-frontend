@@ -11,6 +11,11 @@
 </head>
 
 <body>
+    <!-- AI Assistant Chat Button (Floating) -->
+    <button class="ai-chat-button" onclick="toggleAIChat()" id="aiChatBtn" title="AI Assistant">
+        <span class="chat-icon">🤖</span>
+        <span class="chat-pulse"></span>
+    </button>
 
     <!-- Redesigned Header/Navbar -->
     <nav class="navbar" role="navigation" aria-label="Main Navigation">
@@ -103,63 +108,123 @@
                 <h2 id="featuresTitle">Everything You Need for Smarter Farming</h2>
             </div>
             <div class="features-grid">
-                <!-- Feature 1: Crop Recommendation -->
-                <div class="feature-card" onclick="navigateTo('pages/crop-recommendation.html')">
-                    <span class="feature-icon">🌱</span>
-                    <h3 id="f1Title">🌱 Crop Recommendation</h3>
-                    <p id="f1Desc">Get suitable crop recommendations based on soil, weather and farming conditions.</p>
-                    <div class="feature-action">
-                        <span id="cropRecAction">Get Recommendation →</span>
-                    </div>
-                </div>
-
-                <!-- Feature 2: Disease Detection -->
+                <!-- 1. Crop Diagnosis -->
                 <div class="feature-card" onclick="navigateTo('pages/diagnosis.html')">
-                    <span class="feature-icon">🤖</span>
-                    <h3 id="f2Title">🤖 Disease Detection</h3>
-                    <p id="f2Desc">Upload a crop image and identify possible plant diseases using AI.</p>
+                    <div class="feature-icon">🔬</div>
+                    <h3 id="diagnosisTitle">Crop Diagnosis</h3>
+                    <p id="diagnosisDesc">Upload photos of your crops and get instant AI-powered disease diagnosis with treatment recommendations.</p>
                     <div class="feature-action">
                         <span id="diagnosisAction">Diagnose Now →</span>
                     </div>
                 </div>
 
-                <!-- Feature 3: Weather Updates -->
-                <div class="feature-card" onclick="navigateTo('pages/weather.html')">
-                    <span class="feature-icon">🌦️</span>
-                    <h3 id="f3Title">🌦️ Weather Updates</h3>
-                    <p id="f3Desc">Get real-time weather information and farming-friendly weather insights.</p>
-                    <div class="feature-action">
-                        <span id="weatherAction">View Weather →</span>
-                    </div>
-                </div>
-
-                <!-- Feature 4: Market Prices -->
+                <!-- 2. Market Prices -->
                 <div class="feature-card" onclick="navigateTo('pages/market.html')">
-                    <span class="feature-icon">💰</span>
-                    <h3 id="f4Title">💰 Market Prices</h3>
-                    <p id="f4Desc">Check current crop market prices and make better selling decisions.</p>
+                    <div class="feature-icon">💰</div>
+                    <h3 id="marketTitle">Market Prices</h3>
+                    <p id="marketDesc">Get real-time market prices for your crops across different mandis and make informed selling decisions.</p>
                     <div class="feature-action">
                         <span id="marketAction">Check Prices →</span>
                     </div>
                 </div>
 
-                <!-- Feature 5: Soil & IoT Monitoring -->
+                <!-- 3. Government Subsidies -->
+                <div class="feature-card" onclick="navigateTo('pages/subsidies.html')">
+                    <div class="feature-icon">🏛️</div>
+                    <h3 id="subsidiesTitle">Government Subsidies</h3>
+                    <p id="subsidiesDesc">Discover available government schemes, subsidies, and financial assistance programs for farmers.</p>
+                    <div class="feature-action">
+                        <span id="subsidiesAction">Explore Schemes →</span>
+                    </div>
+                </div>
+
+                <!-- 4. Weather Forecast -->
+                <div class="feature-card" onclick="navigateTo('pages/weather.html')">
+                    <div class="feature-icon">🌤️</div>
+                    <h3 id="weatherTitle">Weather Forecast</h3>
+                    <p id="weatherDesc">Get accurate weather forecasts for multiple locations across Karnataka, Maharashtra, Tamil Nadu, Kerala, Andhra Pradesh & Telangana.</p>
+                    <div class="feature-action">
+                        <span id="weatherAction">View Weather →</span>
+                    </div>
+                </div>
+
+                <!-- 5. Soil Analysis -->
                 <div class="feature-card" onclick="navigateTo('pages/soil-analysis.html')">
-                    <span class="feature-icon">💧</span>
-                    <h3 id="f5Title">💧 Soil & IoT Monitoring</h3>
-                    <p id="f5Desc">Monitor soil moisture, temperature and other farm conditions using IoT sensors.</p>
+                    <div class="feature-icon">🌍</div>
+                    <h3 id="soilTitle">Soil Analysis</h3>
+                    <p id="soilDesc">Test your soil quality by analyzing pH levels and organic carbon content. Get personalized recommendations for better crop yields.</p>
                     <div class="feature-action">
                         <span id="soilAction">Analyze Soil →</span>
                     </div>
                 </div>
 
-                <!-- Feature 6: Government Schemes -->
-                <div class="feature-card" onclick="navigateTo('pages/subsidies.html')">
-                    <span class="feature-icon">🏛️</span>
-                    <h3 id="f6Title">🏛️ Government Schemes</h3>
-                    <p id="f6Desc">Find useful agriculture subsidies, schemes and government support programs.</p>
+                <!-- 6. Pest Detection -->
+                <div class="feature-card" onclick="navigateTo('pages/pest-detection.html')">
+                    <div class="feature-icon">🐛</div>
+                    <h3 id="pestTitle">Pest Detection</h3>
+                    <p id="pestDesc">Identify pests affecting your crops by reporting symptoms. Get instant treatment recommendations and control measures.</p>
                     <div class="feature-action">
-                        <span id="subsidiesAction">Explore Schemes →</span>
+                        <span id="pestAction">Detect Pest →</span>
+                    </div>
+                </div>
+
+                <!-- 7. Crop Recommendation -->
+                <div class="feature-card" onclick="navigateTo('pages/crop-recommendation.html')">
+                    <div class="feature-icon">🌾</div>
+                    <h3 id="cropRecTitle">Crop Recommendation</h3>
+                    <p id="cropRecDesc">Get personalized crop suggestions based on your soil's nitrogen and phosphorus levels for optimal yields.</p>
+                    <div class="feature-action">
+                        <span id="cropRecAction">Get Recommendation →</span>
+                    </div>
+                </div>
+
+                <!-- 8. Fertilizer Recommendation -->
+                <div class="feature-card" onclick="navigateTo('pages/fertilizer-recommendation.html')">
+                    <div class="feature-icon">🧪</div>
+                    <h3 id="fertilizerTitle">Fertilizer Recommendation</h3>
+                    <p id="fertilizerDesc">Find the right fertilizer for your crop based on current NPK levels in your soil.</p>
+                    <div class="feature-action">
+                        <span id="fertilizerAction">Find Fertilizer →</span>
+                    </div>
+                </div>
+
+                <!-- 9. Chat with Expert -->
+                <div class="feature-card" onclick="navigateTo('pages/chat-expert.html')">
+                    <div class="feature-icon">💬</div>
+                    <h3 id="chatExpertTitle">Chat with Expert</h3>
+                    <p id="chatExpertDesc">Get instant answers to your farming questions from agricultural experts in real-time.</p>
+                    <div class="feature-action">
+                        <span id="chatExpertAction">Start Chat →</span>
+                    </div>
+                </div>
+
+                <!-- 10. Loan Calculator -->
+                <div class="feature-card" onclick="navigateTo('pages/loan-calculator.html')">
+                    <div class="feature-icon">🧮</div>
+                    <h3 id="loanCalcTitle">Loan Calculator</h3>
+                    <p id="loanCalcDesc">Calculate agricultural loan EMI and explore government loan schemes for farmers.</p>
+                    <div class="feature-action">
+                        <span id="loanCalcAction">Calculate EMI →</span>
+                    </div>
+                </div>
+
+                <!-- 11. Yield Prediction -->
+                <div class="feature-card" onclick="navigateTo('pages/yield-prediction.html')">
+                    <div class="feature-icon">📈</div>
+                    <h3 id="yieldPredTitle">Yield Prediction</h3>
+                    <p id="yieldPredDesc">Predict your crop yield using AI based on soil, weather, and farming practices.</p>
+                    <div class="feature-action">
+                        <span id="yieldPredAction">Predict Yield →</span>
+                    </div>
+                </div>
+
+                <!-- 12. Training Videos -->
+                <div class="feature-card" onclick="navigateTo('pages/training-videos.html')">
+                    <div class="feature-icon">🎓</div>
+                    <h3 id="trainingVideosTitle">Training Videos</h3>
+                    <p id="trainingVideosDesc">Learn modern farming techniques from expert-led video tutorials in multiple languages.</p>
+                    <div class="feature-action">
+                        <span id="trainingVideosAction">Watch Videos →</span>
                     </div>
                 </div>
             </div>
@@ -314,39 +379,116 @@
     <section class="faq-section">
         <div class="container">
             <h2 id="faqTitle">Frequently Asked Questions</h2>
-            <p class="faq-subtitle" id="faqSubtitle" style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Find answers to common questions about our Smart Agriculture Assistant</p>
+            <p class="faq-subtitle" id="faqSubtitle">Find answers to common questions about our Smart Agriculture Assistant</p>
             
-            <div class="faq-container" style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-container">
                 <!-- FAQ Item 1 -->
                 <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)" style="width: 100%; display: flex; justify-content: space-between; padding: 16px; background: var(--card-bg); border: 1px solid var(--border-color); cursor: pointer; border-radius: var(--border-radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-dark); text-align: left; margin-bottom: 8px;">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
                         <span id="faq1Q">How does the crop disease detection work?</span>
                         <span class="faq-icon">+</span>
                     </button>
-                    <div class="faq-answer" style="display: none; padding: 16px; background: var(--bg-light); border-left: 4px solid var(--primary); margin-bottom: 12px; font-size: 0.95rem;">
+                    <div class="faq-answer">
                         <p id="faq1A">Simply upload a clear photo of the affected plant or leaf. Our AI-powered system analyzes the image and identifies the disease within seconds. You'll receive detailed information about the disease, its causes, and recommended treatment methods.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
                 <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)" style="width: 100%; display: flex; justify-content: space-between; padding: 16px; background: var(--card-bg); border: 1px solid var(--border-color); cursor: pointer; border-radius: var(--border-radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-dark); text-align: left; margin-bottom: 8px;">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
                         <span id="faq2Q">Is the service available in my local language?</span>
                         <span class="faq-icon">+</span>
                     </button>
-                    <div class="faq-answer" style="display: none; padding: 16px; background: var(--bg-light); border-left: 4px solid var(--primary); margin-bottom: 12px; font-size: 0.95rem;">
-                        <p id="faq2A">Yes! Our platform supports 8 regional languages including English, Hindi, Marathi, Kannada, Telugu, Tamil, Gujarati, and Bengali. Click the language dropdown selector in the navigation bar to choose your preferred language.</p>
+                    <div class="faq-answer">
+                        <p id="faq2A">Yes! Our platform supports multiple regional languages. Use the language selector to switch between English, Hindi, Kannada, Marathi, and more.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
                 <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)" style="width: 100%; display: flex; justify-content: space-between; padding: 16px; background: var(--card-bg); border: 1px solid var(--border-color); cursor: pointer; border-radius: var(--border-radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-dark); text-align: left; margin-bottom: 8px;">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
                         <span id="faq3Q">How accurate are the market prices?</span>
                         <span class="faq-icon">+</span>
                     </button>
-                    <div class="faq-answer" style="display: none; padding: 16px; background: var(--bg-light); border-left: 4px solid var(--primary); margin-bottom: 12px; font-size: 0.95rem;">
+                    <div class="faq-answer">
                         <p id="faq3A">Market prices are updated daily from government mandi databases and verified agricultural markets. We provide real-time pricing information to help you make informed selling decisions.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq4Q">Can I contact an agricultural expert?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq4A">Absolutely! Click the "Contact Expert" button, fill in your details and crop issue, and an agricultural expert will call you within 30 minutes. This service is available 24/7.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq5Q">How do I find nearby agricultural stores?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq5A">Use the "Find Nearby Store" feature. Allow location access, and we'll show you the nearest stores selling seeds, fertilizers, pesticides, and farming equipment with contact details and directions.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq6Q">What government subsidies am I eligible for?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq6A">Visit the "Government Subsidies" section to explore various schemes like PM-KISAN, crop insurance, irrigation subsidies, and equipment loans. Each scheme includes eligibility criteria and application procedures.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq7Q">Is my data secure and private?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq7A">Yes! We take data privacy seriously. Your personal information, photos, and queries are encrypted and stored securely. We never share your data with third parties without your consent.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq8Q">How do I use the AI Assistant?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq8A">Click the AI Assistant button (🤖) at the bottom-right. You can type your questions or use voice input. Ask about crops, weather, pests, fertilizers, or any farming-related queries in your preferred language.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 9 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq9Q">Do I need internet to use this service?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq9A">Yes, an internet connection is required for real-time features like disease detection, market prices, and weather updates. However, we're working on offline capabilities for basic features.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 10 -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span id="faq10Q">Is this service free?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p id="faq10A">Yes! All basic features including crop diagnosis, weather forecasts, market prices, and expert consultation are completely free for farmers. Our mission is to empower farmers with technology.</p>
                     </div>
                 </div>
             </div>
@@ -464,6 +606,9 @@
                 </div>
             </div>
             <div class="chat-header-right">
+                <button class="chat-lang-btn" onclick="cycleChatLanguage()" id="chatLangBtn" title="Change Language">
+                    <span id="chatLangIcon">🌐</span>
+                </button>
                 <button class="chat-minimize-btn" onclick="toggleAIChat()" title="Close">
                     <span>✕</span>
                 </button>

@@ -2095,13 +2095,98 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeExpertForm();
     }
 
-    // Prevent default on placeholder links (e.g. href="#") so the page doesn't jump or pseudo-reload
-    document.querySelectorAll('a[href="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-        });
-    });
+    // Ensure AI Chat widget exists on all pages
+    ensureAIChatWidget();
 });
+
+// Auto-inject AI Chat widget if not already in HTML
+function ensureAIChatWidget() {
+    if (!document.getElementById('aiChatBtn')) {
+        const chatBtn = document.createElement('button');
+        chatBtn.className = 'ai-chat-button';
+        chatBtn.id = 'aiChatBtn';
+        chatBtn.title = 'AI Assistant';
+        chatBtn.setAttribute('onclick', 'toggleAIChat()');
+        chatBtn.innerHTML = `
+            <span class="chat-icon">🤖</span>
+            <span class="chat-pulse"></span>
+        `;
+        document.body.appendChild(chatBtn);
+    }
+    
+    if (!document.getElementById('aiChatbox')) {
+        const chatbox = document.createElement('div');
+        chatbox.id = 'aiChatbox';
+        chatbox.className = 'ai-chatbox';
+        chatbox.innerHTML = `
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <span class="chat-avatar">🤖</span>
+                    <div>
+                        <h3 id="chatTitle">AI Farm Assistant</h3>
+                        <span class="chat-status" id="chatStatus">Online</span>
+                    </div>
+                </div>
+                <div class="chat-header-right">
+                    <button class="chat-lang-btn" onclick="cycleChatLanguage()" id="chatLangBtn" title="Change Language">
+                        <span id="chatLangIcon">🌐</span>
+                    </button>
+                    <button class="chat-minimize-btn" onclick="toggleAIChat()" title="Close">
+                        <span>✕</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p id="welcomeMsg">Hello! I'm your AI farming assistant. How can I help you today?</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-quick-questions">
+                <button class="quick-question" onclick="askQuestion('crop-disease')" id="quickQ1">
+                    🌾 Crop Disease Help
+                </button>
+                <button class="quick-question" onclick="askQuestion('market-price')" id="quickQ2">
+                    💰 Market Prices
+                </button>
+                <button class="quick-question" onclick="askQuestion('weather')" id="quickQ3">
+                    🌤️ Weather Info
+                </button>
+                <button class="quick-question" onclick="askQuestion('fertilizer')" id="quickQ4">
+                    🧪 Fertilizer Advice
+                </button>
+            </div>
+            
+            <div class="chat-input-area">
+                <button class="voice-btn" onclick="toggleVoiceInput()" id="voiceBtn" title="Voice Input">
+                    <span id="voiceIcon">🎤</span>
+                </button>
+                <input type="text" 
+                       id="chatInput" 
+                       placeholder="Type your question..." 
+                       onkeypress="handleChatKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                    <span>📤</span>
+                </button>
+            </div>
+            
+            <div class="voice-indicator" id="voiceIndicator" style="display: none;">
+                <div class="voice-animation">
+                    <span class="voice-wave"></span>
+                    <span class="voice-wave"></span>
+                    <span class="voice-wave"></span>
+                </div>
+                <p id="voiceListening">Listening...</p>
+            </div>
+        `;
+        document.body.appendChild(chatbox);
+    }
+}
 
 // Also initialize immediately if DOM is already parsed
 if (document.readyState === 'interactive' || document.readyState === 'complete') {
