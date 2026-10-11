@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Farmer Login - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .login-page-container {
+            max-width: 520px;
+            margin: 40px auto 60px;
+            padding: 0 16px;
+        }
+
+        .login-card {
+            background: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e0e0e0);
+            border-radius: var(--border-radius-lg, 24px);
+            padding: 36px 32px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4CAF50, #2E7D32, #81C784);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .login-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark, #1B5E20);
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: var(--text-muted, #666);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .demo-login-box {
+            background: rgba(76, 175, 80, 0.08);
+            border: 1.5px dashed var(--primary, #2E7D32);
+            border-radius: 14px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .demo-login-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark, #1B5E20);
+            margin-bottom: 6px;
+        }
+
+        .demo-login-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted, #666);
+            margin-bottom: 12px;
+        }
+
+        .btn-demo-login {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            color: #ffffff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-demo-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.35);
+        }
+
+        .divider-text {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted, #888);
+            font-size: 0.85rem;
+        }
+
+        .divider-text::before,
+        .divider-text::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color, #ddd);
+        }
+
+        .divider-text span {
+            padding: 0 12px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-dark, #222);
+        }
+
+        .form-control-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control-icon {
+            position: absolute;
+            left: 14px;
+            font-size: 1.1rem;
+            color: #888;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1.5px solid var(--border-color, #ddd);
+            border-radius: var(--border-radius-sm, 8px);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: var(--bg-light, #fafafa);
+            color: var(--text-dark, #222);
+            transition: all 0.25s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary, #2E7D32);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-submit-login {
+            width: 100%;
+            background: var(--primary, #2E7D32);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: var(--border-radius-sm, 8px);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit-login:hover {
+            background: var(--primary-dark, #1B5E20);
+            transform: translateY(-2px);
+        }
+
+        .farmer-badges-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color, #eee);
+        }
+
+        .f-badge {
+            background: rgba(46, 125, 50, 0.08);
+            color: var(--primary-dark, #1B5E20);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        body.dark-mode .login-card {
+            background: #242424;
+            border-color: #383838;
+        }
+
+        body.dark-mode .demo-login-box {
+            background: rgba(76, 175, 80, 0.12);
+            border-color: #4CAF50;
+        }
+
+        body.dark-mode .form-input {
+            background: #2e2e2e;
+            border-color: #444;
+            color: #ffffff;
+        }
+
+        body.dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <a href="login.html" class="btn-nav-login active" id="navLogin">Login</a>
+                <a href="../index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="container">
+            <a href="../index.html" class="back-btn">← Back to Home</a>
+
+            <div class="login-page-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <span class="login-icon">🌾</span>
+                        <h1>Farmer Portal Login</h1>
+                        <p>Sign in to access your personal AI Crop Doctor, live weather insights, soil health records, and mandi rates.</p>
+                    </div>
+
+                    <!-- Fast Demo Login for instant access -->
+                    <div class="demo-login-box">
+                        <h3>⚡ One-Click Instant Access</h3>
+                        <p>Experience the full AI Assistance Dashboard instantly as verified farmer Ramesh Patel (Nashik, MH).</p>
+                        <button type="button" class="btn-demo-login" id="btnQuickDemoLogin" onclick="handleDemoLogin()">
+                            <span>👨‍🌾</span> Login as Demo Farmer (Ramesh Patel)
+                        </button>
+                    </div>
+
+                    <div class="divider-text">
+                        <span>OR SIGN IN WITH MOBILE</span>
+                    </div>
+
+                    <form id="farmerLoginForm" onsubmit="handleFormLogin(event)">
+                        <div class="form-group">
+                            <label for="farmerPhoneInput">Mobile Number / Kisan ID</label>
+                            <div class="form-control-wrap">
+                                <span class="form-control-icon">📱</span>
+                                <input type="tel" id="farmerPhoneInput" class="form-input" placeholder="e.g. 9876543210" required value="9876543210">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="farmerPinInput">4-Digit Security PIN or OTP</label>
+                            <div class="form-control-wrap">
+                                <span class="form-control-icon">🔒</span>
+                                <input type="password" id="farmerPinInput" class="form-input" placeholder="••••" maxlength="6" required value="1234">
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                <input type="checkbox" id="rememberFarmer" checked> Remember this device
+                            </label>
+                            <a href="#" style="color: var(--primary, #2E7D32); text-decoration: none; font-weight: 600;" onclick="alert('OTP sent to demo number: 1234'); return false;">Forgot PIN?</a>
+                        </div>
+
+                        <button type="submit" class="btn-submit-login" id="btnLoginSubmit">
+                            🚀 Login to AI Assistance Dashboard
+                        </button>
+                    </form>
+
+                    <div class="farmer-badges-row">
+                        <span class="f-badge">🤖 AI Crop Doctor</span>
+                        <span class="f-badge">🌤️ Weather Alerts</span>
+                        <span class="f-badge">🧪 Soil NPK Tracker</span>
+                        <span class="f-badge">💰 Live Mandi Rates</span>
+                        <span class="f-badge">🏛️ PM-Kisan Status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">✅</div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        function handleDemoLogin() {
+            loginFarmer({
+                name: 'Ramesh Patel',
+                phone: '+91 98765 43210',
+                district: 'Nashik',
+                village: 'Dindori',
+                state: 'Maharashtra',
+                landSize: '4.5 Acres',
+                mainCrops: 'Wheat & Tomato',
+                kisanId: 'MH-NSK-2026-8841',
+                isLoggedIn: true
+            });
+        }
+
+        function handleFormLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('farmerPhoneInput').value.trim();
+            loginFarmer({
+                name: 'Ramesh Patel',
+                phone: phone ? `+91 ${phone}` : '+91 98765 43210',
+                district: 'Nashik',
+                village: 'Dindori',
+                state: 'Maharashtra',
+                landSize: '4.5 Acres',
+                mainCrops: 'Wheat & Tomato',
+                kisanId: 'MH-NSK-2026-8841',
+                isLoggedIn: true
+            });
+        }
+
+        // Auto-check if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getFarmerUser();
+            if (user && user.isLoggedIn) {
+                // Pre-inform user
+                console.log('Farmer already logged in:', user.name);
+            }
+        });
+    </script>
+</body>
+</html>

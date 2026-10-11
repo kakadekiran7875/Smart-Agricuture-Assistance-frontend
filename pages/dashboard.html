@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Farmer AI Dashboard - Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .dashboard-wrapper {
+            padding: 20px 0 60px;
+        }
+
+        /* Top Welcome Card */
+        .farmer-profile-card {
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.95), rgba(27, 94, 32, 0.95)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200') center/cover;
+            color: #ffffff;
+            border-radius: var(--border-radius-lg, 24px);
+            padding: 32px 36px;
+            box-shadow: 0 12px 36px rgba(27, 94, 32, 0.25);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .farmer-profile-card:after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .farmer-profile-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .farmer-identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .farmer-avatar-circle {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #2E7D32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            flex-shrink: 0;
+        }
+
+        .farmer-info h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .farmer-info p {
+            font-size: 0.95rem;
+            opacity: 0.92;
+            margin-bottom: 8px;
+        }
+
+        .farmer-meta-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-pill {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .farmer-score-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 18px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 170px;
+        }
+
+        .score-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #A5D6A7;
+        }
+
+        .score-lbl {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        /* Dashboard Grid Layout */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .col-8 {
+            grid-column: span 8;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-6 {
+            grid-column: span 6;
+        }
+
+        .col-12 {
+            grid-column: span 12;
+        }
+
+        @media (max-width: 992px) {
+            .col-8, .col-4, .col-6 {
+                grid-column: span 12;
+            }
+        }
+
+        /* Dashboard Card */
+        .dash-card {
+            background: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #e0e0e0);
+            border-radius: var(--border-radius-md, 16px);
+            padding: 24px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dash-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            border-color: rgba(46, 125, 50, 0.3);
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
+            padding-bottom: 12px;
+        }
+
+        .card-header-flex h2,
+        .card-header-flex h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-dark, #1B5E20);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+
+        .badge-status {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .badge-live {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .badge-warn {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        /* Embedded AI Copilot */
+        .ai-copilot-container {
+            display: flex;
+            flex-direction: column;
+            height: 480px;
+        }
+
+        .copilot-messages {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--bg-light, #f8f9fa);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color, #e8e8e8);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .copilot-msg {
+            display: flex;
+            gap: 10px;
+            max-width: 85%;
+            animation: messageFadeIn 0.3s ease;
+        }
+
+        .copilot-msg.bot {
+            align-self: flex-start;
+        }
+
+        .copilot-msg.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .c-avatar {
+            font-size: 1.4rem;
+            min-width: 32px;
+        }
+
+        .c-bubble {
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .copilot-msg.user .c-bubble {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            color: #ffffff;
+            border: none;
+        }
+
+        .copilot-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .c-chip {
+            background: rgba(46, 125, 50, 0.08);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            color: var(--primary-dark, #1B5E20);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .c-chip:hover {
+            background: var(--primary, #2E7D32);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .copilot-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .copilot-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color, #ddd);
+            border-radius: 25px;
+            font-size: 0.92rem;
+            font-family: inherit;
+            outline: none;
+            background: var(--bg-light, #fafafa);
+            transition: all 0.2s ease;
+        }
+
+        .copilot-input:focus {
+            border-color: var(--primary, #2E7D32);
+            background: #ffffff;
+        }
+
+        .c-btn-send {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            color: #ffffff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .c-btn-send:hover {
+            transform: scale(1.08);
+        }
+
+        /* Metric Tiles */
+        .metric-tiles-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .metric-tile {
+            background: var(--bg-light, #f8f9fa);
+            border: 1px solid var(--border-color, #eee);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .m-val {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary-dark, #1B5E20);
+            margin: 4px 0 2px;
+        }
+
+        .m-lbl {
+            font-size: 0.78rem;
+            color: var(--text-muted, #777);
+            font-weight: 500;
+        }
+
+        .advisory-box {
+            background: rgba(46, 125, 50, 0.08);
+            border-left: 4px solid var(--primary, #2E7D32);
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: var(--text-dark, #333);
+            margin-top: auto;
+        }
+
+        .advisory-box strong {
+            color: var(--primary-dark, #1B5E20);
+        }
+
+        /* Quick Action Row */
+        .dash-actions-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .dash-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+        }
+
+        .dash-btn-primary {
+            background: var(--primary, #2E7D32);
+            color: #ffffff;
+        }
+
+        .dash-btn-primary:hover {
+            background: var(--primary-dark, #1B5E20);
+            transform: translateY(-2px);
+        }
+
+        .dash-btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary, #2E7D32);
+            color: var(--primary, #2E7D32);
+        }
+
+        .dash-btn-outline:hover {
+            background: rgba(46, 125, 50, 0.08);
+        }
+
+        /* Recent Activity Table */
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .activity-table th,
+        .activity-table td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color, #eee);
+        }
+
+        .activity-table th {
+            font-weight: 700;
+            color: var(--text-muted, #666);
+            background: var(--bg-light, #fafafa);
+        }
+
+        body.dark-mode .dash-card {
+            background: #242424;
+            border-color: #383838;
+        }
+
+        body.dark-mode .copilot-messages,
+        body.dark-mode .metric-tile,
+        body.dark-mode .activity-table th {
+            background: #1c1c1c;
+            border-color: #333;
+        }
+
+        body.dark-mode .copilot-input {
+            background: #2a2a2a;
+            border-color: #444;
+            color: #ffffff;
+        }
+
+        body.dark-mode .c-bubble {
+            background: #2e2e2e;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        body.dark-mode .advisory-box {
+            background: rgba(76, 175, 80, 0.12);
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand" id="appTitle">
+                🌱 Smart Agriculture Assistant
+            </a>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
+                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
+                <li><a href="weather.html" id="navWeather">Weather</a></li>
+                <li><a href="market.html" id="navMarket">Market Prices</a></li>
+                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
+                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
+                <li><a href="chat-expert.html" id="navAbout">About</a></li>
+            </ul>
+            
+            <div class="navbar-actions">
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                        🌐 <span id="currentLangLabel">English</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown" role="menu">
+                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
+                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
+                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
+                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
+                    </div>
+                </div>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                
+                <!-- Logout Button -->
+                <button class="btn-nav-login" id="navLogoutBtn" onclick="logoutFarmer()" style="background: rgba(244, 67, 54, 0.1); color: #d32f2f; border: 1px solid rgba(244, 67, 54, 0.25);" title="Log out from dashboard">
+                    🚪 Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="container dashboard-wrapper">
+            <a href="../index.html" class="back-btn">← Back to Home</a>
+
+            <!-- Farmer Profile Overview Card -->
+            <section class="farmer-profile-card">
+                <div class="farmer-profile-flex">
+                    <div class="farmer-identity">
+                        <div class="farmer-avatar-circle">👨‍🌾</div>
+                        <div class="farmer-info">
+                            <h1 id="farmerDisplayName">Welcome, Ramesh Patel!</h1>
+                            <p id="farmerLocationText">📍 Dindori Village, Nashik District, Maharashtra | Kisan ID: MH-NSK-2026-8841</p>
+                            <div class="farmer-meta-pills">
+                                <span class="meta-pill">🚜 4.5 Acres Land</span>
+                                <span class="meta-pill">🌾 Primary Crops: Wheat & Tomato</span>
+                                <span class="meta-pill">💧 Soil: Alluvial Loam</span>
+                                <span class="meta-pill">🤖 AI Farm Companion: Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="farmer-score-box">
+                        <div class="score-val">94%</div>
+                        <div class="score-lbl">Farm Health Score</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid of AI Assistances -->
+            <div class="dash-grid">
+                
+                <!-- 1. Live AI Farm Copilot Panel (Col 8) -->
+                <div class="dash-card col-8">
+                    <div class="card-header-flex">
+                        <h2>🤖 Live AI Farming Copilot</h2>
+                        <span class="badge-status badge-live">● 24/7 Online</span>
+                    </div>
+                    <div class="ai-copilot-container">
+                        <div class="copilot-messages" id="copilotMessages">
+                            <div class="copilot-msg bot">
+                                <span class="c-avatar">🤖</span>
+                                <div class="c-bubble">
+                                    <strong>Namaste Ramesh ji!</strong> I am your personal AI Farm Copilot. Your soil nitrogen is optimal, but rain is expected tomorrow in Nashik. How can I assist your farm today?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="copilot-chips">
+                            <button type="button" class="c-chip" onclick="askCopilot('Leaves turning yellow on tomato plants')">🍂 Tomato Yellow Leaves</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('When should I irrigate wheat this week?')">💧 Wheat Irrigation Schedule</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('Tomato market rate prediction in Nashik')">💰 Tomato Price Forecast</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('Single Super Phosphate dosage for 1 acre')">🧪 Fertilizer Dosage</button>
+                        </div>
+                        <div class="copilot-input-row">
+                            <input type="text" id="copilotInput" class="copilot-input" placeholder="Ask your AI Farming Copilot anything in your language..." onkeypress="if(event.key==='Enter') sendCopilotMessage()">
+                            <button type="button" class="c-btn-send" onclick="sendCopilotMessage()" title="Send Question">📤</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. AI Weather & Smart Irrigation (Col 4) -->
+                <div class="dash-card col-4">
+                    <div class="card-header-flex">
+                        <h3>🌤️ AI Weather & Irrigation</h3>
+                        <span class="badge-status badge-warn">⚡ Rain Alert</span>
+                    </div>
+                    <div class="metric-tiles-row">
+                        <div class="metric-tile">
+                            <div class="m-val">28°C</div>
+                            <div class="m-lbl">Current Temp</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val">65%</div>
+                            <div class="m-lbl">Humidity</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val">18mm</div>
+                            <div class="m-lbl">Rain in 24h</div>
+                        </div>
+                    </div>
+                    <div class="advisory-box">
+                        <strong>AI Irrigation Advisory:</strong> Rain forecast for tomorrow evening. Postpone drip irrigation to save approximately <strong>3,200 Litres</strong> of water and prevent fungal root rot.
+                    </div>
+                    <div class="dash-actions-row">
+                        <a href="weather.html" class="dash-btn dash-btn-primary">View 7-Day Forecast →</a>
+                    </div>
+                </div>
+
+                <!-- 3. AI Crop Doctor & Instant Disease Scanner (Col 6) -->
+                <div class="dash-card col-6">
+                    <div class="card-header-flex">
+                        <h3>🔬 AI Crop Doctor (Diagnostic Hub)</h3>
+                        <span class="badge-status badge-live">96.8% Accuracy</span>
+                    </div>
+                    <div style="background: var(--bg-light, #fafafa); border: 2px dashed var(--border-color, #ccc); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 14px;">
+                        <span style="font-size: 2.2rem; display: block; margin-bottom: 6px;">📸</span>
+                        <strong style="font-size: 0.95rem;">Upload Photo of Crop Leaf or Stem</strong>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">AI instantly diagnoses blight, rust, leaf spot & pests with organic remedies.</p>
+                        <button type="button" class="dash-btn dash-btn-primary" style="margin-top: 10px;" onclick="simulateDiagnosticScan()">
+                            🔬 Run Sample AI Leaf Scan
+                        </button>
+                    </div>
+                    <div id="quickScanResult" class="advisory-box" style="display: none; background: #FFF8E1; border-color: #FFA000;">
+                        <strong>Scan Result: Tomato Early Blight (Alternaria solani)</strong><br>
+                        Confidence: 96.8% | AI Remedy: Spray Mancozeb 75% WP (2g/L) or apply organic 10,000 ppm Neem Oil.
+                    </div>
+                    <div class="dash-actions-row">
+                        <a href="diagnosis.html" class="dash-btn dash-btn-outline">Open Full AI Crop Diagnosis →</a>
+                    </div>
+                </div>
+
+                <!-- 4. AI Soil Health & Nutrient Balance (Col 6) -->
+                <div class="dash-card col-6">
+                    <div class="card-header-flex">
+                        <h3>🧪 AI Soil Health & Nutrients</h3>
+                        <span class="badge-status badge-live">Balanced</span>
+                    </div>
+                    <div class="metric-tiles-row">
+                        <div class="metric-tile">
+                            <div class="m-val" style="color: #2E7D32;">210</div>
+                            <div class="m-lbl">Nitrogen (N) kg/ha</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val" style="color: #E65100;">14</div>
+                            <div class="m-lbl">Phosphorus (P) kg/ha</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val" style="color: #2E7D32;">280</div>
+                            <div class="m-lbl">Potassium (K) kg/ha</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val" style="color: #1976D2;">6.7</div>
+                            <div class="m-lbl">Soil pH (Neutral)</div>
+                        </div>
+                    </div>
+                    <div class="advisory-box">
+                        <strong>AI Nutrient Advisory:</strong> Low Phosphorus detected for Rabi wheat. Supplement with <strong>50 kg Single Super Phosphate (SSP)</strong> before secondary tilling.
+                    </div>
+                    <div class="dash-actions-row">
+                        <a href="soil-analysis.html" class="dash-btn dash-btn-primary">Soil Analysis →</a>
+                        <a href="fertilizer-recommendation.html" class="dash-btn dash-btn-outline">Fertilizer Calculator →</a>
+                    </div>
+                </div>
+
+                <!-- 5. AI Mandi Price Predictor & Selling Advisory (Col 6) -->
+                <div class="dash-card col-6">
+                    <div class="card-header-flex">
+                        <h3>💰 AI Mandi Price Forecaster</h3>
+                        <span class="badge-status badge-live">↑ Upward Trend</span>
+                    </div>
+                    <div class="metric-tiles-row">
+                        <div class="metric-tile">
+                            <div class="m-val">₹2,850</div>
+                            <div class="m-lbl">Tomato / Qtl (Nashik)</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val">₹2,420</div>
+                            <div class="m-lbl">Wheat / Qtl</div>
+                        </div>
+                        <div class="metric-tile">
+                            <div class="m-val">₹1,950</div>
+                            <div class="m-lbl">Onion / Qtl (Lasalgaon)</div>
+                        </div>
+                    </div>
+                    <div class="advisory-box">
+                        <strong>AI Selling Opportunity:</strong> Tomato mandi price projected to peak at <strong>₹3,050/Qtl</strong> on Saturday due to weekend demand. Hold current harvest for 48 hours for +7% profit.
+                    </div>
+                    <div class="dash-actions-row">
+                        <a href="market.html" class="dash-btn dash-btn-primary">View All Mandis →</a>
+                    </div>
+                </div>
+
+                <!-- 6. AI Pest Alerts & PM-Kisan Status (Col 6) -->
+                <div class="dash-card col-6">
+                    <div class="card-header-flex">
+                        <h3>🐛 Pest Alert & 🏛️ Subsidies</h3>
+                        <span class="badge-status badge-warn">1 Active Alert</span>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; margin-bottom: 8px;">
+                            <span style="font-size: 1.2rem;">⚠️</span>
+                            <strong>Fruit Borer (Helicoverpa) Alert in Nashik District:</strong>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                            Install 5 pheromone traps per acre. Spray Bacillus thuringiensis (Bt) if larval infestation exceeds 5%.
+                        </p>
+                    </div>
+                    <div class="advisory-box" style="background: rgba(33, 150, 243, 0.08); border-color: #2196F3;">
+                        <strong>PM-Kisan Scheme Status:</strong> 16th Installment of ₹2,000 credited to linked Bank Account on 28 Feb 2026. MahaDBT Drip Irrigation subsidy application is under verification.
+                    </div>
+                    <div class="dash-actions-row">
+                        <a href="pest-detection.html" class="dash-btn dash-btn-outline">Pest Detection →</a>
+                        <a href="subsidies.html" class="dash-btn dash-btn-primary">Explore Schemes →</a>
+                    </div>
+                </div>
+
+                <!-- 7. Recent Diagnostics History (Col 12) -->
+                <div class="dash-card col-12">
+                    <div class="card-header-flex">
+                        <h2>📋 Recent Farm AI Scans & History</h2>
+                        <button type="button" class="dash-btn dash-btn-outline" onclick="showExpertContact()">📞 Request Expert Callback</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="activity-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Assistance Type</th>
+                                    <th>Crop / Plot</th>
+                                    <th>AI Finding</th>
+                                    <th>Recommended Action</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>11 Oct 2026</td>
+                                    <td>🔬 Disease Diagnosis</td>
+                                    <td>Tomato (Plot A)</td>
+                                    <td>Early Blight (Alternaria)</td>
+                                    <td>Neem oil spray (10,000 ppm)</td>
+                                    <td><span class="badge-status badge-live">Treated</span></td>
+                                </tr>
+                                <tr>
+                                    <td>08 Oct 2026</td>
+                                    <td>🧪 Soil NPK Test</td>
+                                    <td>Wheat (Plot B)</td>
+                                    <td>Low Phosphorus (14 kg/ha)</td>
+                                    <td>Apply 50kg Single Super Phosphate</td>
+                                    <td><span class="badge-status badge-warn">Pending Application</span></td>
+                                </tr>
+                                <tr>
+                                    <td>05 Oct 2026</td>
+                                    <td>🌤️ Weather Advisory</td>
+                                    <td>Entire Farm</td>
+                                    <td>Heat spike (34°C)</td>
+                                    <td>Mulching to retain moisture</td>
+                                    <td><span class="badge-status badge-live">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>01 Oct 2026</td>
+                                    <td>💰 Mandi Advisory</td>
+                                    <td>Soybean</td>
+                                    <td>Peak price window ₹4,650/Qtl</td>
+                                    <td>Sold 35 Quintals at APMC</td>
+                                    <td><span class="badge-status badge-live">Profitable (+8%)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">✅</div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
+    <!-- Modals -->
+    <div id="expertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('expertModal')">&times;</span>
+            <h2>Contact Agricultural Expert</h2>
+            <form class="expert-form">
+                <input type="text" id="farmerName" placeholder="Your Name" value="Ramesh Patel" required>
+                <input type="tel" id="farmerPhone" placeholder="Phone Number" value="+91 98765 43210" required>
+                <select id="cropType" required>
+                    <option value="wheat" selected>Wheat</option>
+                    <option value="tomato">Tomato</option>
+                    <option value="rice">Rice</option>
+                    <option value="cotton">Cotton</option>
+                </select>
+                <textarea id="issueDescription" placeholder="Describe your issue..." rows="4" required>Need guidance on phosphorus application timing before rainfall.</textarea>
+                <button type="submit" class="submit-btn" id="submitExpert">Request Expert Call</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Check authentication on dashboard load
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getFarmerUser();
+            if (user && user.isLoggedIn) {
+                document.getElementById('farmerDisplayName').textContent = `Welcome, ${user.name}!`;
+                document.getElementById('farmerLocationText').textContent = `📍 ${user.village || 'Dindori'} Village, ${user.district || 'Nashik'} District, ${user.state || 'Maharashtra'} | Kisan ID: ${user.kisanId || 'MH-NSK-2026-8841'}`;
+            } else {
+                // If not logged in, auto-login as demo farmer so dashboard works immediately
+                loginFarmer({
+                    name: 'Ramesh Patel',
+                    phone: '+91 98765 43210',
+                    district: 'Nashik',
+                    village: 'Dindori',
+                    state: 'Maharashtra',
+                    landSize: '4.5 Acres',
+                    mainCrops: 'Wheat & Tomato',
+                    kisanId: 'MH-NSK-2026-8841',
+                    isLoggedIn: true
+                });
+            }
+        });
+
+        // Copilot Interaction
+        function askCopilot(question) {
+            document.getElementById('copilotInput').value = question;
+            sendCopilotMessage();
+        }
+
+        function sendCopilotMessage() {
+            const input = document.getElementById('copilotInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            const messagesContainer = document.getElementById('copilotMessages');
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'copilot-msg user';
+            userDiv.innerHTML = `
+                <span class="c-avatar">👤</span>
+                <div class="c-bubble">${question}</div>
+            `;
+            messagesContainer.appendChild(userDiv);
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Generate AI Response
+            setTimeout(() => {
+                const response = getAIResponse(question);
+                const botDiv = document.createElement('div');
+                botDiv.className = 'copilot-msg bot';
+                botDiv.innerHTML = `
+                    <span class="c-avatar">🤖</span>
+                    <div class="c-bubble"><strong>AI Copilot:</strong> ${response}</div>
+                `;
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Text-to-speech if available
+                if (typeof speakText === 'function') {
+                    speakText(response);
+                }
+            }, 800);
+        }
+
+        function simulateDiagnosticScan() {
+            const resultBox = document.getElementById('quickScanResult');
+            resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+            if (typeof showToast === 'function') {
+                showToast('🔬 AI Diagnosis Complete: Early Blight (96.8% confidence)');
+            }
+        }
+    </script>
+</body>
+</html>

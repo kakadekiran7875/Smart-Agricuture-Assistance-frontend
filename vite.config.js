@@ -34,6 +34,8 @@ export default defineConfig({
                 'nearby-stores': resolve(__dirname, 'pages/nearby-stores.html'),
                 'test-crop': resolve(__dirname, 'pages/test-crop.html'),
                 'test-fertilizer-api': resolve(__dirname, 'pages/test-fertilizer-api.html'),
+                login: resolve(__dirname, 'pages/login.html'),
+                dashboard: resolve(__dirname, 'pages/dashboard.html'),
             },
         },
     },

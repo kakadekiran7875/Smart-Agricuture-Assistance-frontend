@@ -2097,6 +2097,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ensure AI Chat widget exists on all pages
     ensureAIChatWidget();
+
+    // Initialize Farmer Authentication state in Navbar
+    updateNavbarAuth();
 });
 
 // Auto-inject AI Chat widget if not already in HTML
@@ -2217,3 +2220,116 @@ function toggleFAQ(button) {
 }
 
 console.log('✅ FAQ accordion loaded!');
+
+// ============================================
+// FARMER AUTHENTICATION & DASHBOARD HELPERS
+// ============================================
+
+function getFarmerUser() {
+    try {
+        const user = localStorage.getItem('farmerUser');
+        return user ? JSON.parse(user) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function loginFarmer(userData) {
+    const defaultUser = {
+        name: 'Ramesh Patel',
+        phone: '+91 98765 43210',
+        district: 'Nashik',
+        village: 'Dindori',
+        state: 'Maharashtra',
+        landSize: '4.5 Acres',
+        mainCrops: 'Wheat & Tomato',
+        kisanId: 'MH-NSK-2026-8841',
+        isLoggedIn: true,
+        loginTime: new Date().toISOString()
+    };
+    
+    const userToSave = Object.assign({}, defaultUser, userData || {});
+    localStorage.setItem('farmerUser', JSON.stringify(userToSave));
+    
+    if (typeof showToast === 'function') {
+        showToast(`✅ Welcome, ${userToSave.name}! Opening your AI Farm Dashboard...`);
+    }
+    
+    updateNavbarAuth();
+    
+    // Redirect to dashboard
+    setTimeout(() => {
+        navigateTo('dashboard.html');
+    }, 500);
+}
+
+function logoutFarmer() {
+    localStorage.removeItem('farmerUser');
+    if (typeof showToast === 'function') {
+        showToast('👋 You have been logged out successfully.');
+    }
+    updateNavbarAuth();
+    setTimeout(() => {
+        navigateTo('index.html');
+    }, 400);
+}
+
+function updateNavbarAuth() {
+    const user = getFarmerUser();
+    const loginBtns = document.querySelectorAll('#navLogin, .btn-nav-login');
+    const isInPages = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
+    const dashboardUrl = isInPages ? 'dashboard.html' : 'pages/dashboard.html';
+    const loginUrl = isInPages ? 'login.html' : 'pages/login.html';
+
+    loginBtns.forEach(btn => {
+        if (user && user.isLoggedIn) {
+            btn.innerHTML = `👤 ${user.name.split(' ')[0]} <span style="font-size: 0.78rem; opacity: 0.9;">(Dashboard)</span>`;
+            btn.href = dashboardUrl;
+            btn.title = `Logged in as ${user.name} - Open Farmer AI Dashboard`;
+            btn.onclick = function(e) {
+                e.preventDefault();
+                navigateTo('dashboard.html');
+            };
+        } else {
+            btn.innerHTML = `Login`;
+            btn.href = loginUrl;
+            btn.title = `Farmer Login`;
+            btn.onclick = function(e) {
+                e.preventDefault();
+                openLoginModal();
+            };
+        }
+    });
+}
+
+function openLoginModal() {
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        modal.style.display = 'block';
+    } else {
+        navigateTo('login.html');
+    }
+}
+
+function closeLoginModal() {
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Expose globally
+window.getFarmerUser = getFarmerUser;
+window.loginFarmer = loginFarmer;
+window.logoutFarmer = logoutFarmer;
+window.updateNavbarAuth = updateNavbarAuth;
+window.openLoginModal = openLoginModal;
+window.closeLoginModal = closeLoginModal;
+
+// Initialize authentication on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateNavbarAuth);
+} else {
+    updateNavbarAuth();
+}
+
