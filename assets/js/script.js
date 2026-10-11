@@ -2274,41 +2274,65 @@ function logoutFarmer() {
     }, 400);
 }
 
+function handleGetStarted(e) {
+    if (e && e.preventDefault) {
+        e.preventDefault();
+    }
+    const user = getFarmerUser();
+    if (user && user.isLoggedIn) {
+        navigateTo('dashboard.html');
+    } else {
+        navigateTo('login.html');
+    }
+}
+
 function updateNavbarAuth() {
     const user = getFarmerUser();
-    const loginBtns = document.querySelectorAll('#navLogin, .btn-nav-login');
+    const startedBtns = document.querySelectorAll('#navStarted, .btn-nav-started, #btnGetStarted, #ctaBtn');
     const isInPages = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
     const dashboardUrl = isInPages ? 'dashboard.html' : 'pages/dashboard.html';
     const loginUrl = isInPages ? 'login.html' : 'pages/login.html';
 
-    loginBtns.forEach(btn => {
+    // Hide or clean up any remaining standalone navLogin buttons
+    const legacyLoginBtns = document.querySelectorAll('#navLogin');
+    legacyLoginBtns.forEach(btn => {
+        btn.style.display = 'none';
+    });
+
+    startedBtns.forEach(btn => {
         if (user && user.isLoggedIn) {
-            btn.innerHTML = `👤 ${user.name.split(' ')[0]} <span style="font-size: 0.78rem; opacity: 0.9;">(Dashboard)</span>`;
-            btn.href = dashboardUrl;
-            btn.title = `Logged in as ${user.name} - Open Farmer AI Dashboard`;
-            btn.onclick = function(e) {
-                e.preventDefault();
-                navigateTo('dashboard.html');
-            };
+            if (btn.id === 'navStarted' || btn.classList.contains('btn-nav-started')) {
+                btn.innerHTML = `👤 ${user.name.split(' ')[0]} <span style="font-size: 0.76rem; opacity: 0.95;">(Dashboard)</span>`;
+                btn.href = dashboardUrl;
+                btn.title = `Logged in as ${user.name} - Open AI Farm Dashboard`;
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    navigateTo('dashboard.html');
+                };
+            } else {
+                btn.innerHTML = `Open AI Dashboard →`;
+                btn.href = dashboardUrl;
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    navigateTo('dashboard.html');
+                };
+            }
         } else {
-            btn.innerHTML = `Login`;
-            btn.href = loginUrl;
-            btn.title = `Farmer Login`;
-            btn.onclick = function(e) {
-                e.preventDefault();
-                navigateTo('login.html');
-            };
+            if (btn.id === 'navStarted' || btn.classList.contains('btn-nav-started')) {
+                btn.innerHTML = `Get Started →`;
+                btn.href = loginUrl;
+                btn.title = `Get Started with AI Smart Agriculture`;
+                btn.onclick = handleGetStarted;
+            } else if (btn.id === 'btnGetStarted' || btn.id === 'ctaBtn') {
+                btn.href = loginUrl;
+                btn.onclick = handleGetStarted;
+            }
         }
     });
 }
 
 function openLoginModal() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.style.display = 'block';
-    } else {
-        navigateTo('login.html');
-    }
+    navigateTo('login.html');
 }
 
 function closeLoginModal() {
@@ -2322,6 +2346,7 @@ function closeLoginModal() {
 window.getFarmerUser = getFarmerUser;
 window.loginFarmer = loginFarmer;
 window.logoutFarmer = logoutFarmer;
+window.handleGetStarted = handleGetStarted;
 window.updateNavbarAuth = updateNavbarAuth;
 window.openLoginModal = openLoginModal;
 window.closeLoginModal = closeLoginModal;
