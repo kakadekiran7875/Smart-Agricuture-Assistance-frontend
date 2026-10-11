@@ -2296,7 +2296,7 @@ function updateNavbarAuth() {
             btn.title = `Farmer Login`;
             btn.onclick = function(e) {
                 e.preventDefault();
-                openLoginModal();
+                navigateTo('login.html');
             };
         }
     });

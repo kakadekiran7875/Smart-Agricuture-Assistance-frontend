@@ -8,18 +8,138 @@
     <title>Farmer AI Dashboard - Smart Agriculture Assistant</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        .dashboard-wrapper {
-            padding: 20px 0 60px;
+        :root {
+            --dash-primary: #1b5e20;
+            --dash-primary-light: #2e7d32;
+            --dash-accent: #4caf50;
+            --dash-gold: #f59e0b;
+            --dash-card-bg: var(--card-bg, #ffffff);
+            --dash-border: var(--border-color, #e2e8f0);
+            --dash-bg-subtle: rgba(46, 125, 50, 0.04);
         }
 
-        /* Top Welcome Card */
-        .farmer-profile-card {
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.95), rgba(27, 94, 32, 0.95)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200') center/cover;
+        .dashboard-wrapper {
+            padding: 16px 0 60px;
+        }
+
+        /* Top Executive Control Bar */
+        .exec-control-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            background: var(--dash-card-bg);
+            border: 1px solid var(--dash-border);
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+
+        .exec-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .status-pulse-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #16a34a;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulseRing 1.8s infinite;
+        }
+
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .live-clock-badge {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #64748b);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .plot-select-dropdown {
+            padding: 7px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--dash-border);
+            background: var(--bg-primary, #ffffff);
+            color: var(--text-primary, #0f172a);
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .exec-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-exec-action {
+            background: var(--bg-primary, #ffffff);
+            color: var(--text-primary, #0f172a);
+            border: 1px solid var(--dash-border);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-exec-action:hover {
+            border-color: #2e7d32;
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .btn-exec-action.primary {
+            background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
-            border-radius: var(--border-radius-lg, 24px);
+            border: none;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+        }
+
+        .btn-exec-action.primary:hover {
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+        }
+
+        /* Farmer Profile Banner */
+        .farmer-profile-card {
+            background: linear-gradient(135deg, #14532d 0%, #166534 60%, #15803d 100%);
+            color: #ffffff;
+            border-radius: 24px;
             padding: 32px 36px;
-            box-shadow: 0 12px 36px rgba(27, 94, 32, 0.25);
-            margin-bottom: 30px;
+            box-shadow: 0 16px 40px rgba(20, 83, 45, 0.22);
+            margin-bottom: 24px;
             position: relative;
             overflow: hidden;
         }
@@ -27,11 +147,11 @@
         .farmer-profile-card:after {
             content: "";
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
+            top: -60px;
+            right: -60px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 70%);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -41,7 +161,9 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
         }
 
         .farmer-identity {
@@ -51,31 +173,43 @@
         }
 
         .farmer-avatar-circle {
-            width: 75px;
-            height: 75px;
+            width: 82px;
+            height: 82px;
             border-radius: 50%;
             background: #ffffff;
-            color: #2E7D32;
+            color: #166534;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 3px solid rgba(255, 255, 255, 0.8);
+            font-size: 2.6rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            border: 4px solid rgba(255, 255, 255, 0.85);
             flex-shrink: 0;
+            position: relative;
+        }
+
+        .avatar-online-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 18px;
+            height: 18px;
+            background: #22c55e;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
         }
 
         .farmer-info h1 {
-            font-size: 1.85rem;
+            font-size: 1.95rem;
             font-weight: 800;
             margin-bottom: 6px;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
         }
 
         .farmer-info p {
             font-size: 0.95rem;
             opacity: 0.92;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .farmer-meta-pills {
@@ -85,40 +219,146 @@
         }
 
         .meta-pill {
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(8px);
-            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(10px);
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 0.82rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
         }
 
         .farmer-score-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 18px;
-            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 18px 28px;
             text-align: center;
-            min-width: 170px;
+            min-width: 190px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .score-val {
-            font-size: 2.2rem;
-            font-weight: 800;
-            line-height: 1.1;
-            color: #A5D6A7;
+            font-size: 2.6rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #86efac;
+            margin-bottom: 4px;
         }
 
         .score-lbl {
             font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
+            letter-spacing: 0.6px;
+            opacity: 0.95;
+            font-weight: 700;
+        }
+
+        /* 5 Key Metric KPI Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: var(--dash-card-bg);
+            border: 1px solid var(--dash-border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .kpi-title {
+            font-size: 0.82rem;
+            color: var(--text-secondary, #64748b);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .kpi-icon {
+            font-size: 1.3rem;
+        }
+
+        .kpi-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--text-primary, #0f172a);
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .kpi-subtext {
+            font-size: 0.78rem;
+            color: var(--text-secondary, #64748b);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-trend-up {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .kpi-trend-down {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        /* Category Filter Tabs */
+        .dash-nav-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--dash-border);
+        }
+
+        .dash-tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-secondary, #64748b);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .dash-tab-btn:hover {
+            color: #16a34a;
+        }
+
+        .dash-tab-btn.active {
+            color: #166534;
+            border-bottom-color: #166534;
+            font-weight: 700;
         }
 
         /* Dashboard Grid Layout */
@@ -129,21 +369,10 @@
             margin-bottom: 30px;
         }
 
-        .col-8 {
-            grid-column: span 8;
-        }
-
-        .col-4 {
-            grid-column: span 4;
-        }
-
-        .col-6 {
-            grid-column: span 6;
-        }
-
-        .col-12 {
-            grid-column: span 12;
-        }
+        .col-8 { grid-column: span 8; }
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-12 { grid-column: span 12; }
 
         @media (max-width: 992px) {
             .col-8, .col-4, .col-6 {
@@ -151,24 +380,21 @@
             }
         }
 
-        /* Dashboard Card */
+        /* Card Container */
         .dash-card {
-            background: var(--card-bg, #ffffff);
-            border: 1px solid var(--border-color, #e0e0e0);
-            border-radius: var(--border-radius-md, 16px);
+            background: var(--dash-card-bg);
+            border: 1px solid var(--dash-border);
+            border-radius: 18px;
             padding: 24px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
         .dash-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-            border-color: rgba(46, 125, 50, 0.3);
+            border-color: rgba(34, 197, 94, 0.35);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
         }
 
         .card-header-flex {
@@ -176,7 +402,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 18px;
-            border-bottom: 1px solid var(--border-color, #f0f0f0);
+            border-bottom: 1px solid var(--dash-border);
             padding-bottom: 12px;
         }
 
@@ -184,7 +410,7 @@
         .card-header-flex h3 {
             font-size: 1.15rem;
             font-weight: 700;
-            color: var(--primary-dark, #1B5E20);
+            color: var(--text-primary, #0f172a);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -208,21 +434,21 @@
             color: #E65100;
         }
 
-        /* Embedded AI Copilot */
+        /* Live AI Copilot */
         .ai-copilot-container {
             display: flex;
             flex-direction: column;
-            height: 480px;
+            height: 440px;
         }
 
         .copilot-messages {
             flex: 1;
             overflow-y: auto;
-            background: var(--bg-light, #f8f9fa);
-            border-radius: 12px;
+            background: var(--dash-bg-subtle);
+            border-radius: 14px;
             padding: 16px;
             margin-bottom: 14px;
-            border: 1px solid var(--border-color, #e8e8e8);
+            border: 1px solid var(--dash-border);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -235,14 +461,13 @@
             animation: messageFadeIn 0.3s ease;
         }
 
-        .copilot-msg.bot {
-            align-self: flex-start;
+        @keyframes messageFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .copilot-msg.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
+        .copilot-msg.bot { align-self: flex-start; }
+        .copilot-msg.user { align-self: flex-end; flex-direction: row-reverse; }
 
         .c-avatar {
             font-size: 1.4rem;
@@ -250,17 +475,18 @@
         }
 
         .c-bubble {
-            background: #ffffff;
-            padding: 10px 14px;
-            border-radius: 14px;
+            background: var(--dash-card-bg);
+            padding: 12px 16px;
+            border-radius: 16px;
             font-size: 0.92rem;
             line-height: 1.5;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--dash-border);
+            color: var(--text-primary, #0f172a);
         }
 
         .copilot-msg.user .c-bubble {
-            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
             border: none;
         }
@@ -273,9 +499,9 @@
         }
 
         .c-chip {
-            background: rgba(46, 125, 50, 0.08);
-            border: 1px solid rgba(46, 125, 50, 0.2);
-            color: var(--primary-dark, #1B5E20);
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #166534;
             padding: 6px 12px;
             border-radius: 16px;
             font-size: 0.8rem;
@@ -285,7 +511,7 @@
         }
 
         .c-chip:hover {
-            background: var(--primary, #2E7D32);
+            background: #166534;
             color: #ffffff;
             transform: translateY(-2px);
         }
@@ -299,184 +525,199 @@
         .copilot-input {
             flex: 1;
             padding: 12px 16px;
-            border: 1.5px solid var(--border-color, #ddd);
-            border-radius: 25px;
+            border: 1px solid var(--dash-border);
+            border-radius: 12px;
             font-size: 0.92rem;
-            font-family: inherit;
             outline: none;
-            background: var(--bg-light, #fafafa);
-            transition: all 0.2s ease;
+            background: var(--dash-card-bg);
+            color: var(--text-primary, #0f172a);
         }
 
         .copilot-input:focus {
-            border-color: var(--primary, #2E7D32);
-            background: #ffffff;
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
         }
 
         .c-btn-send {
-            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
             border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
             transition: all 0.2s ease;
-            flex-shrink: 0;
         }
 
         .c-btn-send:hover {
-            transform: scale(1.08);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
         }
 
-        /* Metric Tiles */
+        /* Metric Tile Rows */
         .metric-tiles-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 14px;
-            margin-bottom: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
         .metric-tile {
-            background: var(--bg-light, #f8f9fa);
-            border: 1px solid var(--border-color, #eee);
+            background: var(--dash-bg-subtle);
+            border: 1px solid var(--dash-border);
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px;
             text-align: center;
         }
 
         .m-val {
             font-size: 1.35rem;
             font-weight: 800;
-            color: var(--primary-dark, #1B5E20);
-            margin: 4px 0 2px;
+            color: var(--text-primary, #0f172a);
+            line-height: 1.1;
+            margin-bottom: 4px;
         }
 
         .m-lbl {
-            font-size: 0.78rem;
-            color: var(--text-muted, #777);
-            font-weight: 500;
+            font-size: 0.72rem;
+            color: var(--text-secondary, #64748b);
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
+        /* Advisory Box */
         .advisory-box {
-            background: rgba(46, 125, 50, 0.08);
-            border-left: 4px solid var(--primary, #2E7D32);
-            padding: 12px 14px;
-            border-radius: 0 8px 8px 0;
+            background: rgba(34, 197, 94, 0.08);
+            border-left: 4px solid #16a34a;
+            padding: 12px 16px;
+            border-radius: 8px;
             font-size: 0.88rem;
             line-height: 1.5;
-            color: var(--text-dark, #333);
-            margin-top: auto;
+            color: var(--text-primary, #0f172a);
+            margin-bottom: 16px;
         }
 
-        .advisory-box strong {
-            color: var(--primary-dark, #1B5E20);
-        }
-
-        /* Quick Action Row */
+        /* Button Action Rows */
         .dash-actions-row {
             display: flex;
-            gap: 12px;
-            margin-top: 14px;
+            gap: 10px;
+            margin-top: auto;
+            flex-wrap: wrap;
         }
 
         .dash-btn {
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            padding: 9px 16px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
+            transition: all 0.2s ease;
             cursor: pointer;
-            transition: all 0.25s ease;
             border: none;
         }
 
         .dash-btn-primary {
-            background: var(--primary, #2E7D32);
+            background: #166534;
             color: #ffffff;
         }
 
         .dash-btn-primary:hover {
-            background: var(--primary-dark, #1B5E20);
-            transform: translateY(-2px);
+            background: #14532d;
+            transform: translateY(-1px);
         }
 
         .dash-btn-outline {
             background: transparent;
-            border: 1.5px solid var(--primary, #2E7D32);
-            color: var(--primary, #2E7D32);
+            border: 1px solid var(--dash-border);
+            color: var(--text-primary, #0f172a);
         }
 
         .dash-btn-outline:hover {
-            background: rgba(46, 125, 50, 0.08);
+            border-color: #166534;
+            color: #166534;
+            background: rgba(34, 197, 94, 0.05);
         }
 
-        /* Recent Activity Table */
+        /* Activity Table */
         .activity-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-
-        .activity-table th,
-        .activity-table td {
-            padding: 12px 14px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color, #eee);
+            font-size: 0.88rem;
         }
 
         .activity-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: var(--dash-bg-subtle);
+            color: var(--text-secondary, #64748b);
             font-weight: 700;
-            color: var(--text-muted, #666);
-            background: var(--bg-light, #fafafa);
+            border-bottom: 1px solid var(--dash-border);
+            font-size: 0.78rem;
+            text-transform: uppercase;
         }
 
-        body.dark-mode .dash-card {
-            background: #242424;
-            border-color: #383838;
+        .activity-table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--dash-border);
+            color: var(--text-primary, #0f172a);
         }
 
-        body.dark-mode .copilot-messages,
-        body.dark-mode .metric-tile,
-        body.dark-mode .activity-table th {
-            background: #1c1c1c;
-            border-color: #333;
+        .activity-table tr:hover {
+            background: var(--dash-bg-subtle);
         }
 
-        body.dark-mode .copilot-input {
-            background: #2a2a2a;
-            border-color: #444;
-            color: #ffffff;
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        body.dark-mode .c-bubble {
-            background: #2e2e2e;
-            color: #ffffff;
-            border-color: #444;
+        .modal-content {
+            background: var(--dash-card-bg);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 28px;
+            border: 1px solid var(--dash-border);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            position: relative;
         }
 
-        body.dark-mode .advisory-box {
-            background: rgba(76, 175, 80, 0.12);
-            color: #e0e0e0;
+        /* Print Styling */
+        @media print {
+            .navbar, .exec-control-bar, .dash-nav-tabs, .copilot-chips, .copilot-input-row, .dash-actions-row, .back-btn, #navLogoutBtn {
+                display: none !important;
+            }
+            .farmer-profile-card {
+                background: #166534 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+            }
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- Navigation Bar -->
-    <nav class="navbar" role="navigation" aria-label="Main Navigation">
-        <div class="container">
-            <a href="../index.html" class="navbar-brand" id="appTitle">
+    <!-- Top Navigation Bar -->
+    <nav class="navbar" role="navigation">
+        <div class="container navbar-container">
+            <a href="../index.html" class="logo">
                 🌱 Smart Agriculture Assistant
             </a>
             
@@ -488,6 +729,7 @@
             
             <ul class="navbar-menu" id="navMenu">
                 <li><a href="../index.html" id="navHome">Home</a></li>
+                <li><a href="dashboard.html" class="active" id="navDashboard" style="font-weight: 700; color: #16a34a;">📊 AI Dashboard <span style="background: #16a34a; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 8px; font-weight: 800;">PRO</span></a></li>
                 <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
                 <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
                 <li><a href="weather.html" id="navWeather">Weather</a></li>
@@ -517,7 +759,7 @@
                 </button>
                 
                 <!-- Logout Button -->
-                <button class="btn-nav-login" id="navLogoutBtn" onclick="logoutFarmer()" style="background: rgba(244, 67, 54, 0.1); color: #d32f2f; border: 1px solid rgba(244, 67, 54, 0.25);" title="Log out from dashboard">
+                <button class="btn-nav-login" id="navLogoutBtn" onclick="logoutFarmer()" style="background: rgba(239, 68, 68, 0.1); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.25);" title="Log out from dashboard">
                     🚪 Logout
                 </button>
             </div>
@@ -526,20 +768,55 @@
 
     <main class="page-content">
         <div class="container dashboard-wrapper">
-            <a href="../index.html" class="back-btn">← Back to Home</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <a href="../index.html" class="back-btn" style="margin: 0;">← Back to Home</a>
+                <span style="font-size: 0.85rem; color: var(--text-secondary, #64748b);">Kisan Digital Portal • v2.6 Pro</span>
+            </div>
+
+            <!-- Executive Control & Telemetry Bar -->
+            <section class="exec-control-bar">
+                <div class="exec-left">
+                    <div class="status-pulse-pill">
+                        <span class="pulse-dot"></span>
+                        <span>IoT Telemetry: Live Active</span>
+                    </div>
+                    <div class="live-clock-badge" id="liveClock">
+                        🕒 <span>Loading Time...</span>
+                    </div>
+                    <select class="plot-select-dropdown" id="plotSelector" onchange="switchPlot(this.value)">
+                        <option value="plotA" selected>🌾 Plot A: Rabi Wheat (3.0 Acres - Dindori)</option>
+                        <option value="plotB">🍅 Plot B: Hybrid Tomato (1.5 Acres - Gangapur)</option>
+                    </select>
+                </div>
+                <div class="exec-actions">
+                    <button class="btn-exec-action primary" onclick="simulateDiagnosticScan()">
+                        📸 Instant Leaf Scan
+                    </button>
+                    <button class="btn-exec-action" onclick="showExpertContact()">
+                        📞 24/7 Krishi Helpline
+                    </button>
+                    <button class="btn-exec-action" onclick="window.print()">
+                        🖨️ Print Farm Report
+                    </button>
+                </div>
+            </section>
 
             <!-- Farmer Profile Overview Card -->
             <section class="farmer-profile-card">
                 <div class="farmer-profile-flex">
                     <div class="farmer-identity">
-                        <div class="farmer-avatar-circle">👨‍🌾</div>
+                        <div class="farmer-avatar-circle">
+                            👨‍🌾
+                            <span class="avatar-online-badge" title="Status: Online"></span>
+                        </div>
                         <div class="farmer-info">
                             <h1 id="farmerDisplayName">Welcome, Ramesh Patel!</h1>
                             <p id="farmerLocationText">📍 Dindori Village, Nashik District, Maharashtra | Kisan ID: MH-NSK-2026-8841</p>
                             <div class="farmer-meta-pills">
-                                <span class="meta-pill">🚜 4.5 Acres Land</span>
-                                <span class="meta-pill">🌾 Primary Crops: Wheat & Tomato</span>
-                                <span class="meta-pill">💧 Soil: Alluvial Loam</span>
+                                <span class="meta-pill">🚜 4.5 Acres Cultivated</span>
+                                <span class="meta-pill">🌾 Primary: Wheat & Tomato</span>
+                                <span class="meta-pill">💧 Soil: Alluvial Loam (pH 6.7)</span>
+                                <span class="meta-pill">⚡ Drip Irrigation: Connected</span>
                                 <span class="meta-pill">🤖 AI Farm Companion: Active</span>
                             </div>
                         </div>
@@ -547,43 +824,118 @@
                     <div class="farmer-score-box">
                         <div class="score-val">94%</div>
                         <div class="score-lbl">Farm Health Score</div>
+                        <span style="font-size: 0.76rem; background: rgba(34, 197, 94, 0.25); color: #bbf7d0; padding: 2px 8px; border-radius: 12px; font-weight: 700;">Grade A+ Optimal</span>
                     </div>
                 </div>
             </section>
+
+            <!-- 5 Key Performance Stat Metric Cards -->
+            <section class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Farm Health</span>
+                        <span class="kpi-icon">🌿</span>
+                    </div>
+                    <div class="kpi-value" style="color: #16a34a;">94%</div>
+                    <div class="kpi-subtext">
+                        <span class="kpi-trend-up">▲ +2.8%</span> vs last month
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Soil Moisture</span>
+                        <span class="kpi-icon">💧</span>
+                    </div>
+                    <div class="kpi-value" style="color: #0284c7;">42%</div>
+                    <div class="kpi-subtext">
+                        Optimal Root Zone (Next drip: 36h)
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Soil NPK Index</span>
+                        <span class="kpi-icon">🧪</span>
+                    </div>
+                    <div class="kpi-value" style="color: #8b5cf6;">88/100</div>
+                    <div class="kpi-subtext">
+                        N: High • P: Low • K: Good
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Harvest Est. Value</span>
+                        <span class="kpi-icon">💰</span>
+                    </div>
+                    <div class="kpi-value" style="color: #d97706;">₹3.84L</div>
+                    <div class="kpi-subtext">
+                        <span class="kpi-trend-up">▲ +8.4%</span> above mandi avg
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Weather & Risk</span>
+                        <span class="kpi-icon">🌤️</span>
+                    </div>
+                    <div class="kpi-value" style="color: #ea580c;">Moderate</div>
+                    <div class="kpi-subtext">
+                        18mm rain expected tomorrow
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category Filter Tabs -->
+            <div class="dash-nav-tabs">
+                <button class="dash-tab-btn active" onclick="filterDashCategory('all', this)">📊 All Assistance</button>
+                <button class="dash-tab-btn" onclick="filterDashCategory('copilot', this)">🤖 AI Farm Copilot</button>
+                <button class="dash-tab-btn" onclick="filterDashCategory('doctor', this)">🔬 Crop Doctor</button>
+                <button class="dash-tab-btn" onclick="filterDashCategory('weather', this)">🌤️ Weather & Irrigation</button>
+                <button class="dash-tab-btn" onclick="filterDashCategory('market', this)">💰 APMC Mandi Rates</button>
+                <button class="dash-tab-btn" onclick="filterDashCategory('soil', this)">🌱 Soil & IoT</button>
+            </div>
 
             <!-- Dashboard Grid of AI Assistances -->
             <div class="dash-grid">
                 
                 <!-- 1. Live AI Farm Copilot Panel (Col 8) -->
-                <div class="dash-card col-8">
+                <div class="dash-card col-8 dash-sec-copilot">
                     <div class="card-header-flex">
                         <h2>🤖 Live AI Farming Copilot</h2>
-                        <span class="badge-status badge-live">● 24/7 Online</span>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button type="button" id="btnAudioVoice" onclick="toggleVoiceAudio()" style="background: none; border: 1px solid var(--dash-border); border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary, #0f172a);" title="Toggle Voice Speech Audio">
+                                🔊 Voice: ON
+                            </button>
+                            <span class="badge-status badge-live">● 24/7 Krishi AI Active</span>
+                        </div>
                     </div>
                     <div class="ai-copilot-container">
                         <div class="copilot-messages" id="copilotMessages">
                             <div class="copilot-msg bot">
                                 <span class="c-avatar">🤖</span>
                                 <div class="c-bubble">
-                                    <strong>Namaste Ramesh ji!</strong> I am your personal AI Farm Copilot. Your soil nitrogen is optimal, but rain is expected tomorrow in Nashik. How can I assist your farm today?
+                                    <strong>Namaste Ramesh ji! / नमस्कार रमेशजी!</strong> I am your personal AI Farm Copilot. Your soil nitrogen is optimal, but rain is expected tomorrow evening in Nashik. How can I assist your crop today?
                                 </div>
                             </div>
                         </div>
                         <div class="copilot-chips">
-                            <button type="button" class="c-chip" onclick="askCopilot('Leaves turning yellow on tomato plants')">🍂 Tomato Yellow Leaves</button>
-                            <button type="button" class="c-chip" onclick="askCopilot('When should I irrigate wheat this week?')">💧 Wheat Irrigation Schedule</button>
-                            <button type="button" class="c-chip" onclick="askCopilot('Tomato market rate prediction in Nashik')">💰 Tomato Price Forecast</button>
-                            <button type="button" class="c-chip" onclick="askCopilot('Single Super Phosphate dosage for 1 acre')">🧪 Fertilizer Dosage</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('Leaves turning yellow and curled on tomato plants')">🍂 Tomato Yellow Leaves</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('When should I irrigate wheat this week?')">💧 Wheat Irrigation Timing</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('Tomato market rate prediction in Nashik APMC')">💰 Tomato Price Forecast</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('Single Super Phosphate dosage for 1 acre wheat')">🧪 SSP Fertilizer Dosage</button>
+                            <button type="button" class="c-chip" onclick="askCopilot('कांद्यावरील करपा रोगावर कोणता फवारा मारावा?')">🧅 कांदा करपा उपाय (मराठी)</button>
                         </div>
                         <div class="copilot-input-row">
-                            <input type="text" id="copilotInput" class="copilot-input" placeholder="Ask your AI Farming Copilot anything in your language..." onkeypress="if(event.key==='Enter') sendCopilotMessage()">
-                            <button type="button" class="c-btn-send" onclick="sendCopilotMessage()" title="Send Question">📤</button>
+                            <input type="text" id="copilotInput" class="copilot-input" placeholder="Ask your AI Farming Copilot anything in Marathi, Hindi, or English..." onkeypress="if(event.key==='Enter') sendCopilotMessage()">
+                            <button type="button" class="c-btn-send" onclick="sendCopilotMessage()" title="Send Question">📤 Send</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2. AI Weather & Smart Irrigation (Col 4) -->
-                <div class="dash-card col-4">
+                <div class="dash-card col-4 dash-sec-weather">
                     <div class="card-header-flex">
                         <h3>🌤️ AI Weather & Irrigation</h3>
                         <span class="badge-status badge-warn">⚡ Rain Alert</span>
@@ -611,20 +963,20 @@
                 </div>
 
                 <!-- 3. AI Crop Doctor & Instant Disease Scanner (Col 6) -->
-                <div class="dash-card col-6">
+                <div class="dash-card col-6 dash-sec-doctor">
                     <div class="card-header-flex">
                         <h3>🔬 AI Crop Doctor (Diagnostic Hub)</h3>
                         <span class="badge-status badge-live">96.8% Accuracy</span>
                     </div>
-                    <div style="background: var(--bg-light, #fafafa); border: 2px dashed var(--border-color, #ccc); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 14px;">
-                        <span style="font-size: 2.2rem; display: block; margin-bottom: 6px;">📸</span>
-                        <strong style="font-size: 0.95rem;">Upload Photo of Crop Leaf or Stem</strong>
-                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">AI instantly diagnoses blight, rust, leaf spot & pests with organic remedies.</p>
-                        <button type="button" class="dash-btn dash-btn-primary" style="margin-top: 10px;" onclick="simulateDiagnosticScan()">
+                    <div style="background: var(--dash-bg-subtle); border: 2px dashed var(--dash-border); border-radius: 14px; padding: 22px; text-align: center; margin-bottom: 14px;">
+                        <span style="font-size: 2.4rem; display: block; margin-bottom: 8px;">📸</span>
+                        <strong style="font-size: 1rem; color: var(--text-primary, #0f172a);">Upload Photo of Crop Leaf or Stem</strong>
+                        <p style="font-size: 0.84rem; color: var(--text-secondary, #64748b); margin-top: 4px;">AI instantly diagnoses blight, rust, leaf spot, viral curl & pests with organic remedies.</p>
+                        <button type="button" class="dash-btn dash-btn-primary" style="margin-top: 12px;" onclick="simulateDiagnosticScan()">
                             🔬 Run Sample AI Leaf Scan
                         </button>
                     </div>
-                    <div id="quickScanResult" class="advisory-box" style="display: none; background: #FFF8E1; border-color: #FFA000;">
+                    <div id="quickScanResult" class="advisory-box" style="display: none; background: rgba(245, 158, 11, 0.1); border-left-color: #f59e0b;">
                         <strong>Scan Result: Tomato Early Blight (Alternaria solani)</strong><br>
                         Confidence: 96.8% | AI Remedy: Spray Mancozeb 75% WP (2g/L) or apply organic 10,000 ppm Neem Oil.
                     </div>
@@ -633,27 +985,27 @@
                     </div>
                 </div>
 
-                <!-- 4. AI Soil Health & Nutrient Balance (Col 6) -->
-                <div class="dash-card col-6">
+                <!-- 4. AI Soil Health & IoT Nutrient Telemetry (Col 6) -->
+                <div class="dash-card col-6 dash-sec-soil">
                     <div class="card-header-flex">
-                        <h3>🧪 AI Soil Health & Nutrients</h3>
-                        <span class="badge-status badge-live">Balanced</span>
+                        <h3>🧪 Live Soil & IoT Telemetry</h3>
+                        <span class="badge-status badge-live">IoT Synced</span>
                     </div>
                     <div class="metric-tiles-row">
                         <div class="metric-tile">
-                            <div class="m-val" style="color: #2E7D32;">210</div>
+                            <div class="m-val" style="color: #16a34a;">210</div>
                             <div class="m-lbl">Nitrogen (N) kg/ha</div>
                         </div>
                         <div class="metric-tile">
-                            <div class="m-val" style="color: #E65100;">14</div>
+                            <div class="m-val" style="color: #ea580c;">14</div>
                             <div class="m-lbl">Phosphorus (P) kg/ha</div>
                         </div>
                         <div class="metric-tile">
-                            <div class="m-val" style="color: #2E7D32;">280</div>
+                            <div class="m-val" style="color: #16a34a;">280</div>
                             <div class="m-lbl">Potassium (K) kg/ha</div>
                         </div>
                         <div class="metric-tile">
-                            <div class="m-val" style="color: #1976D2;">6.7</div>
+                            <div class="m-val" style="color: #0284c7;">6.7</div>
                             <div class="m-lbl">Soil pH (Neutral)</div>
                         </div>
                     </div>
@@ -667,7 +1019,7 @@
                 </div>
 
                 <!-- 5. AI Mandi Price Predictor & Selling Advisory (Col 6) -->
-                <div class="dash-card col-6">
+                <div class="dash-card col-6 dash-sec-market">
                     <div class="card-header-flex">
                         <h3>💰 AI Mandi Price Forecaster</h3>
                         <span class="badge-status badge-live">↑ Upward Trend</span>
@@ -695,7 +1047,7 @@
                 </div>
 
                 <!-- 6. AI Pest Alerts & PM-Kisan Status (Col 6) -->
-                <div class="dash-card col-6">
+                <div class="dash-card col-6 dash-sec-schemes">
                     <div class="card-header-flex">
                         <h3>🐛 Pest Alert & 🏛️ Subsidies</h3>
                         <span class="badge-status badge-warn">1 Active Alert</span>
@@ -705,11 +1057,11 @@
                             <span style="font-size: 1.2rem;">⚠️</span>
                             <strong>Fruit Borer (Helicoverpa) Alert in Nashik District:</strong>
                         </div>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                        <p style="font-size: 0.85rem; color: var(--text-secondary, #64748b); margin-bottom: 10px;">
                             Install 5 pheromone traps per acre. Spray Bacillus thuringiensis (Bt) if larval infestation exceeds 5%.
                         </p>
                     </div>
-                    <div class="advisory-box" style="background: rgba(33, 150, 243, 0.08); border-color: #2196F3;">
+                    <div class="advisory-box" style="background: rgba(2, 132, 199, 0.08); border-left-color: #0284c7;">
                         <strong>PM-Kisan Scheme Status:</strong> 16th Installment of ₹2,000 credited to linked Bank Account on 28 Feb 2026. MahaDBT Drip Irrigation subsidy application is under verification.
                     </div>
                     <div class="dash-actions-row">
@@ -784,22 +1136,37 @@
         <div class="toast-message" id="toastMessage"></div>
     </div>
 
-    <!-- Modals -->
+    <!-- Expert Call Modal -->
     <div id="expertModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('expertModal')">&times;</span>
-            <h2>Contact Agricultural Expert</h2>
-            <form class="expert-form">
-                <input type="text" id="farmerName" placeholder="Your Name" value="Ramesh Patel" required>
-                <input type="tel" id="farmerPhone" placeholder="Phone Number" value="+91 98765 43210" required>
-                <select id="cropType" required>
-                    <option value="wheat" selected>Wheat</option>
-                    <option value="tomato">Tomato</option>
-                    <option value="rice">Rice</option>
-                    <option value="cotton">Cotton</option>
-                </select>
-                <textarea id="issueDescription" placeholder="Describe your issue..." rows="4" required>Need guidance on phosphorus application timing before rainfall.</textarea>
-                <button type="submit" class="submit-btn" id="submitExpert">Request Expert Call</button>
+            <button onclick="closeModal('expertModal')" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary);">&times;</button>
+            <h2 style="margin-bottom: 8px; color: #166534;">📞 Contact Agricultural Expert (KVK)</h2>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">Direct hotline to Krishi Vigyan Kendra agronomists for personalized advice.</p>
+            <form onsubmit="event.preventDefault(); submitExpertCall();">
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Farmer Name</label>
+                    <input type="text" id="farmerName" value="Ramesh Patel" required style="width: 100%; padding: 10px; border: 1px solid var(--dash-border); border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Phone Number</label>
+                    <input type="tel" id="farmerPhone" value="+91 98765 43210" required style="width: 100%; padding: 10px; border: 1px solid var(--dash-border); border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Crop</label>
+                    <select id="cropType" style="width: 100%; padding: 10px; border: 1px solid var(--dash-border); border-radius: 8px;">
+                        <option value="wheat" selected>Wheat / गहू</option>
+                        <option value="tomato">Tomato / टोमॅटो</option>
+                        <option value="onion">Onion / कांदा</option>
+                        <option value="cotton">Cotton / कापूस</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px;">Question / Query</label>
+                    <textarea id="issueDescription" rows="3" style="width: 100%; padding: 10px; border: 1px solid var(--dash-border); border-radius: 8px;">Need advice on single super phosphate application before tomorrow's rain.</textarea>
+                </div>
+                <button type="submit" class="dash-btn dash-btn-primary" style="width: 100%; padding: 12px;">
+                    Request Free Expert Callback
+                </button>
             </form>
         </div>
     </div>
@@ -807,14 +1174,19 @@
     <script src="../assets/js/config.js"></script>
     <script src="../assets/js/script.js"></script>
     <script>
-        // Check authentication on dashboard load
+        let isVoiceAudioEnabled = true;
+
+        // Initialize Live Clock and Authenticated Farmer State
         document.addEventListener('DOMContentLoaded', function() {
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+
             const user = getFarmerUser();
             if (user && user.isLoggedIn) {
                 document.getElementById('farmerDisplayName').textContent = `Welcome, ${user.name}!`;
                 document.getElementById('farmerLocationText').textContent = `📍 ${user.village || 'Dindori'} Village, ${user.district || 'Nashik'} District, ${user.state || 'Maharashtra'} | Kisan ID: ${user.kisanId || 'MH-NSK-2026-8841'}`;
             } else {
-                // If not logged in, auto-login as demo farmer so dashboard works immediately
+                // Auto-login as demo farmer so dashboard works seamlessly
                 loginFarmer({
                     name: 'Ramesh Patel',
                     phone: '+91 98765 43210',
@@ -828,6 +1200,56 @@
                 });
             }
         });
+
+        function updateLiveClock() {
+            const clockEl = document.getElementById('liveClock');
+            if (!clockEl) return;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            clockEl.innerHTML = `🕒 <span>${dateStr} • ${timeStr}</span>`;
+        }
+
+        function switchPlot(plotVal) {
+            if (typeof showToast === 'function') {
+                const label = plotVal === 'plotA' ? 'Plot A (Wheat - 3.0 Acres)' : 'Plot B (Tomato - 1.5 Acres)';
+                showToast(`Switched telemetry to ${label}`);
+            }
+        }
+
+        function toggleVoiceAudio() {
+            isVoiceAudioEnabled = !isVoiceAudioEnabled;
+            const btn = document.getElementById('btnAudioVoice');
+            if (btn) {
+                btn.textContent = isVoiceAudioEnabled ? '🔊 Voice: ON' : '🔇 Voice: OFF';
+            }
+            if (typeof showToast === 'function') {
+                showToast(isVoiceAudioEnabled ? 'AI Voice readout enabled' : 'AI Voice readout muted');
+            }
+        }
+
+        // Category Tab Filter
+        function filterDashCategory(category, tabBtn) {
+            document.querySelectorAll('.dash-tab-btn').forEach(b => b.classList.remove('active'));
+            if (tabBtn) tabBtn.classList.add('active');
+
+            const sections = {
+                copilot: '.dash-sec-copilot',
+                doctor: '.dash-sec-doctor',
+                weather: '.dash-sec-weather',
+                market: '.dash-sec-market',
+                soil: '.dash-sec-soil'
+            };
+
+            if (category === 'all') {
+                document.querySelectorAll('.dash-card').forEach(c => c.style.display = 'flex');
+            } else {
+                document.querySelectorAll('.dash-card').forEach(c => c.style.display = 'none');
+                const target = document.querySelector(sections[category]);
+                if (target) target.style.display = 'flex';
+                // Always keep copilot or history visible when needed
+            }
+        }
 
         // Copilot Interaction
         function askCopilot(question) {
@@ -860,16 +1282,16 @@
                 botDiv.className = 'copilot-msg bot';
                 botDiv.innerHTML = `
                     <span class="c-avatar">🤖</span>
-                    <div class="c-bubble"><strong>AI Copilot:</strong> ${response}</div>
+                    <div class="c-bubble"><strong>AI Farm Copilot:</strong> ${response}</div>
                 `;
                 messagesContainer.appendChild(botDiv);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 
-                // Text-to-speech if available
-                if (typeof speakText === 'function') {
+                // Text-to-speech if enabled
+                if (isVoiceAudioEnabled && typeof speakText === 'function') {
                     speakText(response);
                 }
-            }, 800);
+            }, 600);
         }
 
         function simulateDiagnosticScan() {
@@ -877,7 +1299,24 @@
             resultBox.style.display = 'block';
             resultBox.scrollIntoView({ behavior: 'smooth' });
             if (typeof showToast === 'function') {
-                showToast('🔬 AI Diagnosis Complete: Early Blight (96.8% confidence)');
+                showToast('🔬 AI Diagnosis Complete: Tomato Early Blight detected (96.8% confidence)');
+            }
+        }
+
+        function showExpertContact() {
+            const modal = document.getElementById('expertModal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.style.display = 'none';
+        }
+
+        function submitExpertCall() {
+            closeModal('expertModal');
+            if (typeof showToast === 'function') {
+                showToast('✅ Expert request logged! Krishi Kendra agronomist will call you in 30 mins.');
             }
         }
     </script>
