@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Crop Recommendation</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .test-form {
+            display: grid;
+            gap: 15px;
+            
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c5530;
+        }
+        
+        .form-group input {
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .test-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #45a049;
+        }
+        
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fff8;
+            border-left: 5px solid #4CAF50;
+            border-radius: 0 10px 10px 0;
+            display: none;
+        }
+        
+        .result-box.show {
+            display: block;
+        }
+        
+        .result-box h3 {
+            color: #2c5530;
+            margin-top: 0;
+        }
+        
+        .error-box {
+            background: #fff3f3;
+            border-left: 5px solid #f44336;
+            color: #d32f2f;
+        }
+        
+        .code-display {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <h1>🌾 Test Crop Recommendation API</h1>
+        <p>Test your backend connection by getting crop recommendations based on soil nutrients.</p>
+        
+        <div class="test-form">
+            <div class="form-group">
+                <label for="nitrogen">Nitrogen (N)</label>
+                <input type="number" id="nitrogen" value="90" min="0" max="200">
+            </div>
+            
+            <div class="form-group">
+                <label for="phosphorus">Phosphorus (P)</label>
+                <input type="number" id="phosphorus" value="42" min="0" max="200">
+            </div>
+            
+            <button class="test-btn" onclick="testCropRecommendation()">
+                🔬 Test API Call
+            </button>
+        </div>
+        
+        <div id="resultBox" class="result-box">
+            <h3>✅ API Response:</h3>
+            <div id="resultContent"></div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <h3>📝 API Call Code:</h3>
+            <div class="code-display">
+const response = await fetch(`${API_CONFIG.BASE_URL}/api/crop/recommend`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nitrogen: 90, phosphorus: 42 })
+});
+const data = await response.json();
+console.log(data.recommendedCrop); // "Rice" or "Wheat" or "Maize"
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #fff9e6; border-radius: 8px;">
+            <strong>💡 Expected Logic:</strong>
+            <ul>
+                <li>If N &lt; 20 AND P &lt; 15 → <strong>Wheat</strong></li>
+                <li>If N &gt; 60 AND P &gt; 30 → <strong>Maize</strong></li>
+                <li>Otherwise → <strong>Rice</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        async function testCropRecommendation() {
+            const nitrogen = parseFloat(document.getElementById('nitrogen').value);
+            const phosphorus = parseFloat(document.getElementById('phosphorus').value);
+            const resultBox = document.getElementById('resultBox');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Show loading
+            resultBox.className = 'result-box show';
+            resultContent.innerHTML = '<p>⏳ Loading...</p>';
+            
+            try {
+                // Make API call to backend using config
+                const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://localhost:5001/api';
+                const response = await fetch(`${apiUrl}/crop/recommend`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        nitrogen: nitrogen, 
+                        phosphorus: phosphorus 
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display result
+                resultBox.className = 'result-box show';
+                resultContent.innerHTML = `
+                    <h2 style="color: #4CAF50; margin: 10px 0;">🌾 ${data.recommendedCrop}</h2>
+                    <p><strong>Input Values:</strong></p>
+                    <ul>
+                        <li>Nitrogen: ${nitrogen}</li>
+                        <li>Phosphorus: ${phosphorus}</li>
+                    </ul>
+                    <div class="code-display" style="margin-top: 15px;">
+                        <strong>Full Response:</strong><br>
+                        ${JSON.stringify(data, null, 2)}
+                    </div>
+                `;
+                
+                // Also log to console
+                console.log('✅ Crop Recommendation:', data.recommendedCrop);
+                console.log('Full Response:', data);
+                
+            } catch (error) {
+                // Display error
+                resultBox.className = 'result-box show error-box';
+                resultContent.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p><strong>Message:</strong> ${error.message}</p>
+                    <p style="margin-top: 15px;"><strong>Possible Issues:</strong></p>
+                    <ul>
+                        <li>Backend server is not running</li>
+                        <li>Backend is not on localhost:5001</li>
+                        <li>CORS is not enabled</li>
+                        <li>Network connection issue</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Solution:</strong></p>
+                    <ol>
+                        <li>Start backend: <code>node server.js</code></li>
+                        <li>Check console for errors (F12)</li>
+                        <li>Verify backend URL in script.js</li>
+                    </ol>
+                `;
+                
+                console.error('❌ API Error:', error);
+            }
+        }
+        
+        // Test on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiUrl = window.API_CONFIG ? `${window.API_CONFIG.BASE_URL}/api` : 'http://localhost:5001/api';
+            console.log('🌾 Test page loaded!');
+            console.log('Backend URL:', apiUrl + '/crop/recommend');
+            console.log('Click "Test API Call" button to test connection');
+        });
+    </script>
+    
+    <!-- Load config before other scripts -->
+    <script src="../assets/js/config.js"></script>
+</body>
+</html>
