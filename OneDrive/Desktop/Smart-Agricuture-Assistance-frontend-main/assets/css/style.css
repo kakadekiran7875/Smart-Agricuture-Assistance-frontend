@@ -87,20 +87,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1440px;
+    max-width: 1600px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
     height: 72px;
-    gap: 16px;
+    gap: 12px;
 }
 
 .navbar-brand {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: var(--primary);
     text-decoration: none;
     white-space: nowrap;
@@ -117,7 +117,7 @@ body {
 .navbar-menu {
     display: flex;
     list-style: none;
-    gap: 6px;
+    gap: 4px;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -133,8 +133,8 @@ body {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 500;
-    font-size: 0.88rem;
-    padding: 7px 10px;
+    font-size: 0.84rem;
+    padding: 6px 8px;
     border-radius: var(--border-radius-sm);
     position: relative;
     white-space: nowrap;
@@ -151,7 +151,7 @@ body {
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
 }
 
@@ -164,11 +164,11 @@ body {
 .lang-btn {
     background: transparent;
     border: 1px solid var(--border-color);
-    padding: 7px 12px;
+    padding: 6px 10px;
     border-radius: 20px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-dark);
     cursor: pointer;
     display: flex;
@@ -256,8 +256,8 @@ body {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 0.88rem;
-    padding: 7px 12px;
+    font-size: 0.84rem;
+    padding: 6px 10px;
     border-radius: 20px;
     transition: var(--transition);
     white-space: nowrap;
@@ -271,10 +271,10 @@ body {
 .btn-nav-started {
     background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-light);
-    padding: 8px 18px;
+    padding: 7px 16px;
     border-radius: 50px;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     text-decoration: none;
     box-shadow: 0 2px 8px rgba(46, 125, 50, 0.25);
     white-space: nowrap;
@@ -334,7 +334,7 @@ body {
 /* ============================================
    RESPONSIVE NAVBAR & DRAWER
    ============================================ */
-@media (max-width: 1220px) {
+@media (max-width: 1480px) {
     .hamburger {
         display: flex;
         order: 4;

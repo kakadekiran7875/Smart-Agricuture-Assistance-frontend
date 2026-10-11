@@ -1387,6 +1387,17 @@ document.addEventListener('DOMContentLoaded', function() {
             langDropdown.classList.remove('show');
             langBtn.setAttribute('aria-expanded', 'false');
         }
+
+        // Close mobile nav menu if clicking outside
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger && navMenu && navMenu.classList.contains('active')) {
+            if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        }
     }
 });
 
