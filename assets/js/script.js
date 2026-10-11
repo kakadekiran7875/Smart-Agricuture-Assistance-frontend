@@ -1533,7 +1533,27 @@ function highlightActiveNavLink() {
 // ============================================
 
 function navigateTo(page) {
-    window.location.href = page;
+    if (!page) return;
+    
+    // Normalize page target
+    const cleanPage = page.replace(/^\.?\/?pages\//, '').replace(/^\//, '');
+    
+    // Check if current context is inside pages/
+    const isInPages = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
+    
+    if (isInPages) {
+        if (cleanPage === 'index.html' || cleanPage === '') {
+            window.location.href = '../index.html';
+        } else {
+            window.location.href = cleanPage;
+        }
+    } else {
+        if (cleanPage === 'index.html' || cleanPage === '') {
+            window.location.href = 'index.html';
+        } else {
+            window.location.href = 'pages/' + cleanPage;
+        }
+    }
 }
 
 function goBack() {
