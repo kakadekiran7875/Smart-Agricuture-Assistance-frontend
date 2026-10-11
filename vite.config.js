@@ -1,12 +1,16 @@
-﻿import { defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
     base: '/',
     server: {
         port: 5173,
-        open: true,
+        open: false,
         host: true,
+        watch: {
+            usePolling: true,
+            interval: 100,
+        },
     },
     build: {
         outDir: 'dist',

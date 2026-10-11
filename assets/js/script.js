@@ -923,114 +923,8 @@ const translations = {
 // Current language state
 let currentLang = 'en';
 const languages = ['en', 'mr', 'hi', 'kn', 'te', 'ta', 'gu', 'bn'];
-let currentLangIndex = 0;ॉल का अनुरोध करें",
-        langText: "मराठी",
-        soilTitle: "मिट्टी विश्लेषण",
-        soilDesc: "pH स्तर और जैविक कार्बन सामग्री का विश्लेषण करके अपनी मिट्टी की गुणवत्ता का परीक्षण करें। बेहतर फसल उपज के लिए व्यक्तिगत सिफारिशें प्राप्त करें।",
-        soilAction: "मिट्टी का विश्लेषण करें →",
-        pestTitle: "कीट पहचान",
-        pestDesc: "लक्षणों की रिपोर्ट करके अपनी फसलों को प्रभावित करने वाले कीटों की पहचान करें। तत्काल उपचार सिफारिशें और नियंत्रण उपाय प्राप्त करें।",
-        pestAction: "कीट का पता लगाएं →",
-        cropRecTitle: "फसल सिफारिश",
-        cropRecDesc: "इष्टतम उपज के लिए अपनी मिट्टी के नाइट्रोजन और फास्फोरस स्तरों के आधार पर व्यक्तिगत फसल सुझाव प्राप्त करें।",
-        cropRecAction: "सिफारिश प्राप्त करें →",
-        fertilizerTitle: "उर्वरक सिफारिश",
-        fertilizerDesc: "अपनी मिट्टी में मौजूद NPK स्तरों के आधार पर अपनी फसल के लिए सही उर्वरक खोजें।",
-        fertilizerAction: "उर्वरक खोजें →",
-        tipsTitle: "कृषि सुझाव और सर्वोत्तम प्रथाएं",
-        tipsCard1Title: "सर्वोत्तम रोपण मौसम",
-        tipsCard2Title: "स्मार्ट सिंचाई सुझाव",
-        tipsCard3Title: "कीट और रोग रोकथाम",
-        // New features
-        chatExpertTitle: "विशेषज्ञ से चैट करें",
-        chatExpertDesc: "कृषि विशेषज्ञों से अपने खेती के सवालों के तुरंत जवाब पाएं.",
-        chatExpertAction: "चैट शुरू करें →",
-        loanCalcTitle: "ऋण कैलकुलेटर",
-        loanCalcDesc: "कृषि ऋण EMI की गणना करें और किसानों के लिए सरकारी ऋण योजनाओं का पता लगाएं.",
-        loanCalcAction: "EMI गणना करें →",
-        yieldPredTitle: "उपज पूर्वानुमान",
-        yieldPredDesc: "मिट्टी, मौसम और खेती के तरीकों के आधार पर AI का उपयोग करके अपनी फसल की उपज का अनुमान लगाएं.",
-        yieldPredAction: "उपज का अनुमान लगाएं →",
-        trainingVideosTitle: "प्रशिक्षण वीडियो",
-        trainingVideosDesc: "कई भाषाओं में विशेषज्ञ-नेतृत्व वाले वीडियो ट्यूटोरियल से आधुनिक खेती तकनीक सीखें.",
-        trainingVideosAction: "वीडियो देखें →"
-    },
-    mr: {
-        appTitle: "🌱 स्मार्ट शेती सहाय्यक",
-        appSubtitle: "तुमचा तज्ञ शेती साथीदार",
-        heroTitle: "AI तंत्रज्ञानासह शेतकऱ्यांना सशक्त करणे",
-        heroDescription: "तत्काळ पीक निदान, बाजार भाव आणि सरकारी अनुदान माहिती मिळवा - सर्व काही तुमच्या स्थानिक भाषेत!",
-        statFarmers: "मदत केलेले शेतकरी",
-        statAccuracy: "निदान अचूकता",
-        statSupport: "उपलब्ध",
-        featuresTitle: "आमच्या सेवा",
-        diagnosisTitle: "पीक निदान",
-        diagnosisDesc: "तुमच्या पिकांचे फोटो अपलोड करा आणि उपचार शिफारशींसह तत्काळ AI-चालित रोग निदान मिळवा।",
-        diagnosisAction: "आता निदान करा →",
-        marketTitle: "बाजार भाव",
-        marketDesc: "विविध मंडींमध्ये तुमच्या पिकांचे रिअल-टाइम बाजार भाव मिळवा आणि माहितीपूर्ण विक्री निर्णय घ्या।",
-        marketAction: "भाव तपासा →",
-        subsidiesTitle: "सरकारी अनुदान",
-        subsidiesDesc: "शेतकऱ्यांसाठी उपलब्ध सरकारी योजना, अनुदान आणि आर्थिक सहाय्य कार्यक्रम शोधा।",
-        subsidiesAction: "योजना पहा →",
-        weatherTitle: "हवामान अंदाज",
-        weatherDesc: "तुमच्या शेती क्रियाकलापांची योजना करण्यासाठी अचूक हवामान अंदाज आणि शेती सल्ला मिळवा।",
-        weatherAction: "हवामान पहा →",
-        quickTitle: "त्वरित कृती",
-        emergencyBtn: "आपत्कालीन मदत",
-        photoBtn: "फोटो काढा",
-        expertBtn: "तज्ञाशी संपर्क करा",
-        aiAssistantBtn: "AI सहाय्यक",
-        footerAbout: "आमच्याबद्दल",
-        footerDesc: "पीक उत्पादन आणि शेती निर्णयांमध्ये सुधारणा करण्यासाठी तंत्रज्ञानासह शेतकऱ्यांना सशक्त करणे।",
-        footerContact: "संपर्क",
-        footerSupport: "सहाय्य",
-        footerHours: "24/7 उपलब्ध",
-        footerLang: "अनेक भाषा",
-        footerCopy: "© 2024 स्मार्ट शेती सहाय्यक। शेतकऱ्यांसाठी, शेतकऱ्यांनी बनवलेले।",
-        emergencyTitle: "आपत्कालीन शेती मदत",
-        pestControl: "कीड नियंत्रण आपत्काल",
-        diseaseOutbreak: "रोग प्रसार",
-        weatherAlert: "हवामान चेतावणी",
-        expertContactTitle: "शेती तज्ञाशी संपर्क करा",
-        submitExpert: "तज्ञ कॉलची विनंती करा",
-        langText: "English",
-        soilTitle: "माती विश्लेषण",
-        soilDesc: "pH पातळी आणि सेंद्रिय कार्बन सामग्रीचे विश्लेषण करून आपल्या मातीच्या गुणवत्तेची चाचणी करा. चांगल्या पीक उत्पन्नासाठी वैयक्तिक शिफारसी मिळवा।",
-        soilAction: "माती विश्लेषण करा →",
-        pestTitle: "कीड ओळख",
-        pestDesc: "लक्षणांचा अहवाल देऊन आपल्या पिकांवर परिणाम करणाऱ्या कीटकांची ओळख करा. त्वरित उपचार शिफारसी आणि नियंत्रण उपाय मिळवा।",
-        pestAction: "कीड शोधा →",
-        cropRecTitle: "पीक शिफारस",
-        cropRecDesc: "इष्टतम उत्पन्नासाठी आपल्या मातीच्या नायट्रोजन आणि फॉस्फरस पातळीच्या आधारे वैयक्तिक पीक सूचना मिळवा।",
-        cropRecAction: "शिफारस मिळवा →",
-        fertilizerTitle: "खत शिफारस",
-        fertilizerDesc: "आपल्या मातीतील सध्याच्या NPK पातळीच्या आधारे आपल्या पिकासाठी योग्य खत शोधा।",
-        fertilizerAction: "खत शोधा →",
-        tipsTitle: "शेती टिपा आणि सर्वोत्तम पद्धती",
-        tipsCard1Title: "सर्वोत्तम लागवड हंगाम",
-        tipsCard2Title: "स्मार्ट सिंचन टिपा",
-        tipsCard3Title: "कीड आणि रोग प्रतिबंध",
-        // New features
-        chatExpertTitle: "तज्ञाशी चॅट करा",
-        chatExpertDesc: "शेती तज्ञांकडून आपल्या शेतीच्या प्रश्नांची त्वरित उत्तरे मिळवा.",
-        chatExpertAction: "चॅट सुरू करा →",
-        loanCalcTitle: "कर्ज कॅल्क्युलेटर",
-        loanCalcDesc: "कृषी कर्ज EMI ची गणना करा आणि शेतकऱ्यांसाठी सरकारी कर्ज योजना शोधा.",
-        loanCalcAction: "EMI गणना करा →",
-        yieldPredTitle: "उत्पन्न अंदाज",
-        yieldPredDesc: "माती, हवामान आणि शेती पद्धतींवर आधारित AI वापरून आपल्या पिकाच्या उत्पन्नाचा अंदाज लावा.",
-        yieldPredAction: "उत्पन्नाचा अंदाज लावा →",
-        trainingVideosTitle: "प्रशिक्षण व्हिडिओ",
-        trainingVideosDesc: "अनेक भाषांमध्ये तज्ञ-नेतृत्वाच्या व्हिडिओ ट्यूटोरियलमधून आधुनिक शेती तंत्र शिका.",
-        trainingVideosAction: "व्हिडिओ पहा →"
-    }
-};
-
-// Current language state
-let currentLang = 'en';
-const languages = ['en', 'kn', 'hi', 'mr'];
 let currentLangIndex = 0;
+
 
 // ============================================
 // BACKEND API FUNCTIONS
@@ -1492,6 +1386,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (langDropdown && langBtn && !langBtn.contains(event.target) && !langDropdown.contains(event.target)) {
             langDropdown.classList.remove('show');
             langBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        // Close mobile nav menu if clicking outside
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger && navMenu && navMenu.classList.contains('active')) {
+            if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
         }
     }
 });
@@ -2158,13 +2063,32 @@ function toggleDarkMode() {
     showToast(messages[currentLang] || messages.en, 2000);
 }
 
-// Load dark mode preference on page load
+// Load dark mode preference, forms, and prevent hash-link jumping
 document.addEventListener('DOMContentLoaded', function() {
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode === 'enabled') {
         document.body.classList.add('dark-mode');
     }
+
+    // Initialize expert contact form if present
+    if (typeof initializeExpertForm === 'function') {
+        initializeExpertForm();
+    }
+
+    // Prevent default on placeholder links (e.g. href="#") so the page doesn't jump or pseudo-reload
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    });
 });
+
+// Also initialize immediately if DOM is already parsed
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    if (typeof initializeExpertForm === 'function') {
+        initializeExpertForm();
+    }
+}
 
 console.log('✅ Dark mode toggle loaded!');
 

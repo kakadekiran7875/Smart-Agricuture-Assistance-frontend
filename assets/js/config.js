@@ -1,4 +1,4 @@
-﻿// Central API configuration
+// Central API configuration
 const API_CONFIG = {
     BASE_URL: 'https://smart-agricuture-assistance-backend.onrender.com',
     ENDPOINTS: {
