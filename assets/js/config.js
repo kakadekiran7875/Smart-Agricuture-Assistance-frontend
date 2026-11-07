@@ -21,6 +21,7 @@ if (typeof window.API_CONFIG === 'undefined') {
 var API_CONFIG = window.API_CONFIG;
 
 // Backward compatibility for older scripts that expect window.CONFIG / API_BASE_URL
+window.API_CONFIG = API_CONFIG;
 window.CONFIG = {
     BACKEND_IP: 'smart-agricuture-assistance-backend.onrender.com',
     BACKEND_PORT: '443',

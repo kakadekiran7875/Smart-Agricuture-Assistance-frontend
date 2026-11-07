@@ -4,69 +4,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
-    <title>Find Nearby Stores - Smart Agriculture Assistant</title>
+    <title>Find Nearby Krushi Kendra & Fertilizer Stores - Smart Agriculture Assistant | कृषी केंद्र शोधा</title>
+    <meta name="description" content="Locate authorized seed distributors, fertilizer outlets, and agrochemical dealers in your district.">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png"><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z'/></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
 
-    <!-- Redesigned Navigation Bar -->
-    <nav class="navbar" role="navigation" aria-label="Main Navigation">
-        <div class="container">
-            <a href="../index.html" class="navbar-brand" id="appTitle">
-                🌱 Smart Agriculture Assistant
+    <!-- Professional Site Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <!-- Left Section: Brand Logo & Identity -->
+            <a href="../index.html" class="header-brand" aria-label="Smart Agriculture Assistant" title="Smart Agriculture Assistant - स्मार्ट कृषी सहाय्यक">
+                <img src="../assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img">
+                <div class="brand-text-wrap">
+                    <span class="brand-title">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr">स्मार्ट कृषी सहाय्यक</span>
+                </div>
             </a>
-            
-            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <ul class="navbar-menu" id="navMenu">
-                <li><a href="../index.html" id="navHome">Home</a></li>
-                <li><a href="crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
-                <li><a href="diagnosis.html" id="navDisease">Disease Detection</a></li>
-                <li><a href="weather.html" id="navWeather">Weather</a></li>
-                <li><a href="market.html" id="navMarket">Market Prices</a></li>
-                <li><a href="soil-analysis.html" id="navSoil">Soil & IoT</a></li>
-                <li><a href="subsidies.html" id="navSchemes">Government Schemes</a></li>
-                <li><a href="chat-expert.html" id="navAbout">About</a></li>
-            </ul>
-            
-            <div class="navbar-actions">
-                <!-- Custom Dropdown Language Selector -->
-                <div class="lang-selector">
-                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-                        🌐 <span id="currentLangLabel">English</span>
-                    </button>
-                    <div class="lang-dropdown" id="langDropdown" role="menu">
-                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
-                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
-                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
-                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
-                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
-                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
-                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાती</button>
-                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
+
+            <!-- Center Section: Navigation -->
+            <nav class="header-nav" aria-label="Primary Navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About Us</a>
+
+                <!-- Features Dropdown -->
+                <div class="nav-item-dropdown">
+                    <a href="../index.html#features" class="nav-link">
+                        Features <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <div class="features-submenu" role="menu">
+                        <a href="crop-recommendation.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-wheat-awn"></i></span>
+                            <span>Crop Recommendation</span>
+                        </a>
+                        <a href="diagnosis.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-microscope"></i></span>
+                            <span>Disease Detection</span>
+                        </a>
+                        <a href="weather.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-cloud-sun-rain"></i></span>
+                            <span>Weather Forecast</span>
+                        </a>
+                        <a href="market.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                            <span>Market Prices</span>
+                        </a>
+                        <a href="soil-analysis.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-flask"></i></span>
+                            <span>Soil Health & IoT</span>
+                        </a>
+                        <a href="fertilizer-recommendation.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-spray-can"></i></span>
+                            <span>Fertilizer Calculator</span>
+                        </a>
+                        <a href="subsidies.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-building-columns"></i></span>
+                            <span>Government Schemes</span>
+                        </a>
+                        <a href="chat-expert.html" class="submenu-item">
+                            <span class="submenu-icon"><i class="fa-solid fa-headset"></i></span>
+                            <span>Consult Agri Expert</span>
+                        </a>
                     </div>
                 </div>
-                
-                <!-- Dark Mode Toggle Button -->
-                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
-                    🌙
+
+                <a href="crop-recommendation.html" class="nav-link ">Crop Recommendation</a>
+                <a href="diagnosis.html" class="nav-link ">Disease Detection</a>
+                <a href="weather.html" class="nav-link ">Weather</a>
+                <a href="market.html" class="nav-link ">Market Prices</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Section: Actions -->
+            <div class="header-actions">
+                <!-- Language Selector Dropdown -->
+                <div class="lang-dropdown-wrapper">
+                    <button class="lang-select-btn" id="langSelectBtn" aria-expanded="false" title="Change Language">
+                        <i class="fa-solid fa-globe" style="color: var(--primary);"></i>
+                        <span id="currentLangLabel">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.65em; opacity: 0.7;"></i>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langDropdownMenu" role="menu">
+                        <button class="lang-option-btn active" onclick="changeLanguage('en')" role="menuitem">
+                            <span>English</span>
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('mr')" role="menuitem">
+                            <span>मराठी</span>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('hi')" role="menuitem">
+                            <span>हिन्दी</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Switcher -->
+                <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Dark/Light Mode" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
                 </button>
-                
-                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
-                <a href="../index.html#cta" class="btn-nav-started" id="navStarted">Get Started</a>
+
+                <!-- Login Button -->
+                <a href="../index.html" class="btn-login-header">
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.35rem;"></i> Login
+                </a>
+
+                <!-- Register Button -->
+                <a href="../index.html" class="btn-register-header">
+                    <i class="fa-solid fa-user-plus" style="margin-right: 0.35rem;"></i> Register
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+        <div class="drawer-header">
+            <div class="header-brand">
+                <img src="../assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img" style="height: 40px; width: 40px;">
+                <div class="brand-text-wrap">
+                    <span class="brand-title" style="font-size: 0.95rem;">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr" style="font-size: 0.7rem;">स्मार्ट कृषी सहाय्यक</span>
+                </div>
+            </div>
+            <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close Navigation">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="../index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="../index.html#about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+            <a href="crop-recommendation.html" class="nav-link "><i class="fa-solid fa-wheat-awn"></i> Crop Recommendation</a>
+            <a href="diagnosis.html" class="nav-link "><i class="fa-solid fa-microscope"></i> Disease Detection</a>
+            <a href="weather.html" class="nav-link "><i class="fa-solid fa-cloud-sun-rain"></i> Weather Forecast</a>
+            <a href="market.html" class="nav-link "><i class="fa-solid fa-chart-line"></i> Market Prices</a>
+            <a href="soil-analysis.html" class="nav-link "><i class="fa-solid fa-flask"></i> Soil Health & IoT</a>
+            <a href="fertilizer-recommendation.html" class="nav-link "><i class="fa-solid fa-spray-can"></i> Fertilizer Calculator</a>
+            <a href="subsidies.html" class="nav-link "><i class="fa-solid fa-building-columns"></i> Government Schemes</a>
+            <a href="../index.html#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+        </nav>
+        <div class="drawer-footer">
+            <a href="../index.html" class="btn btn-primary btn-block">
+                <i class="fa-solid fa-user-plus"></i> Register
+            </a>
+            <a href="../index.html" class="btn btn-outline btn-block">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+            </a>
+        </div>
+    </aside>
+
+    <!-- Subpage Banner -->
+    <section class="subpage-banner">
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.7em;"></i>
+                <span>Nearby Krushi Kendra</span>
+            </div>
+            <h1 class="subpage-banner-title">🏪 Find Nearby Krushi Kendra & Stores</h1>
+            <p class="subpage-banner-subtitle">Locate authorized seed distributors, fertilizer outlets, and agrochemical dealers in your district.</p>
+        </div>
+    </section>
 
     <main class="page-content">
         <div class="container">
-            <a href="../index.html" class="back-btn">← Back to Home</a>
             <!-- Location Search -->
             <section class="location-search">
                 <div class="search-card">
@@ -137,6 +246,84 @@
             </section>
         </div>
     </main>
+
+    <!-- Professional 4-Column Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col-brand">
+                    <span class="brand-title">Smart Agri Assistant</span>
+                    <p class="footer-brand-desc">
+                        Providing actionable agricultural intelligence, disease diagnostics, and scheme updates to Indian farmers.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Quick Links</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="crop-recommendation.html">Crop Recommendation</a></li>
+                        <li><a href="diagnosis.html">Disease Detection</a></li>
+                        <li><a href="weather.html">Weather Forecast</a></li>
+                        <li><a href="market.html">Market Prices</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Services</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="fertilizer-recommendation.html">Fertilizer Advisory</a></li>
+                        <li><a href="subsidies.html">Government Subsidies</a></li>
+                        <li><a href="loan-calculator.html">Kisan Loan Calculator</a></li>
+                        <li><a href="chat-expert.html">Consult Expert</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-col-title">Helpline</h4>
+                    <div class="footer-contact-items">
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>Kisan Helpline: 1800-180-1551 (24/7)</div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>support@smartagri.org</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Smart Agriculture Assistant. <em>Made with care for Indian Farmers.</em></div>
+                <div class="footer-bottom-links">
+                    <a href="subsidies.html">Privacy</a>
+                    <a href="subsidies.html">Terms</a>
+                    <a href="subsidies.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating AI Assistant Trigger & Drawer -->
+    <div class="ai-floating-trigger" onclick="toggleAIChat()" title="AI Farming Assistant">
+        <i class="fa-solid fa-robot"></i>
+        <div class="ai-floating-pulse"></div>
+    </div>
+
+    <div class="ai-drawer-chatbox" id="aiChatbox">
+        <div class="ai-chat-head">
+            <h4 style="font-size: 0.95rem; margin: 0; color: #fff;">AI Agriculture Specialist</h4>
+            <button onclick="toggleAIChat()" style="color: #fff; font-size: 1.1rem;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ai-chat-messages-container" id="chatMessages">
+            <div class="chat-bubble bot">
+                Ask me any questions about crop care, fertilizer calculation, or government subsidies!
+            </div>
+        </div>
+        <div class="ai-chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Ask farming questions..." onkeypress="handleChatKeyPress(event)">
+            <button class="ai-chat-send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
 
     <style>
         .location-search {
@@ -460,7 +647,6 @@
         }
     </style>
 
-    <script src="../assets/js/config.js"></script>
     <script src="../assets/js/script.js"></script>
     <script>
         let userLocation = null;

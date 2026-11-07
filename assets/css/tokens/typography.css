@@ -1,0 +1,40 @@
+/**
+ * Smart Agriculture Assistant - Typography Design Tokens
+ * Fonts: Poppins (Headings), Inter (Body), Noto Sans Devanagari (Marathi/Hindi)
+ */
+
+:root {
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--primary-dark);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #86EFAC;
+}
+
+/* Marathi & Hindi typography support */
+[lang="mr"], [lang="hi"], .devanagari-text {
+  font-family: var(--font-devanagari), var(--font-heading);
+}
+

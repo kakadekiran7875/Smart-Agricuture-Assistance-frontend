@@ -4,281 +4,718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Agriculture Assistant</title>
+    <title>Smart Agriculture Assistant | स्मार्ट कृषी सहाय्यक - AI Farming Platform</title>
+    <meta name="description"
+        content="Empowering Indian farmers with intelligent crop recommendations, plant disease detection, live weather updates and agricultural market insights in Marathi, Hindi & English.">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+    <!-- External Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Master Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#2E7D32">
 </head>
 
 <body>
-    <!-- AI Assistant Chat Button (Floating) -->
-    <button class="ai-chat-button" onclick="toggleAIChat()" id="aiChatBtn" title="AI Assistant">
-        <span class="chat-icon">🤖</span>
-        <span class="chat-pulse"></span>
-    </button>
 
-    <!-- Redesigned Header/Navbar -->
-    <nav class="navbar" role="navigation" aria-label="Main Navigation">
-        <div class="container">
-            <a href="index.html" class="navbar-brand" id="appTitle">
-                🌱 Smart Agriculture Assistant
+    <!-- --------------------------------------------------------------------------
+         PROFESSIONAL STICKY HEADER
+    --------------------------------------------------------------------------- -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <!-- Left Section: Brand Logo & Professional Typography -->
+            <a href="index.html" class="header-brand" aria-label="Smart Agriculture Assistant" title="Smart Agriculture Assistant - स्मार्ट कृषी सहाय्यक">
+                <img src="assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img">
+                <div class="brand-text-wrap">
+                    <span class="brand-title" id="appTitle">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr" id="appSubtitle">स्मार्ट कृषी सहाय्यक</span>
+                </div>
             </a>
-            
-            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <!-- Desktop Center Navigation -->
+            <nav class="header-nav" aria-label="Primary Navigation">
+                <a href="#home" class="nav-link active" id="navHome">Home</a>
+                <a href="#about" class="nav-link" id="navAbout">About Us</a>
+
+                <!-- Features Dropdown for Secondary Agriculture Services -->
+                <div class="nav-item-dropdown" id="featuresDropdown">
+                    <a href="#features" class="nav-link" id="navFeatures" aria-haspopup="true" aria-expanded="false">
+                        Features <i class="fa-solid fa-chevron-down" style="font-size: 0.68em; margin-left: 0.15rem;"></i>
+                    </a>
+                    <div class="features-submenu" role="menu" aria-label="Secondary Features">
+                        <div class="submenu-grid">
+                            <a href="pages/soil-analysis.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-flask"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Soil Health & IoT</span>
+                                    <span class="submenu-desc">NPK and moisture analysis</span>
+                                </div>
+                            </a>
+                            <a href="pages/fertilizer-recommendation.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-spray-can"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Fertilizer Guide</span>
+                                    <span class="submenu-desc">Optimal dose recommendations</span>
+                                </div>
+                            </a>
+                            <a href="pages/subsidies.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-building-columns"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Government Schemes</span>
+                                    <span class="submenu-desc">Subsidies and farmer grants</span>
+                                </div>
+                            </a>
+                            <a href="pages/loan-calculator.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-calculator"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Agri Loan Calculator</span>
+                                    <span class="submenu-desc">EMI and interest calculations</span>
+                                </div>
+                            </a>
+                            <a href="pages/pest-detection.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-bug"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Pest Detection</span>
+                                    <span class="submenu-desc">Identify pests and treatment</span>
+                                </div>
+                            </a>
+                            <a href="pages/yield-prediction.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Yield Prediction</span>
+                                    <span class="submenu-desc">AI harvest volume forecasts</span>
+                                </div>
+                            </a>
+                            <a href="pages/training-videos.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-video"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Training Videos</span>
+                                    <span class="submenu-desc">Farmer video tutorials</span>
+                                </div>
+                            </a>
+                            <a href="pages/chat-expert.html" class="submenu-item" role="menuitem">
+                                <span class="submenu-icon"><i class="fa-solid fa-headset"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Consult Agri Expert</span>
+                                    <span class="submenu-desc">Live chat with specialists</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="pages/crop-recommendation.html" class="nav-link" id="navCropRec">Crop Recommendation</a>
+                <a href="pages/diagnosis.html" class="nav-link" id="navDisease">Disease Detection</a>
+                <a href="pages/weather.html" class="nav-link" id="navWeather">Weather</a>
+                <a href="pages/market.html" class="nav-link" id="navMarket">Market Prices</a>
+                <a href="#contact" class="nav-link" id="navContact">Contact</a>
+            </nav>
+
+            <!-- Header Right Actions -->
+            <div class="header-actions">
+                <!-- Language Selector Dropdown -->
+                <div class="lang-dropdown-wrapper">
+                    <button class="lang-select-btn" id="langSelectBtn" aria-expanded="false" title="Change Language">
+                        <i class="fa-solid fa-globe" style="color: var(--primary);"></i>
+                        <span id="currentLangLabel">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.65em; opacity: 0.7;"></i>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langDropdownMenu" role="menu">
+                        <button class="lang-option-btn active" onclick="changeLanguage('en')" role="menuitem">
+                            <span>English</span>
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('mr')" role="menuitem">
+                            <span>मराठी</span>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('hi')" role="menuitem">
+                            <span>हिन्दी</span>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('kn')" role="menuitem">
+                            <span>ಕನ್ನಡ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dark / Light Theme Toggle -->
+                <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Theme"
+                    aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+
+                <!-- Authentication Buttons -->
+                <button class="btn-login-header" onclick="openAuthModal('login')" id="navLoginBtn">
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.35rem;"></i> Login
+                </button>
+
+                <!-- Register Button -->
+                <button class="btn-register-header" onclick="openAuthModal('register')" id="navRegisterBtn">
+                    <i class="fa-solid fa-user-plus" style="margin-right: 0.35rem;"></i> Register
+                </button>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+        <div class="drawer-header">
+            <div class="header-brand">
+                <img src="assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img" style="height: 42px; width: 42px;">
+                <div class="brand-text-wrap">
+                    <span class="brand-title" style="font-size: 0.95rem;">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr" style="font-size: 0.7rem;">स्मार्ट कृषी सहाय्यक</span>
+                </div>
+            </div>
+            <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close Navigation">
+                <i class="fa-solid fa-xmark"></i>
             </button>
-            
-            <ul class="navbar-menu" id="navMenu">
-                <li><a href="index.html" class="active" id="navHome">Home</a></li>
-                <li><a href="pages/crop-recommendation.html" id="navCropRec">Crop Recommendation</a></li>
-                <li><a href="pages/diagnosis.html" id="navDisease">Disease Detection</a></li>
-                <li><a href="pages/weather.html" id="navWeather">Weather</a></li>
-                <li><a href="pages/market.html" id="navMarket">Market Prices</a></li>
-                <li><a href="pages/soil-analysis.html" id="navSoil">Soil & IoT</a></li>
-                <li><a href="pages/subsidies.html" id="navSchemes">Government Schemes</a></li>
-                <li><a href="pages/chat-expert.html" id="navAbout">About</a></li>
-            </ul>
-            
-            <div class="navbar-actions">
-                <!-- Custom Dropdown Language Selector -->
-                <div class="lang-selector">
-                    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-                        🌐 <span id="currentLangLabel">English</span>
-                    </button>
-                    <div class="lang-dropdown" id="langDropdown" role="menu">
-                        <button class="lang-option" onclick="changeLanguage('en')" role="menuitem">English</button>
-                        <button class="lang-option" onclick="changeLanguage('mr')" role="menuitem">मराठी</button>
-                        <button class="lang-option" onclick="changeLanguage('hi')" role="menuitem">हिंदी</button>
-                        <button class="lang-option" onclick="changeLanguage('kn')" role="menuitem">ಕನ್ನಡ</button>
-                        <button class="lang-option" onclick="changeLanguage('te')" role="menuitem">తెలుగు</button>
-                        <button class="lang-option" onclick="changeLanguage('ta')" role="menuitem">தமிழ்</button>
-                        <button class="lang-option" onclick="changeLanguage('gu')" role="menuitem">ગુજરાતી</button>
-                        <button class="lang-option" onclick="changeLanguage('bn')" role="menuitem">বাংলা</button>
-                    </div>
-                </div>
-                
-                <!-- Dark Mode Toggle Button -->
-                <button class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
-                    🌙
-                </button>
-                
-                <a href="#" class="btn-nav-login" id="navLogin">Login</a>
-                <a href="#cta" class="btn-nav-started" id="navStarted">Get Started</a>
-            </div>
         </div>
-    </nav>
+        <nav class="drawer-nav">
+            <a href="#home" class="nav-link active" onclick="closeMobileDrawer()">Home</a>
+            <a href="#about" class="nav-link" onclick="closeMobileDrawer()">About Us</a>
+            <a href="#features" class="nav-link" onclick="closeMobileDrawer()">Our Features</a>
+            <a href="pages/crop-recommendation.html" class="nav-link">Crop Recommendation</a>
+            <a href="pages/diagnosis.html" class="nav-link">Plant Disease Detection</a>
+            <a href="pages/weather.html" class="nav-link">Weather Forecast</a>
+            <a href="pages/market.html" class="nav-link">Market Mandi Prices</a>
+            <a href="pages/soil-analysis.html" class="nav-link">Soil Health Analysis</a>
+            <a href="pages/fertilizer-recommendation.html" class="nav-link">Fertilizer Guide</a>
+            <a href="pages/subsidies.html" class="nav-link">Government Schemes</a>
+            <a href="pages/chat-expert.html" class="nav-link">Consult Agri Expert</a>
+            <a href="#contact" class="nav-link" onclick="closeMobileDrawer()">Contact & Helpline</a>
+        </nav>
+        <div class="drawer-footer">
+            <button class="btn btn-primary btn-block" onclick="closeMobileDrawer(); openAuthModal('login')">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Login / Register
+            </button>
+        </div>
+    </aside>
 
-    <!-- Hero Section -->
-    <section class="hero" aria-label="Hero Introduction">
+    <!-- --------------------------------------------------------------------------
+         SECTION 1: HERO SECTION
+    --------------------------------------------------------------------------- -->
+    <section class="hero-section" id="home">
         <div class="container hero-grid">
-            <div class="hero-content">
-                <h2 id="heroTitle">Smart Farming. Better Decisions. Better Harvests.</h2>
-                <p id="heroDesc">Get AI-powered crop recommendations, plant disease detection, real-time weather updates, market prices, soil monitoring and government scheme information — all in one place.</p>
-                <div class="hero-actions">
-                    <a href="#cta" class="btn btn-primary" id="btnGetStarted">Get Started</a>
-                    <a href="#features" class="btn btn-secondary" id="btnExploreFeatures">Explore Features</a>
+            <div class="hero-content-col">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-seedling" style="color: var(--primary);"></i>
+                    <span>AI-Powered Smart Farming Platform</span>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">15K+</span>
-                        <span class="stat-label" id="statFarmers">Farmers Helped</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">96.8%</span>
-                        <span class="stat-label" id="statAccuracy">Diagnosis Accuracy</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label" id="statSupport">Available</span>
-                    </div>
+                <h1 class="hero-title" id="heroTitle">
+                    Smart Farming. <span>Better Decisions.</span> Better Harvests.
+                </h1>
+                <p class="hero-description" id="heroDescription">
+                    Discover intelligent crop recommendations, plant disease identification, weather insights and agricultural market information in your preferred language.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#features" class="btn btn-primary btn-lg" id="heroCtaPrimary">
+                        Explore Smart Farming <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <button class="btn btn-secondary btn-lg" onclick="toggleAIChat()" id="heroCtaSecondary">
+                        <i class="fa-solid fa-robot" style="color: var(--primary);"></i> Talk to AI Assistant
+                    </button>
+                </div>
+                <div class="hero-trust-text">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Technology for Farmers. Solutions for Better Agriculture.</span>
                 </div>
             </div>
-            <div class="hero-visual">
-                <img src="assets/images/farmer_hero.jpg" alt="Cheerful Indian farmer showing smart farming app in a green crop field" class="hover-lift">
+
+            <!-- Right Column: Realistic Commercial Farmer Visual & Floating Cards -->
+            <div class="hero-visual-wrap">
+                <div class="hero-image-card">
+                    <img src="assets/images/farmer_hero.jpg"
+                        alt="Authentic Indian farmer in lush green agricultural field using smartphone for smart farming advice"
+                        id="heroFarmerImg"
+                        loading="eager">
+                </div>
+
+                <!-- Floating Live Weather Info Card (Populated by real API) -->
+                <div class="floating-badge floating-badge-weather" id="heroWeatherBadge">
+                    <div class="floating-badge-icon badge-weather-icon" id="heroWeatherIcon">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </div>
+                    <div>
+                        <div class="floating-badge-title" id="heroWeatherTemp">29°C • Clear Sky</div>
+                        <div class="floating-badge-subtitle" id="heroWeatherLoc">Pune Mandi • Live API</div>
+                    </div>
+                </div>
+
+                <!-- Floating Crop Health Status Card (Realistic Advisory) -->
+                <div class="floating-badge floating-badge-health">
+                    <div class="floating-badge-icon badge-health-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <div>
+                        <div class="floating-badge-title">AI Diagnosis Ready</div>
+                        <div class="floating-badge-subtitle">Upload leaf photo for disease check</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features" aria-label="Services and Features">
+    <!-- --------------------------------------------------------------------------
+         SECTION 2: TRUST & CAPABILITIES SECTION
+    --------------------------------------------------------------------------- -->
+    <section class="stats-section">
         <div class="container">
-            <div class="features-header">
-                <h2 id="featuresTitle">Everything You Need for Smarter Farming</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div>
+                        <div class="stat-number">AI-Driven Farming</div>
+                        <div class="stat-label">Scientific crop guidance & leaf disease detection</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-language"></i></div>
+                    <div>
+                        <div class="stat-number">Multilingual Assistance</div>
+                        <div class="stat-label">Available in English, मराठी and हिन्दी</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <div class="stat-number">Agricultural Insights</div>
+                        <div class="stat-label">Verified APMC mandi rates & live weather forecast</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <div class="stat-number">Regional Language Support</div>
+                        <div class="stat-label">Conversational advisory tailored for local farmers</div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         SECTION 3: ABOUT SMART AGRICULTURE ASSISTANT
+    --------------------------------------------------------------------------- -->
+    <section class="about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-visual-col">
+                <div class="about-image-card">
+                    <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop"
+                        alt="Healthy wheat and modern agricultural field" loading="lazy">
+                </div>
+                <div class="about-highlight-box">
+                    <i class="fa-solid fa-seedling" style="font-size: 1.4rem; color: var(--primary); margin-bottom: 0.35rem; display: block;"></i>
+                    <h4>Dedicated to Farmers</h4>
+                    <p>Bridging agricultural science and ground-level farming realities.</p>
+                </div>
+            </div>
+
+            <div class="about-content-col">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-leaf"></i> About Our Mission
+                </div>
+                <h2 class="section-title">Transforming Agriculture Through Technology</h2>
+                <p class="about-description">
+                    Smart Agriculture Assistant bridges the gap between modern agricultural science and ground-level
+                    farming realities. We provide actionable, data-driven intelligence directly into the hands of
+                    farmers to reduce risks, cut fertilizer wastage, and maximize harvest yield.
+                </p>
+
+                <div class="about-features-list">
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="about-feat-text">
+                            <h5>Agricultural Innovation</h5>
+                            <p>Machine learning models tailored for Indian soil, climate zones, and cropping cycles.</p>
+                        </div>
+                    </div>
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon"><i class="fa-solid fa-comments"></i></div>
+                        <div class="about-feat-text">
+                            <h5>AI-Powered Assistance</h5>
+                            <p>Instant answers in Marathi, Hindi, and English for crop doubts and pest treatments.</p>
+                        </div>
+                    </div>
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                        <div class="about-feat-text">
+                            <h5>Scientific Crop Guidance</h5>
+                            <p>Nutrient-specific NPK recommendations matching lab soil test parameters.</p>
+                        </div>
+                    </div>
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                        <div class="about-feat-text">
+                            <h5>Farmer Empowerment</h5>
+                            <p>Transparency on APMC mandi prices, government subsidies, and verified expert networks.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#features" class="btn btn-primary">
+                    Discover Our Services <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         SECTION 4: OUR MAIN FEATURES
+    --------------------------------------------------------------------------- -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="features-header text-center mx-auto">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-wheat-awn"></i> Core Capabilities
+                </div>
+                <h2 class="section-title">Intelligent Services for Every Farming Need</h2>
+                <p class="section-subtitle mx-auto">
+                    From planting decisions to crop health diagnostics and selling at the highest mandi prices, explore
+                    our full suite of precision agricultural tools.
+                </p>
+            </div>
+
+            <!-- Primary 6 Feature Cards -->
             <div class="features-grid">
-                <!-- 1. Crop Diagnosis -->
-                <div class="feature-card" onclick="navigateTo('pages/diagnosis.html')">
-                    <div class="feature-icon">🔬</div>
-                    <h3 id="diagnosisTitle">Crop Diagnosis</h3>
-                    <p id="diagnosisDesc">Upload photos of your crops and get instant AI-powered disease diagnosis with treatment recommendations.</p>
-                    <div class="feature-action">
-                        <span id="diagnosisAction">Diagnose Now →</span>
+                <!-- Feature 1: Crop Recommendation -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge">
+                        <i class="fa-solid fa-wheat-awn"></i>
                     </div>
+                    <h3 class="feature-title">Crop Recommendation</h3>
+                    <p class="feature-desc">
+                        Find suitable crops based on soil Nitrogen, Phosphorus, Potassium (NPK), pH, temperature,
+                        humidity and seasonal rainfall.
+                    </p>
+                    <a href="pages/crop-recommendation.html" class="btn btn-primary btn-sm feature-btn">
+                        Explore Crop Recommendation <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
 
-                <!-- 2. Market Prices -->
-                <div class="feature-card" onclick="navigateTo('pages/market.html')">
-                    <div class="feature-icon">💰</div>
-                    <h3 id="marketTitle">Market Prices</h3>
-                    <p id="marketDesc">Get real-time market prices for your crops across different mandis and make informed selling decisions.</p>
-                    <div class="feature-action">
-                        <span id="marketAction">Check Prices →</span>
+                <!-- Feature 2: Plant Disease Detection -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge" style="background: #FEE2E2; color: #DC2626;">
+                        <i class="fa-solid fa-microscope"></i>
                     </div>
+                    <h3 class="feature-title">Plant Disease Detection</h3>
+                    <p class="feature-desc">
+                        Upload a photo of your infected crop leaves or stems to receive instant AI diagnosis, symptoms,
+                        and organic treatment guidance.
+                    </p>
+                    <a href="pages/diagnosis.html" class="btn btn-primary btn-sm feature-btn">
+                        Detect Plant Disease <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
 
-                <!-- 3. Government Subsidies -->
-                <div class="feature-card" onclick="navigateTo('pages/subsidies.html')">
-                    <div class="feature-icon">🏛️</div>
-                    <h3 id="subsidiesTitle">Government Subsidies</h3>
-                    <p id="subsidiesDesc">Discover available government schemes, subsidies, and financial assistance programs for farmers.</p>
-                    <div class="feature-action">
-                        <span id="subsidiesAction">Explore Schemes →</span>
+                <!-- Feature 3: Weather Forecast -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge" style="background: #FEF3C7; color: #D97706;">
+                        <i class="fa-solid fa-cloud-sun-rain"></i>
                     </div>
+                    <h3 class="feature-title">Weather Forecast</h3>
+                    <p class="feature-desc">
+                        Get location-specific 7-day weather forecasts, rainfall probability, humidity alerts, and spray
+                        timing recommendations.
+                    </p>
+                    <a href="pages/weather.html" class="btn btn-primary btn-sm feature-btn">
+                        Check Weather <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
 
-                <!-- 4. Weather Forecast -->
-                <div class="feature-card" onclick="navigateTo('pages/weather.html')">
-                    <div class="feature-icon">🌤️</div>
-                    <h3 id="weatherTitle">Weather Forecast</h3>
-                    <p id="weatherDesc">Get accurate weather forecasts for multiple locations across Karnataka, Maharashtra, Tamil Nadu, Kerala, Andhra Pradesh & Telangana.</p>
-                    <div class="feature-action">
-                        <span id="weatherAction">View Weather →</span>
+                <!-- Feature 4: Market Prices -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge" style="background: #E0F2FE; color: #0284C7;">
+                        <i class="fa-solid fa-chart-line"></i>
                     </div>
+                    <h3 class="feature-title">Market Prices</h3>
+                    <p class="feature-desc">
+                        Explore real-time APMC mandi commodity prices, minimum/maximum rates, and market trends across
+                        Maharashtra and India.
+                    </p>
+                    <a href="pages/market.html" class="btn btn-primary btn-sm feature-btn">
+                        View Market Prices <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
 
-                <!-- 5. Soil Analysis -->
-                <div class="feature-card" onclick="navigateTo('pages/soil-analysis.html')">
-                    <div class="feature-icon">🌍</div>
-                    <h3 id="soilTitle">Soil Analysis</h3>
-                    <p id="soilDesc">Test your soil quality by analyzing pH levels and organic carbon content. Get personalized recommendations for better crop yields.</p>
-                    <div class="feature-action">
-                        <span id="soilAction">Analyze Soil →</span>
+                <!-- Feature 5: AI Farming Assistant -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge" style="background: #F3E8FF; color: #9333EA;">
+                        <i class="fa-solid fa-robot"></i>
                     </div>
+                    <h3 class="feature-title">AI Farming Assistant</h3>
+                    <p class="feature-desc">
+                        Ask any agriculture-related question in Marathi, Hindi, or English and receive 24/7 intelligent
+                        farming recommendations.
+                    </p>
+                    <button class="btn btn-primary btn-sm feature-btn" onclick="toggleAIChat()">
+                        Ask AI Assistant <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
 
-                <!-- 6. Pest Detection -->
-                <div class="feature-card" onclick="navigateTo('pages/pest-detection.html')">
-                    <div class="feature-icon">🐛</div>
-                    <h3 id="pestTitle">Pest Detection</h3>
-                    <p id="pestDesc">Identify pests affecting your crops by reporting symptoms. Get instant treatment recommendations and control measures.</p>
-                    <div class="feature-action">
-                        <span id="pestAction">Detect Pest →</span>
+                <!-- Feature 6: Agriculture Experts -->
+                <div class="feature-card">
+                    <div class="feature-icon-badge" style="background: #DCFCE7; color: #16A34A;">
+                        <i class="fa-solid fa-user-doctor"></i>
                     </div>
+                    <h3 class="feature-title">Agriculture Experts</h3>
+                    <p class="feature-desc">
+                        Connect with verified agronomy officers, Krishi Vigyan Kendra (KVK) specialists, and local
+                        Krushi Kendra centers.
+                    </p>
+                    <a href="pages/chat-expert.html" class="btn btn-primary btn-sm feature-btn">
+                        Find Experts <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         SECTION 4B: SECONDARY AGRICULTURAL TOOLS (DEDICATED SECTION)
+    --------------------------------------------------------------------------- -->
+    <section class="secondary-tools-section" id="tools">
+        <div class="container">
+            <div class="text-center mx-auto">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-toolbox"></i> Specialized Utilities
+                </div>
+                <h2 class="section-title">Additional Agricultural Tools</h2>
+                <p class="section-subtitle mx-auto">
+                    Dedicated utilities designed to simplify daily calculations, sensor analysis, and government scheme access.
+                </p>
+            </div>
+
+            <div class="secondary-tools-grid">
+                <a href="pages/soil-analysis.html" class="tool-card">
+                    <div class="tool-icon-wrap" style="background: #E0F2FE; color: #0284C7;">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h4 class="tool-title">Soil Health & IoT</h4>
+                    <p class="tool-desc">Analyze laboratory soil test parameters (pH, EC, Organic Carbon) and live sensor moisture.</p>
+                    <span class="tool-link-text">Analyze Soil <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+
+                <a href="pages/fertilizer-recommendation.html" class="tool-card">
+                    <div class="tool-icon-wrap" style="background: #DCFCE7; color: #16A34A;">
+                        <i class="fa-solid fa-spray-can"></i>
+                    </div>
+                    <h4 class="tool-title">Fertilizer Calculator</h4>
+                    <p class="tool-desc">Calculate precise NPK dosage and commercial bag requirements (Urea, DAP, MOP) per acre.</p>
+                    <span class="tool-link-text">Calculate Dosage <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+
+                <a href="pages/subsidies.html" class="tool-card">
+                    <div class="tool-icon-wrap" style="background: #FEF3C7; color: #D97706;">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h4 class="tool-title">Government Schemes</h4>
+                    <p class="tool-desc">Explore verified agricultural subsidies including PM-KISAN, micro-irrigation, and solar pumps.</p>
+                    <span class="tool-link-text">Explore Schemes <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+
+                <a href="pages/loan-calculator.html" class="tool-card">
+                    <div class="tool-icon-wrap" style="background: #F3E8FF; color: #9333EA;">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h4 class="tool-title">Kisan Loan EMI</h4>
+                    <p class="tool-desc">Calculate monthly installments, interest rates, and loan tenure for Kisan Credit Card (KCC).</p>
+                    <span class="tool-link-text">Calculate EMI <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         SECTION 5: HOW IT WORKS
+    --------------------------------------------------------------------------- -->
+    <section class="how-it-works-section">
+        <div class="container">
+            <div class="text-center mx-auto">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-stairs"></i> Easy 4-Step Process
+                </div>
+                <h2 class="section-title">How Smart Agriculture Assistant Works</h2>
+                <p class="section-subtitle mx-auto">
+                    Get started in minutes and transform your farm management with scientific insights.
+                </p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number-badge">01</div>
+                    <div class="step-icon-wrap">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h3 class="step-title">Register Your Account</h3>
+                    <p class="step-desc">
+                        Create your free profile with your mobile number, farm location, and primary crop preferences.
+                    </p>
                 </div>
 
-                <!-- 7. Crop Recommendation -->
-                <div class="feature-card" onclick="navigateTo('pages/crop-recommendation.html')">
-                    <div class="feature-icon">🌾</div>
-                    <h3 id="cropRecTitle">Crop Recommendation</h3>
-                    <p id="cropRecDesc">Get personalized crop suggestions based on your soil's nitrogen and phosphorus levels for optimal yields.</p>
-                    <div class="feature-action">
-                        <span id="cropRecAction">Get Recommendation →</span>
+                <div class="step-card">
+                    <div class="step-number-badge">02</div>
+                    <div class="step-icon-wrap">
+                        <i class="fa-solid fa-file-waveform"></i>
                     </div>
+                    <h3 class="step-title">Enter Farming Info</h3>
+                    <p class="step-desc">
+                        Input soil testing numbers, upload crop images, or select your mandi location.
+                    </p>
                 </div>
 
-                <!-- 8. Fertilizer Recommendation -->
-                <div class="feature-card" onclick="navigateTo('pages/fertilizer-recommendation.html')">
-                    <div class="feature-icon">🧪</div>
-                    <h3 id="fertilizerTitle">Fertilizer Recommendation</h3>
-                    <p id="fertilizerDesc">Find the right fertilizer for your crop based on current NPK levels in your soil.</p>
-                    <div class="feature-action">
-                        <span id="fertilizerAction">Find Fertilizer →</span>
+                <div class="step-card">
+                    <div class="step-number-badge">03</div>
+                    <div class="step-icon-wrap">
+                        <i class="fa-solid fa-microchip"></i>
                     </div>
+                    <h3 class="step-title">Get AI Recommendations</h3>
+                    <p class="step-desc">
+                        Our backend analyzes agricultural models to deliver instant, customized advisory reports.
+                    </p>
                 </div>
 
-                <!-- 9. Chat with Expert -->
-                <div class="feature-card" onclick="navigateTo('pages/chat-expert.html')">
-                    <div class="feature-icon">💬</div>
-                    <h3 id="chatExpertTitle">Chat with Expert</h3>
-                    <p id="chatExpertDesc">Get instant answers to your farming questions from agricultural experts in real-time.</p>
-                    <div class="feature-action">
-                        <span id="chatExpertAction">Start Chat →</span>
+                <div class="step-card">
+                    <div class="step-number-badge">04</div>
+                    <div class="step-icon-wrap">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="step-title">Make Better Decisions</h3>
+                    <p class="step-desc">
+                        Harvest healthier crops, prevent costly disease outbreaks, and sell at the best market prices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         SECTION 6: SMART FARMING BENEFITS
+    --------------------------------------------------------------------------- -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="text-center mx-auto">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-shield-halved"></i> Tangible Impact
+                </div>
+                <h2 class="section-title">Why Farmers Rely on Our Platform</h2>
+                <p class="section-subtitle mx-auto">
+                    Built specifically to solve real challenges faced in the field every season.
+                </p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="benefit-content">
+                        <h4>Better Crop Selection</h4>
+                        <p>Eliminate trial-and-error by planting crops that are scientifically proven to flourish in
+                            your soil's NPK profile.</p>
                     </div>
                 </div>
-
-                <!-- 10. Loan Calculator -->
-                <div class="feature-card" onclick="navigateTo('pages/loan-calculator.html')">
-                    <div class="feature-icon">🧮</div>
-                    <h3 id="loanCalcTitle">Loan Calculator</h3>
-                    <p id="loanCalcDesc">Calculate agricultural loan EMI and explore government loan schemes for farmers.</p>
-                    <div class="feature-action">
-                        <span id="loanCalcAction">Calculate EMI →</span>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                    <div class="benefit-content">
+                        <h4>Early Disease Identification</h4>
+                        <p>Detect fungal and bacterial blight early to apply targeted treatments before widespread damage.</p>
                     </div>
                 </div>
-
-                <!-- 11. Yield Prediction -->
-                <div class="feature-card" onclick="navigateTo('pages/yield-prediction.html')">
-                    <div class="feature-icon">📈</div>
-                    <h3 id="yieldPredTitle">Yield Prediction</h3>
-                    <p id="yieldPredDesc">Predict your crop yield using AI based on soil, weather, and farming practices.</p>
-                    <div class="feature-action">
-                        <span id="yieldPredAction">Predict Yield →</span>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <div class="benefit-content">
+                        <h4>Improved Agricultural Awareness</h4>
+                        <p>Stay up to date with modern organic pest controls, bio-fertilizers, and sustainable water
+                            management.</p>
                     </div>
                 </div>
-
-                <!-- 12. Training Videos -->
-                <div class="feature-card" onclick="navigateTo('pages/training-videos.html')">
-                    <div class="feature-icon">🎓</div>
-                    <h3 id="trainingVideosTitle">Training Videos</h3>
-                    <p id="trainingVideosDesc">Learn modern farming techniques from expert-led video tutorials in multiple languages.</p>
-                    <div class="feature-action">
-                        <span id="trainingVideosAction">Watch Videos →</span>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-cloud-rain"></i></div>
+                    <div class="benefit-content">
+                        <h4>Weather-Based Planning</h4>
+                        <p>Schedule pesticide spraying, fertilizer top-dressing, and harvesting around verified rain
+                            alerts.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="benefit-content">
+                        <h4>Market Price Awareness</h4>
+                        <p>Know today's mandi rates before loading the truck to bargain with local traders with
+                            confidence.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                    <div class="benefit-content">
+                        <h4>Access to Subsidies</h4>
+                        <p>Direct information on PM-KISAN, tractor subsidies, drip irrigation schemes, and crop
+                            insurance filing.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Dashboard Preview Section -->
-    <section class="dashboard-preview-section" aria-label="Farmer Dashboard Preview">
-        <div class="container">
-            <div class="dashboard-container">
-                <div class="dashboard-title-wrapper">
-                    <h3 id="dashboardWelcome">Welcome to Smart Agriculture Assistant 🌱</h3>
+    <!-- --------------------------------------------------------------------------
+         SECTION 7: AI ASSISTANT PROMOTION
+    --------------------------------------------------------------------------- -->
+    <section class="ai-promo-section">
+        <div class="container ai-promo-grid">
+            <div class="ai-promo-content">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-robot"></i> 24/7 Digital Agri Specialist
                 </div>
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">🌤️</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbWeather">Current Weather</span>
-                            <span class="db-card-value">28°C / 🌧️ Rainy</span>
+                <h2 class="ai-promo-title">Your Personal AI Farming Assistant</h2>
+                <p class="ai-promo-desc">
+                    Get farming guidance anytime, anywhere in your preferred language. Whether you want to identify a
+                    pest, know fertilizer dosage, or check mandi trends, your AI assistant is ready.
+                </p>
+
+                <div class="ai-promo-chips">
+                    <button class="ai-chip" onclick="askAIChat('Which crop suits black soil with medium rainfall?')">
+                        <i class="fa-solid fa-circle-question"></i> "Which crop suits black soil?"
+                    </button>
+                    <button class="ai-chip" onclick="askAIChat('कापसावरील बोंडअळी कशी रोखायची?')">
+                        <i class="fa-solid fa-circle-question"></i> "कापसावरील बोंडअळी कशी रोखायची?"
+                    </button>
+                    <button class="ai-chip" onclick="askAIChat('गेहू के लिए यूरिया और डीएपी की सही मात्रा?')">
+                        <i class="fa-solid fa-circle-question"></i> "गेहू के लिए यूरिया की सही मात्रा?"
+                    </button>
+                </div>
+
+                <button class="btn btn-secondary btn-lg" onclick="toggleAIChat()">
+                    <i class="fa-solid fa-comment-dots"></i> Start Chatting with AI
+                </button>
+            </div>
+
+            <div class="ai-promo-visual">
+                <div class="ai-chat-preview-card">
+                    <div class="chat-preview-header">
+                        <div class="chat-preview-user">
+                            <div class="chat-avatar-circle"><i class="fa-solid fa-robot"></i></div>
+                            <div>
+                                <strong style="font-size: 0.95rem; display: block;">Smart Farm AI</strong>
+                                <span style="font-size: 0.75rem; opacity: 0.9;">Online • Speaks Marathi, Hindi &
+                                    English</span>
+                            </div>
                         </div>
+                        <i class="fa-solid fa-signal" style="font-size: 0.85rem;"></i>
                     </div>
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">💧</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbSoil">Soil Moisture</span>
-                            <span class="db-card-value">68% / Optimal</span>
+                    <div class="chat-preview-body">
+                        <div class="chat-bubble bot">
+                            नमस्कार! मी तुमचा शेती सहाय्यक आहे. मी आज तुमच्या पिकासाठी काय मदत करू शकतो?
                         </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">🌡️</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbTemp">Temperature</span>
-                            <span class="db-card-value">29.4°C</span>
+                        <div class="chat-bubble user">
+                            माझ्या कापूस पिकावर पांढरी माशी पडली आहे, काय फवारावे?
                         </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">🌿</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbHealth">Crop Health</span>
-                            <span class="db-card-value" style="color: #2E7D32;">Healthy (92%)</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">💰</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbMarket">Market Price</span>
-                            <span class="db-card-value">₹2,850/Quintal</span>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="db-card-icon">🌾</div>
-                        <div class="db-card-content">
-                            <span class="db-card-label" id="dbCropRec">Recommended Crop</span>
-                            <span class="db-card-value">Wheat / Rice</span>
+                        <div class="chat-bubble bot">
+                            कापसावरील पांढऱ्या माशीसाठी निंबोळी अर्क ५% किंवा ॲसिटामिप्रीड २०% एसपी (१० ग्रॅम प्रति १५
+                            लिटर पाणी) फवारावे. <em>(टीप: प्रत्यक्ष फवारणीपूर्वी स्थानिक कृषी केंद्र किंवा तज्ज्ञांचा सल्ला घ्यावा.)</em>
                         </div>
                     </div>
                 </div>
@@ -286,415 +723,536 @@
         </div>
     </section>
 
-    <!-- Farming Tips & Seasonal Best Practices -->
-    <section class="agri-news">
+    <!-- --------------------------------------------------------------------------
+         SECTION 8: LANGUAGE SUPPORT
+    --------------------------------------------------------------------------- -->
+    <section class="language-section">
         <div class="container">
-            <h2 id="tipsTitle">Farming Tips & Best Practices</h2>
-            <div class="news-grid">
-                <!-- Seasonal Tips Card -->
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop" alt="Seasonal farming" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%234CAF50%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🌾 Seasonal%3C/text%3E%3C/svg%3E'">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">🌱 Seasonal Guide</div>
-                        <h3 id="tipsCard1Title">Best Planting Seasons</h3>
-                        <ul id="tipsCard1List">
-                            <li>Kharif (Monsoon): Rice, Cotton, Maize, Soybean</li>
-                            <li>Rabi (Winter): Wheat, Mustard, Chickpea, Barley</li>
-                            <li>Zaid (Summer): Vegetables, Watermelon, Cucumber</li>
-                            <li>Plan crop rotation for better soil health</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="section-tagline mx-auto">
+                <i class="fa-solid fa-globe"></i> Inclusive & Accessible
+            </div>
+            <h2 class="section-title">Designed in Your Local Language</h2>
+            <p class="section-subtitle mx-auto">
+                Technology is only powerful when accessible. Switch the entire platform interface to your mother tongue.
+            </p>
 
-                <!-- Water Management Card -->
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop" alt="Water conservation" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%234CAF50%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3E💧 Water%3C/text%3E%3C/svg%3E'">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">💧 Water Conservation</div>
-                        <h3 id="tipsCard2Title">Smart Irrigation Tips</h3>
-                        <ul id="tipsCard2List">
-                            <li>Use drip irrigation to save 40-60% water</li>
-                            <li>Water crops early morning or late evening</li>
-                            <li>Mulching reduces water evaporation</li>
-                            <li>Harvest rainwater for irrigation needs</li>
-                        </ul>
-                    </div>
+            <div class="lang-cards-grid">
+                <div class="lang-select-card active" onclick="changeLanguage('en')">
+                    <span class="lang-flag">🌐</span>
+                    <span class="lang-name-native">English</span>
+                    <span class="lang-name-eng">Standard Agricultural Interface</span>
                 </div>
-
-                <!-- Pest Prevention Card -->
-                <div class="news-card">
-                    <div class="news-image social-media-bg">
-                        <div class="social-icon">🐛</div>
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">🛡️ Prevention</div>
-                        <h3 id="tipsCard3Title">Pest & Disease Prevention</h3>
-                        <ul id="tipsCard3List">
-                            <li>Inspect crops regularly (twice a week)</li>
-                            <li>Remove infected plants immediately</li>
-                            <li>Use neem-based organic pesticides</li>
-                            <li>Maintain proper plant spacing</li>
-                        </ul>
-                    </div>
+                <div class="lang-select-card" onclick="changeLanguage('mr')">
+                    <span class="lang-flag">🚩</span>
+                    <span class="lang-name-native">मराठी</span>
+                    <span class="lang-name-eng">महाराष्ट्रातील शेतकऱ्यांसाठी खास</span>
+                </div>
+                <div class="lang-select-card" onclick="changeLanguage('hi')">
+                    <span class="lang-flag">🇮🇳</span>
+                    <span class="lang-name-native">हिन्दी</span>
+                    <span class="lang-name-eng">भारत भर के किसानों के लिए सुलभ</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quick Actions Section -->
-    <section class="quick-actions">
+    <!-- --------------------------------------------------------------------------
+         SECTION 9: FAQ ACCORDION SECTION
+    --------------------------------------------------------------------------- -->
+    <section class="faq-section" id="faq">
         <div class="container">
-            <h2 id="quickTitle">Quick Actions</h2>
-            <div class="quick-buttons">
-                <button class="quick-btn emergency" onclick="showEmergencyHelp()">
-                    <span class="btn-icon">🚨</span>
-                    <span id="emergencyBtn">Emergency Help</span>
-                </button>
-                <button class="quick-btn" onclick="navigateTo('pages/diagnosis.html')">
-                    <span class="btn-icon">📸</span>
-                    <span id="photoBtn">Take Photo</span>
-                </button>
-                <button class="quick-btn" onclick="showExpertContact()" title="Get personalized advice from agricultural experts">
-                    <span class="btn-icon">👨‍🌾</span>
-                    <span id="expertBtn">Contact Expert</span>
-                    <div class="tooltip">Get expert advice on crop issues, pest control, and farming techniques</div>
-                </button>
-                <button class="quick-btn" onclick="navigateTo('pages/nearby-stores.html')">
-                    <span class="btn-icon">🏪</span>
-                    <span>Find Nearby Store</span>
-                </button>
-                <button class="quick-btn" onclick="toggleAIChat()" style="background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); color: white;">
-                    <span class="btn-icon">🤖</span>
-                    <span id="aiAssistantBtn">AI Assistant</span>
-                </button>
+            <div class="text-center mx-auto">
+                <div class="section-tagline">
+                    <i class="fa-solid fa-circle-question"></i> Got Questions?
+                </div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle mx-auto">
+                    Everything you need to know about Smart Agriculture Assistant features and usage.
+                </p>
             </div>
-        </div>
-    </section>
 
-    <!-- FAQ Accordion Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 id="faqTitle">Frequently Asked Questions</h2>
-            <p class="faq-subtitle" id="faqSubtitle">Find answers to common questions about our Smart Agriculture Assistant</p>
-            
             <div class="faq-container">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq1Q">How does the crop disease detection work?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card active">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>What is Smart Agriculture Assistant?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq1A">Simply upload a clear photo of the affected plant or leaf. Our AI-powered system analyzes the image and identifies the disease within seconds. You'll receive detailed information about the disease, its causes, and recommended treatment methods.</p>
+                    <div class="faq-content" style="max-height: 200px;">
+                        <p>Smart Agriculture Assistant is a comprehensive, free AI-driven digital platform designed for
+                            Indian farmers. It provides scientifically verified crop recommendations, instant leaf
+                            disease diagnosis via image upload, real-time APMC mandi prices, weather forecasts, and
+                            government scheme guidance in local languages.</p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 2 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq2Q">Is the service available in my local language?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>How does crop recommendation work?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq2A">Yes! Our platform supports multiple regional languages. Use the language selector to switch between English, Hindi, Kannada, Marathi, and more.</p>
+                    <div class="faq-content">
+                        <p>You enter your soil's Nitrogen (N) and Phosphorus (P) nutrient values (obtainable from any
+                            standard Soil Health Card or local testing lab). Our machine learning algorithm matches
+                            these parameters against ideal soil conditions for crops like Rice, Wheat, Maize, Cotton,
+                            and Pulses to recommend the highest yielding option.</p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 3 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq3Q">How accurate are the market prices?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>How can I detect plant diseases using my phone?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq3A">Market prices are updated daily from government mandi databases and verified agricultural markets. We provide real-time pricing information to help you make informed selling decisions.</p>
+                    <div class="faq-content">
+                        <p>Simply navigate to the Disease Detection page, click "Browse Image" or take a photo of the
+                            affected plant leaf with your camera, and click "Analyze Crop". Our AI computer vision model
+                            identifies the disease, confidence rating, causes, and recommended chemical or organic
+                            treatments.</p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 4 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq4Q">Can I contact an agricultural expert?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>How can I check mandi market prices?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq4A">Absolutely! Click the "Contact Expert" button, fill in your details and crop issue, and an agricultural expert will call you within 30 minutes. This service is available 24/7.</p>
+                    <div class="faq-content">
+                        <p>Visit the Market Prices section to view real-time commodity prices across agricultural
+                            mandis. You can search by crop name (e.g., Soybean, Cotton, Onion, Wheat) and filter by
+                            state or district to compare rates.</p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 5 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq5Q">How do I find nearby agricultural stores?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>Is the platform available in Marathi?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq5A">Use the "Find Nearby Store" feature. Allow location access, and we'll show you the nearest stores selling seeds, fertilizers, pesticides, and farming equipment with contact details and directions.</p>
+                    <div class="faq-content">
+                        <p>होय! (Yes). Smart Agriculture Assistant is fully localized in Marathi (मराठी) as well as
+                            Hindi and English. Click the language button in the header or the language section on this
+                            page to toggle instantly.</p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 6 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq6Q">What government subsidies am I eligible for?</span>
-                        <span class="faq-icon">+</span>
+                <div class="faq-card">
+                    <button class="faq-trigger" onclick="toggleFaqCard(this)">
+                        <span>How can I contact agriculture experts?</span>
+                        <div class="faq-icon-indicator"><i class="fa-solid fa-chevron-down"></i></div>
                     </button>
-                    <div class="faq-answer">
-                        <p id="faq6A">Visit the "Government Subsidies" section to explore various schemes like PM-KISAN, crop insurance, irrigation subsidies, and equipment loans. Each scheme includes eligibility criteria and application procedures.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 7 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq7Q">Is my data secure and private?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p id="faq7A">Yes! We take data privacy seriously. Your personal information, photos, and queries are encrypted and stored securely. We never share your data with third parties without your consent.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 8 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq8Q">How do I use the AI Assistant?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p id="faq8A">Click the AI Assistant button (🤖) at the bottom-right. You can type your questions or use voice input. Ask about crops, weather, pests, fertilizers, or any farming-related queries in your preferred language.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 9 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq9Q">Do I need internet to use this service?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p id="faq9A">Yes, an internet connection is required for real-time features like disease detection, market prices, and weather updates. However, we're working on offline capabilities for basic features.</p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 10 -->
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span id="faq10Q">Is this service free?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p id="faq10A">Yes! All basic features including crop diagnosis, weather forecasts, market prices, and expert consultation are completely free for farmers. Our mission is to empower farmers with technology.</p>
+                    <div class="faq-content">
+                        <p>You can request an expert call back through our "Contact Expert" consultation form, ask
+                            questions via the 24/7 AI Farming Assistant, or call the National Kisan Call Centre
+                            toll-free emergency helpline at 1800-180-1551.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta-section" id="cta">
-        <div class="container">
-            <h2 id="ctaTitle">Start Your Smart Farming Journey Today</h2>
-            <p id="ctaDesc">Use technology to make better farming decisions and improve your crop productivity.</p>
-            <button class="btn btn-light" id="ctaBtn" onclick="showExpertContact()">Get Started</button>
+    <!-- --------------------------------------------------------------------------
+         SECTION 10: FINAL CALL TO ACTION
+    --------------------------------------------------------------------------- -->
+    <section class="final-cta-section" id="contact">
+        <div class="container final-cta-card">
+            <h2 class="final-cta-title">Start Your Smart Farming Journey Today</h2>
+            <p class="final-cta-desc">
+                Join thousands of Indian farmers using data and AI to optimize crop yields, cut input costs, and protect
+                harvests.
+            </p>
+            <div class="final-cta-buttons">
+                <a href="pages/crop-recommendation.html" class="btn btn-secondary btn-lg">
+                    Get Started Free <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#features" class="btn btn-outline btn-lg"
+                    style="color: #fff; border-color: rgba(255,255,255,0.4);">
+                    Explore All Features
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- --------------------------------------------------------------------------
+         PROFESSIONAL 4-COLUMN FOOTER
+    --------------------------------------------------------------------------- -->
+    <footer class="site-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3 id="footerAboutTitle">Smart Agriculture Assistant</h3>
-                    <p id="footerAboutDesc">Empowering Farmers with AI, IoT and Smart Technology.</p>
+            <div class="footer-grid">
+                <!-- Column 1: Brand & Bio -->
+                <div class="footer-col-brand">
+                    <a href="#home" class="footer-brand-wrap" style="display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; margin-bottom: 1rem;">
+                        <img src="assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img" style="height: 44px; width: 44px; background: #fff; padding: 2px;">
+                        <div>
+                            <span class="brand-title" style="color: #FFFFFF; font-size: 1.05rem; display: block; font-weight: 700;">Smart Agriculture Assistant</span>
+                            <span class="brand-subtitle-mr" style="color: #86EFAC; font-size: 0.75rem; display: block; font-weight: 600;">स्मार्ट कृषी सहाय्यक</span>
+                        </div>
+                    </a>
+                    <p class="footer-brand-desc">
+                        A dedicated digital agriculture technology platform empowering Indian farmers with artificial intelligence, crop science, and mandi price transparency.
+                    </p>
+                    <div class="footer-social-links">
+                        <a href="#" class="social-icon-btn" aria-label="Facebook"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon-btn" aria-label="Twitter"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-icon-btn" aria-label="YouTube"><i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-icon-btn" aria-label="WhatsApp"><i
+                                class="fa-brands fa-whatsapp"></i></a>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3 id="footerLinksTitle">Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html" id="footerHome">Home</a></li>
-                        <li><a href="pages/chat-expert.html" id="footerAbout">About</a></li>
-                        <li><a href="#features" id="footerFeatures">Features</a></li>
-                        <li><a href="#" onclick="showExpertContact()" id="footerContact">Contact</a></li>
-                        <li><a href="#" id="footerPrivacy">Privacy Policy</a></li>
-                        <li><a href="#" id="footerTerms">Terms & Conditions</a></li>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="footer-col-title">Quick Links</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#home"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#features"><i class="fa-solid fa-angle-right"></i> Features</a></li>
+                        <li><a href="#faq"><i class="fa-solid fa-angle-right"></i> FAQ</a></li>
+                        <li><a href="#contact"><i class="fa-solid fa-angle-right"></i> Contact Us</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Contact Support</h3>
-                    <p>📞 Toll-Free: 1800-123-4567</p>
-                    <p>📧 Email: support@smartagri.org</p>
-                    <p>⏰ 24/7 Helpline Available</p>
+
+                <!-- Column 3: Agriculture Services -->
+                <div>
+                    <h4 class="footer-col-title">Agri Services</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="pages/crop-recommendation.html"><i class="fa-solid fa-angle-right"></i> Crop
+                                Recommendation</a></li>
+                        <li><a href="pages/diagnosis.html"><i class="fa-solid fa-angle-right"></i> Disease Detection</a>
+                        </li>
+                        <li><a href="pages/weather.html"><i class="fa-solid fa-angle-right"></i> Weather Forecast</a>
+                        </li>
+                        <li><a href="pages/market.html"><i class="fa-solid fa-angle-right"></i> Market Prices</a></li>
+                        <li><a href="pages/soil-analysis.html"><i class="fa-solid fa-angle-right"></i> Soil Health & IoT</a></li>
+                        <li><a href="pages/fertilizer-recommendation.html"><i class="fa-solid fa-angle-right"></i>
+                                Fertilizer Guide</a></li>
+                        <li><a href="pages/subsidies.html"><i class="fa-solid fa-angle-right"></i> Government
+                                Schemes</a></li>
+                        <li><a href="pages/loan-calculator.html"><i class="fa-solid fa-angle-right"></i> Kisan Loan EMI</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Genuine Support -->
+                <div>
+                    <h4 class="footer-col-title">Contact & Helpline</h4>
+                    <div class="footer-contact-items">
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-phone" style="color: #4ADE80;"></i>
+                            <div>
+                                <strong>Kisan Toll-Free Helpline:</strong>
+                                <div>1800-180-1551 (24/7, Govt of India)</div>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-headset" style="color: #4ADE80;"></i>
+                            <div>
+                                <strong>State Agri Helpline:</strong>
+                                <div>1800-233-4000 (Maharashtra)</div>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-globe" style="color: #4ADE80;"></i>
+                            <div>
+                                <strong>Official Portal:</strong>
+                                <div>farmer.gov.in / agricoop.gov.in</div>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fa-solid fa-location-dot" style="color: #4ADE80;"></i>
+                            <div>
+                                <strong>Support Office:</strong>
+                                <div>Pune, Maharashtra, India</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Quick Language Select at Bottom -->
-            <div class="footer-languages">
-                <h4 id="footerLanguagesTitle" style="margin-bottom: 12px; color: white;">Languages</h4>
-                <ul class="footer-lang-list">
-                    <li><a class="footer-lang-item" onclick="changeLanguage('en')">English</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('mr')">मराठी</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('hi')">हिंदी</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('kn')">ಕನ್ನಡ</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('te')">తెలుగు</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('ta')">தமிழ்</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('gu')">ગુજરાતી</a></li>
-                    <li><a class="footer-lang-item" onclick="changeLanguage('bn')">বাংলা</a></li>
-                </ul>
-            </div>
-            
+
+            <!-- Bottom Copyright & Legal -->
             <div class="footer-bottom">
-                <p>&copy; 2026 Smart Agriculture Assistant. Made for farmers, by farmers.</p>
+                <div>
+                    © 2026 Smart Agriculture Assistant. <em>Made with care for Indian Farmers.</em>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="pages/subsidies.html">Privacy Policy</a>
+                    <a href="pages/subsidies.html">Terms & Conditions</a>
+                    <a href="pages/subsidies.html">Disclaimer</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Emergency Modal -->
-    <div id="emergencyModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('emergencyModal')">&times;</span>
-            <h2 id="emergencyTitle">Emergency Agricultural Help</h2>
-            <div class="emergency-contacts">
-                <div class="contact-item">
-                    <h3 id="pestControl">Pest Control Emergency</h3>
-                    <p>📞 1800-425-1661</p>
+    <!-- --------------------------------------------------------------------------
+         AUTHENTICATION MODAL (LOGIN & REGISTER)
+    --------------------------------------------------------------------------- -->
+    <div class="modal-backdrop" id="authModalBackdrop">
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+            <div class="modal-header">
+                <h3 class="modal-title" id="authModalTitle">Farmer Account</h3>
+                <button class="modal-close-btn" onclick="closeAuthModal()" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tabs">
+                    <button class="modal-tab-btn active" id="tabLoginBtn"
+                        onclick="switchAuthTab('login')">Login</button>
+                    <button class="modal-tab-btn" id="tabRegisterBtn"
+                        onclick="switchAuthTab('register')">Register</button>
                 </div>
-                <div class="contact-item">
-                    <h3 id="diseaseOutbreak">Disease Outbreak</h3>
-                    <p>📞 1800-180-1551</p>
-                </div>
-                <div class="contact-item">
-                    <h3 id="weatherAlert">Weather Alert</h3>
-                    <p>📞 1800-266-0123</p>
-                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" onsubmit="handleAuthSubmit(event, 'login')">
+                    <div class="form-group">
+                        <label class="form-label" for="loginPhone">Mobile Number or Email</label>
+                        <input type="text" id="loginPhone" class="form-control" placeholder="e.g. 9876543210" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="loginPass">Password</label>
+                        <input type="password" id="loginPass" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Login to Farm Dashboard
+                    </button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" style="display: none;" onsubmit="handleAuthSubmit(event, 'register')">
+                    <div class="form-group">
+                        <label class="form-label" for="regName">Full Name</label>
+                        <input type="text" id="regName" class="form-control" placeholder="Farmer Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="regPhone">Mobile Number</label>
+                        <input type="tel" id="regPhone" class="form-control" placeholder="10-digit mobile"
+                            pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="regState">State</label>
+                        <select id="regState" class="form-control" required>
+                            <option value="">Select State</option>
+                            <option value="Maharashtra" selected>Maharashtra</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="regPass">Create Password</label>
+                        <input type="password" id="regPass" class="form-control" placeholder="Min. 6 characters"
+                            minlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+                        <i class="fa-solid fa-user-plus"></i> Complete Free Registration
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Expert Contact Modal -->
-    <div id="expertModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('expertModal')">&times;</span>
-            <h2 id="expertContactTitle">Contact Agricultural Expert</h2>
-            <form class="expert-form">
-                <input type="text" id="farmerName" placeholder="Your Name" required>
-                <input type="tel" id="farmerPhone" placeholder="Phone Number" required>
-                <select id="cropType" required>
-                    <option value="">Select Crop Type</option>
-                    <option value="tomato">Tomato</option>
-                    <option value="rice">Rice</option>
-                    <option value="wheat">Wheat</option>
-                    <option value="cotton">Cotton</option>
-                </select>
-                <textarea id="issueDescription" placeholder="Describe your issue..." rows="4" required></textarea>
-                <button type="submit" class="submit-btn" id="submitExpert">Request Expert Call</button>
-            </form>
-        </div>
+    <!-- --------------------------------------------------------------------------
+         FLOATING AI ASSISTANT TRIGGER & CHATBOX DRAWER
+    --------------------------------------------------------------------------- -->
+    <div class="ai-floating-trigger" id="aiChatBtn" onclick="toggleAIChat()" title="Open AI Farming Assistant"
+        aria-label="Open AI Farming Assistant">
+        <i class="fa-solid fa-robot"></i>
+        <div class="ai-floating-pulse"></div>
     </div>
 
-    <!-- AI Assistant Chatbox -->
-    <div id="aiChatbox" class="ai-chatbox">
-        <div class="chat-header">
-            <div class="chat-header-left">
-                <span class="chat-avatar">🤖</span>
+    <div class="ai-drawer-chatbox" id="aiChatbox" role="dialog" aria-label="AI Farm Assistant Chat">
+        <div class="ai-chat-head">
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <div class="chat-avatar-circle" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
                 <div>
-                    <h3 id="chatTitle">AI Farm Assistant</h3>
-                    <span class="chat-status" id="chatStatus">Online</span>
+                    <h4 style="font-size: 0.95rem; margin: 0; color: #fff;">AI Farm Assistant</h4>
+                    <span style="font-size: 0.72rem; opacity: 0.9; color: #86EFAC;">● Online & Ready</span>
                 </div>
             </div>
-            <div class="chat-header-right">
-                <button class="chat-lang-btn" onclick="cycleChatLanguage()" id="chatLangBtn" title="Change Language">
-                    <span id="chatLangIcon">🌐</span>
-                </button>
-                <button class="chat-minimize-btn" onclick="toggleAIChat()" title="Close">
-                    <span>✕</span>
-                </button>
+            <button onclick="toggleAIChat()" style="color: #fff; font-size: 1.1rem; padding: 0.3rem;"
+                aria-label="Close Chat">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="ai-chat-messages-container" id="chatMessages">
+            <div class="chat-bubble bot">
+                Hello! I am your AI Agriculture Assistant. Ask me anything about crop diseases, weather, market mandi
+                rates, or fertilizer requirements!
             </div>
         </div>
-        
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message bot">
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    <p id="welcomeMsg">Hello! I'm your AI farming assistant. How can I help you today?</p>
-                    <span class="message-time">Just now</span>
-                </div>
-            </div>
+
+        <div class="ai-chat-quick-chips">
+            <button onclick="askQuestion('crop-disease')">🌾 Crop Disease</button>
+            <button onclick="askQuestion('market-price')">💰 Mandi Prices</button>
+            <button onclick="askQuestion('weather')">🌤️ Weather Info</button>
+            <button onclick="askQuestion('fertilizer')">🧪 Fertilizer</button>
         </div>
-        
-        <div class="chat-quick-questions">
-            <button class="quick-question" onclick="askQuestion('crop-disease')" id="quickQ1">
-                🌾 Crop Disease Help
+
+        <div class="ai-chat-input-bar">
+            <button class="ai-chat-voice-btn" onclick="toggleVoiceInput()" id="voiceBtn" title="Voice Input"
+                aria-label="Voice Input">
+                <i class="fa-solid fa-microphone"></i>
             </button>
-            <button class="quick-question" onclick="askQuestion('market-price')" id="quickQ2">
-                💰 Market Prices
+            <input type="text" id="chatInput" placeholder="Type farming question..."
+                onkeypress="handleChatKeyPress(event)">
+            <button class="ai-chat-send-btn" onclick="sendMessage()" id="sendBtn" title="Send"
+                aria-label="Send Message">
+                <i class="fa-solid fa-paper-plane"></i>
             </button>
-            <button class="quick-question" onclick="askQuestion('weather')" id="quickQ3">
-                🌤️ Weather Info
-            </button>
-            <button class="quick-question" onclick="askQuestion('fertilizer')" id="quickQ4">
-                🧪 Fertilizer Advice
-            </button>
-        </div>
-        
-        <div class="chat-input-area">
-            <button class="voice-btn" onclick="toggleVoiceInput()" id="voiceBtn" title="Voice Input">
-                <span id="voiceIcon">🎤</span>
-            </button>
-            <input type="text" 
-                   id="chatInput" 
-                   placeholder="Type your question..." 
-                   onkeypress="handleChatKeyPress(event)">
-            <button class="send-btn" onclick="sendMessage()" id="sendBtn">
-                <span>📤</span>
-            </button>
-        </div>
-        
-        <div class="voice-indicator" id="voiceIndicator" style="display: none;">
-            <div class="voice-animation">
-                <span class="voice-wave"></span>
-                <span class="voice-wave"></span>
-                <span class="voice-wave"></span>
-            </div>
-            <p id="voiceListening">Listening...</p>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast" style="position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.85); color: white; padding: 12px 24px; border-radius: var(--border-radius-sm); z-index: 1100; display: none; align-items: center; gap: 8px;">
-        <div class="toast-icon">✅</div>
-        <div class="toast-message" id="toastMessage"></div>
-    </div>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Load configuration first -->
+    <!-- Scripts -->
     <script src="assets/js/config.js"></script>
-    <!-- Then load main script -->
     <script src="assets/js/script.js"></script>
     <script>
-        // Inline script to handle dropdown toggle and simple FAQ toggling
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', (e) => {
+        // Interactive UI helpers for Homepage
+        function askAIChat(promptText) {
+            toggleAIChat();
+            const input = document.getElementById('chatInput');
+            if (input) {
+                input.value = promptText;
+                input.focus();
+                setTimeout(() => {
+                    if (typeof sendMessage === 'function') {
+                        sendMessage();
+                    }
+                }, 300);
+            }
+        }
+        window.askAIChat = askAIChat;
+
+        function toggleFaqCard(button) {
+            const card = button.parentElement;
+            const content = card.querySelector('.faq-content');
+            const isOpen = card.classList.contains('active');
+
+            // Close all cards
+            document.querySelectorAll('.faq-card').forEach(c => {
+                c.classList.remove('active');
+                const cnt = c.querySelector('.faq-content');
+                if (cnt) cnt.style.maxHeight = '0px';
+            });
+
+            if (!isOpen) {
+                card.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 30 + 'px';
+            }
+        }
+
+        // Language Dropdown Toggle
+        const langSelectBtn = document.getElementById('langSelectBtn');
+        const langDropdownMenu = document.getElementById('langDropdownMenu');
+        if (langSelectBtn && langDropdownMenu) {
+            langSelectBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const show = langDropdown.classList.toggle('show');
-                langBtn.setAttribute('aria-expanded', show);
+                langDropdownMenu.classList.toggle('show');
+            });
+            document.addEventListener('click', () => {
+                langDropdownMenu.classList.remove('show');
             });
         }
-        
-        function toggleFAQ(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('.faq-icon');
-            if (answer.style.display === 'none' || answer.style.display === '') {
-                answer.style.display = 'block';
-                icon.textContent = '-';
-            } else {
-                answer.style.display = 'none';
-                icon.textContent = '+';
+
+        // Mobile Drawer Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+
+        function openMobileDrawer() {
+            mobileDrawer.classList.add('active');
+            mobileDrawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileDrawer() {
+            mobileDrawer.classList.remove('active');
+            mobileDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileDrawer);
+        if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeMobileDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeMobileDrawer);
+
+        // Sticky Header scroll styling
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('siteHeader');
+            if (header) {
+                if (window.scrollY > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             }
+        });
+
+        // Authentication Modal Logic
+        function openAuthModal(tab = 'login') {
+            const backdrop = document.getElementById('authModalBackdrop');
+            if (backdrop) {
+                backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                switchAuthTab(tab);
+            }
+        }
+
+        function closeAuthModal() {
+            const backdrop = document.getElementById('authModalBackdrop');
+            if (backdrop) {
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabLoginBtn = document.getElementById('tabLoginBtn');
+            const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+            const title = document.getElementById('authModalTitle');
+
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                tabLoginBtn.classList.add('active');
+                tabRegisterBtn.classList.remove('active');
+                title.textContent = 'Farmer Login';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                tabLoginBtn.classList.remove('active');
+                tabRegisterBtn.classList.add('active');
+                title.textContent = 'Create Farmer Account';
+            }
+        }
+
+        function handleAuthSubmit(e, type) {
+            e.preventDefault();
+            const actionText = type === 'login' ? 'Logged in successfully!' : 'Registration successful! Welcome to Smart Agriculture Assistant.';
+            showToast(actionText);
+            closeAuthModal();
+        }
+
+        // Close modal on Escape key or outside click
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAuthModal();
+                closeMobileDrawer();
+            }
+        });
+        const modalBackdrop = document.getElementById('authModalBackdrop');
+        if (modalBackdrop) {
+            modalBackdrop.addEventListener('click', (e) => {
+                if (e.target === modalBackdrop) closeAuthModal();
+            });
         }
     </script>
 </body>

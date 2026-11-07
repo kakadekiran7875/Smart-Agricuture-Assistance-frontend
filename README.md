@@ -1,99 +1,107 @@
-﻿# Smart Agriculture Assistance Frontend
+# 🌱 Smart Agriculture Assistant – Enterprise Frontend Platform
+### स्मार्ट कृषी सहाय्यक | Industrial-Grade Agricultural Intelligence
 
-A comprehensive web application designed to assist farmers with agricultural decisions, crop recommendations, disease detection, and more.
+A high-performance, production-ready agricultural technology platform designed for Indian farmers. Provides intelligent crop recommendations, leaf pathology disease vision AI, live weather advisories, real-time APMC Mandi commodity prices, IoT soil monitoring, and government subsidies access.
 
-## Project Structure
+---
 
-`
+## 🏗️ Industrial Project Architecture
+
+For a comprehensive architectural specification, see [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+```text
 html_template/
-├── index.html              # Main landing page
-├── pages/                  # All feature pages
-│   ├── chat-expert.html
+├── index.html                  # Core Landing Page & Gateway Hub
+├── public/                     # Static Web Assets (Favicon, Robots.txt, Sitemap, Manifest)
+│   ├── favicon.png
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── sitemap.xml
+├── assets/
+│   ├── images/                 # Brand Assets & Photography
+│   │   ├── logo.png            # Circular Brand Emblem
+│   │   └── farmer_hero.jpg     # Hero visual imagery
+│   ├── css/                    # Scalable ITCSS Modular Design System
+│   │   ├── style.css           # Master stylesheet orchestrator
+│   │   └── tokens/             # Design Tokens (Colors, Typography, Elevations)
+│   │       ├── variables.css
+│   │       └── typography.css
+│   └── js/                     # Domain-Driven JavaScript Architecture
+│       ├── script.js           # Production master bundle
+│       ├── config.js           # Centralized API Endpoint Registry
+│       ├── index.js            # ES module barrel exports
+│       ├── core/               # Core Infrastructure (API Client, i18n, Theme)
+│       │   ├── api.js
+│       │   ├── i18n.js
+│       │   └── theme.js
+│       ├── services/           # Agriculture Domain API Services
+│       │   ├── cropService.js
+│       │   ├── diseaseService.js
+│       │   ├── weatherService.js
+│       │   ├── marketService.js
+│       │   ├── soilService.js
+│       │   └── fertilizerService.js
+│       └── utils/              # Pure Utility Functions
+│           ├── dom.js
+│           └── formatters.js
+├── pages/                      # Multi-Page Application (MPA) Route Views
 │   ├── crop-recommendation.html
 │   ├── diagnosis.html
-│   ├── fertilizer-recommendation.html
-│   ├── loan-calculator.html
-│   ├── market.html
-│   ├── nearby-stores.html
-│   ├── pest-detection.html
-│   ├── soil-analysis.html
-│   ├── subsidies.html
-│   ├── test-crop.html
-│   ├── test-fertilizer-api.html
-│   ├── training-videos.html
 │   ├── weather.html
-│   └── yield-prediction.html
-├── assets/                 # Static assets
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   ├── config.js       # API configuration
-│   │   └── script.js       # Main JavaScript logic
-│   └── images/
-│       └── farmer_hero.jpg
-├── vite.config.js          # Vite build configuration
-├── package.json            # Dependencies
-└── .gitignore              # Git ignore rules
-`
+│   ├── market.html
+│   ├── soil-analysis.html
+│   ├── fertilizer-recommendation.html
+│   ├── subsidies.html
+│   ├── loan-calculator.html
+│   ├── pest-detection.html
+│   ├── yield-prediction.html
+│   ├── training-videos.html
+│   ├── chat-expert.html
+│   └── nearby-stores.html
+├── scripts/                    # Build & Asset Synchronization Scripts
+│   └── copy-assets.js
+├── docs/                       # Technical Specifications & Documentation
+│   └── ARCHITECTURE.md
+├── vite.config.js              # Vite Multi-Page Bundler Config
+└── package.json                # Project Dependencies & Scripts
+```
 
-## Features
+---
 
-- 🌾 **Crop Recommendation** - Get crop suggestions based on soil nutrients
-- 🌿 **Soil Analysis** - Analyze soil health and composition
-- 🧪 **Fertilizer Recommendation** - Get fertilizer suggestions
-- 🐛 **Pest Detection** - Identify pests and get solutions
-- 🌡️ **Weather Information** - Get weather forecasts for farming
-- 💰 **Market Prices** - Check current market prices
-- 📹 **Training Videos** - Educational content for farmers
-- 🏥 **Plant Disease Diagnosis** - Diagnose plant diseases
-- 🏪 **Nearby Stores** - Find agricultural stores nearby
-- 💬 **Expert Chat** - Connect with agricultural experts
-- 📊 **Yield Prediction** - Predict crop yields
-- 💸 **Subsidies** - Information about government subsidies
-- 🧮 **Loan Calculator** - Calculate agricultural loans
+## ⚡ Quick Start
 
-## Setup
+### 1. Install Dependencies
+```bash
+npm install
+```
 
-1. Install dependencies:
-   \\\ash
-   pnpm install
-   \\\
+### 2. Start Development Server
+```bash
+npm run dev
+```
+The local server will spin up at `http://localhost:5173/` with hot module replacement (HMR).
 
-2. Configure backend URL in \ssets/js/config.js\:
-   \\\javascript
-   const API_CONFIG = {
-       BASE_URL: 'http://localhost:5001', // Your backend URL
-       ENDPOINTS: { ... }
-   };
-   \\\
+### 3. Production Build
+```bash
+npm run build
+```
+Generates an optimized, minified production build in the `dist/` directory ready for deployment.
 
-3. Run development server:
-   \\\ash
-   pnpm run dev
-   \\\
+---
 
-4. Build for production:
-   \\\ash
-   pnpm run build
-   \\\
+## 🌐 Multi-Language Support
+Supported languages:
+- **English** (`en`)
+- **मराठी** (`mr` - Marathi)
+- **हिन्दी** (`hi` - Hindi)
+- **ಕನ್ನಡ** (`kn` - Kannada)
 
-## Backend Configuration
+---
 
-To connect to your backend (deployed on Railway or local):
-
-1. Update \ssets/js/config.js\ with your backend URL
-2. Ensure CORS is enabled on your backend
-3. For Railway deployment, use: \https://your-app.up.railway.app\
-
-## Deployment
-
-Deploy to Vercel, Netlify, or any static hosting:
-
-\\\ash
-pnpm run build
-# Upload dist/ folder to your hosting provider
-\\\
-
-## License
-
-ISC
+## 🚀 Deployment
+Deploy to any modern static hosting provider (Netlify, Vercel, Cloudflare Pages, AWS S3 / CloudFront):
+```bash
+npm run build
+# The dist/ directory is ready to deploy
+```
+Configuration files for **Netlify** (`netlify.toml`) and **PWA** (`manifest.json`) are pre-configured.

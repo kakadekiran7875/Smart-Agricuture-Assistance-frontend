@@ -1,0 +1,14 @@
+# Robots.txt for Smart Agriculture Assistant
+# https://smart-agri-assistant.org
+
+User-agent: *
+Allow: /
+Disallow: /dist/
+Disallow: /pages/test-*.html
+
+# Host
+Host: https://smart-agri-assistant.org
+
+# Sitemap
+Sitemap: https://smart-agri-assistant.org/sitemap.xml
+

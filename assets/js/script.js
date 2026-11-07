@@ -62,8 +62,8 @@ window.appConfig = {
 // // Language translations
 const translations = {
     en: {
-        appTitle: "🌱 Smart Agriculture Assistant",
-        appSubtitle: "Your Expert Farming Companion",
+        appTitle: "Smart Agriculture Assistant",
+        appSubtitle: "स्मार्ट कृषी सहाय्यक",
         navHome: "Home",
         navCropRec: "Crop Recommendation",
         navDisease: "Disease Detection",
@@ -71,12 +71,17 @@ const translations = {
         navMarket: "Market Prices",
         navSoil: "Soil & IoT",
         navSchemes: "Government Schemes",
-        navAbout: "About",
+        navAbout: "About Us",
         navLanguage: "🌐 Language",
         navLogin: "Login",
-        navStarted: "Get Started",
-        heroTitle: "Smart Farming. Better Decisions. Better Harvests.",
-        heroDesc: "Get AI-powered crop recommendations, plant disease detection, real-time weather updates, market prices, soil monitoring and government scheme information — all in one place.",
+        navStarted: "Register",
+        navLoginBtn: "Login",
+        navRegisterBtn: "Register",
+        heroTitle: "Smart Farming. <span>Better Decisions.</span> Better Harvests.",
+        heroDescription: "Discover intelligent crop recommendations, plant disease identification, weather insights and agricultural market information in your preferred language.",
+        heroDesc: "Discover intelligent crop recommendations, plant disease identification, weather insights and agricultural market information in your preferred language.",
+        heroCtaPrimary: "Explore Smart Farming",
+        heroCtaSecondary: "Talk to AI Assistant",
         btnGetStarted: "Get Started",
         btnExploreFeatures: "Explore Features",
         featuresTitle: "Everything You Need for Smarter Farming",
@@ -169,8 +174,8 @@ const translations = {
         trainingVideosAction: "Watch Videos →"
     },
     mr: {
-        appTitle: "🌱 स्मार्ट शेती सहाय्यक",
-        appSubtitle: "तुमचा तज्ञ शेती जोडीदार",
+        appTitle: "स्मार्ट कृषी सहाय्यक",
+        appSubtitle: "Smart Agriculture Assistant",
         navHome: "मुख्यपृष्ठ",
         navCropRec: "पीक शिफारस",
         navDisease: "रोग शोधणे",
@@ -178,12 +183,17 @@ const translations = {
         navMarket: "बाजार भाव",
         navSoil: "माती आणि आयओटी",
         navSchemes: "शासकीय योजना",
-        navAbout: "माहिती",
+        navAbout: "आमच्याबद्दल",
         navLanguage: "🌐 भाषा",
         navLogin: "लॉगिन",
-        navStarted: "सुरू करा",
-        heroTitle: "स्मार्ट शेती. योग्य निर्णय. उत्तम पीक.",
-        heroDesc: "एआय-आधारित पीक शिफारसी, वनस्पतींचे रोग शोधणे, रिअल-टाइम हवामान अंदाज, बाजार भाव, मातीचे निरीक्षण आणि शासकीय योजनांची माहिती - सर्व एकाच ठिकाणी मिळवा.",
+        navStarted: "नोंदणी करा",
+        navLoginBtn: "लॉगिन",
+        navRegisterBtn: "नोंदणी करा",
+        heroTitle: "स्मार्ट शेती. <span>योग्य निर्णय.</span> उत्तम पीक.",
+        heroDescription: "तुमच्या पसंतीच्या भाषेत बुद्धिमान पीक शिफारसी, वनस्पती रोग निदान, थेट हवामान अंदाज आणि कृषी बाजार भाव माहिती मिळवा.",
+        heroDesc: "तुमच्या पसंतीच्या भाषेत बुद्धिमान पीक शिफारसी, वनस्पती रोग निदान, थेट हवामान अंदाज आणि कृषी बाजार भाव माहिती मिळवा.",
+        heroCtaPrimary: "स्मार्ट शेती शोधा",
+        heroCtaSecondary: "एआय सहाय्यकाशी बोला",
         btnGetStarted: "सुरू करा",
         btnExploreFeatures: "वैशिष्ट्ये पहा",
         featuresTitle: "स्मार्ट शेतीसाठी आवश्यक सर्व गोष्टी",
@@ -276,8 +286,8 @@ const translations = {
         trainingVideosAction: "व्हिडिओ पहा →"
     },
     hi: {
-        appTitle: "🌱 स्मार्ट कृषि सहायक",
-        appSubtitle: "आपका विशेषज्ञ कृषि साथी",
+        appTitle: "स्मार्ट कृषि सहायक",
+        appSubtitle: "Smart Agriculture Assistant",
         navHome: "मुख्यपृष्ठ",
         navCropRec: "फसलों की सिफारिश",
         navDisease: "रोग पहचान",
@@ -285,12 +295,17 @@ const translations = {
         navMarket: "बाजार भाव",
         navSoil: "मिट्टी और IoT",
         navSchemes: "सरकारी योजनाएं",
-        navAbout: "परिचय",
+        navAbout: "हमारे बारे में",
         navLanguage: "🌐 भाषा",
         navLogin: "लॉगिन",
-        navStarted: "शुरू करें",
-        heroTitle: "स्मार्ट खेती। बेहतर निर्णय। उत्तम उपज।",
-        heroDesc: "एआई-आधारित फसल सिफारिशें, पौधों के रोगों की पहचान, मौसम पूर्वानुमान, बाजार भाव, मिट्टी की निगरानी और सरकारी योजनाओं की जानकारी - सब एक ही स्थान पर।",
+        navStarted: "पंजीकरण",
+        navLoginBtn: "लॉगिन",
+        navRegisterBtn: "पंजीकरण",
+        heroTitle: "स्मार्ट खेती। <span>बेहतर निर्णय।</span> उत्तम उपज।",
+        heroDescription: "अपनी पसंदीदा भाषा में स्मार्ट फसल सिफारिशें, पौध रोग पहचान, मौसम पूर्वानुमान और कृषि मंडी भाव प्राप्त करें।",
+        heroDesc: "अपनी पसंदीदा भाषा में स्मार्ट फसल सिफारिशें, पौध रोग पहचान, मौसम पूर्वानुमान और कृषि मंडी भाव प्राप्त करें।",
+        heroCtaPrimary: "स्मार्ट खेती जानें",
+        heroCtaSecondary: "एआई सहायक से बात करें",
         btnGetStarted: "शुरू करें",
         btnExploreFeatures: "विशेषताएं देखें",
         featuresTitle: "स्मार्ट खेती के लिए सब कुछ",
@@ -925,7 +940,6 @@ let currentLang = 'en';
 const languages = ['en', 'mr', 'hi', 'kn', 'te', 'ta', 'gu', 'bn'];
 let currentLangIndex = 0;
 
-
 // ============================================
 // BACKEND API FUNCTIONS
 // ============================================
@@ -1371,6 +1385,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize expert form submission
     initializeExpertForm();
     
+    // Fetch live weather for hero badge
+    initHeroWeatherBadge();
+    
     // Add click outside modal to close
     window.onclick = function(event) {
         const modals = document.querySelectorAll('.modal');
@@ -1387,19 +1404,38 @@ document.addEventListener('DOMContentLoaded', function() {
             langDropdown.classList.remove('show');
             langBtn.setAttribute('aria-expanded', 'false');
         }
-
-        // Close mobile nav menu if clicking outside
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        if (hamburger && navMenu && navMenu.classList.contains('active')) {
-            if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            }
-        }
     }
 });
+
+// Fetch and populate live weather data for the hero floating badge
+async function initHeroWeatherBadge() {
+    const tempEl = document.getElementById('heroWeatherTemp');
+    const locEl = document.getElementById('heroWeatherLoc');
+    const iconEl = document.getElementById('heroWeatherIcon');
+    if (!tempEl || !locEl) return;
+
+    try {
+        if (typeof getWeatherInfo === 'function') {
+            const weather = await getWeatherInfo('Pune');
+            if (weather && weather.temperature !== undefined) {
+                tempEl.textContent = `${weather.temperature}°C • ${weather.condition || 'Clear'}`;
+                locEl.textContent = `${weather.location} • Live APMC Weather`;
+                if (iconEl && weather.condition) {
+                    const cond = weather.condition.toLowerCase();
+                    if (cond.includes('rain')) {
+                        iconEl.innerHTML = '<i class="fa-solid fa-cloud-showers-heavy"></i>';
+                    } else if (cond.includes('cloud')) {
+                        iconEl.innerHTML = '<i class="fa-solid fa-cloud-sun"></i>';
+                    } else {
+                        iconEl.innerHTML = '<i class="fa-solid fa-sun" style="color: #F59E0B;"></i>';
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.log('Using default hero weather advisory:', e.message);
+    }
+}
 
 // ============================================
 // LANGUAGE FUNCTIONS
@@ -1441,12 +1477,19 @@ function updateLangSelectorLabel() {
     }
     
     // Update active dropdown item
-    const options = document.querySelectorAll('.lang-option');
+    const options = document.querySelectorAll('.lang-option, .lang-option-btn');
     options.forEach(opt => {
         if (opt.getAttribute('onclick')?.includes(`'${currentLang}'`)) {
             opt.classList.add('active');
+            if (!opt.querySelector('.fa-check')) {
+                const check = document.createElement('i');
+                check.className = 'fa-solid fa-check';
+                opt.appendChild(check);
+            }
         } else {
             opt.classList.remove('active');
+            const check = opt.querySelector('.fa-check');
+            if (check) check.remove();
         }
     });
 
@@ -1470,6 +1513,16 @@ function updateLanguage() {
         if (element) {
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.placeholder = elements[key];
+            } else if (key === 'navLoginBtn') {
+                element.innerHTML = `<i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.35rem;"></i> ${elements[key]}`;
+            } else if (key === 'navRegisterBtn') {
+                element.innerHTML = `<i class="fa-solid fa-user-plus" style="margin-right: 0.35rem;"></i> ${elements[key]}`;
+            } else if (key === 'heroTitle') {
+                element.innerHTML = elements[key];
+            } else if (key === 'heroCtaPrimary') {
+                element.innerHTML = `${elements[key]} <i class="fa-solid fa-arrow-right"></i>`;
+            } else if (key === 'heroCtaSecondary') {
+                element.innerHTML = `<i class="fa-solid fa-robot" style="color: var(--primary);"></i> ${elements[key]}`;
             } else {
                 element.textContent = elements[key];
             }
@@ -1486,28 +1539,77 @@ function updateLanguage() {
     });
 }
 
-// Setup Hamburger Menu Drawer Event Handlers
+// Setup Hamburger Menu Drawer & Header Interactive Event Handlers
 function setupMobileMenu() {
+    // Modern Mobile Drawer Support
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+
+    function openDrawer() {
+        if (mobileDrawer) mobileDrawer.classList.add('active');
+        if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        if (mobileDrawer) mobileDrawer.classList.remove('active');
+        if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    window.openMobileDrawer = openDrawer;
+    window.closeMobileDrawer = closeDrawer;
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+    if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+    if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+    // Language selector dropdown
+    const langSelectBtn = document.getElementById('langSelectBtn');
+    const langDropdownMenu = document.getElementById('langDropdownMenu');
+    if (langSelectBtn && langDropdownMenu) {
+        langSelectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdownMenu.classList.toggle('show');
+        });
+        document.addEventListener('click', () => {
+            langDropdownMenu.classList.remove('show');
+        });
+    }
+
+    // Close dropdowns & drawers on Escape key for accessibility
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (langDropdownMenu && langDropdownMenu.classList.contains('show')) {
+                langDropdownMenu.classList.remove('show');
+            }
+            if (typeof window.closeMobileDrawer === 'function') {
+                window.closeMobileDrawer();
+            }
+        }
+    });
+
+    // Sticky Header Scroll Effect
+    const siteHeader = document.getElementById('siteHeader');
+    if (siteHeader) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                siteHeader.classList.add('scrolled');
+            } else {
+                siteHeader.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // Legacy Hamburger & Menu fallback
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
-    
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
-            
-            const expanded = hamburger.classList.contains('active');
-            hamburger.setAttribute('aria-expanded', expanded);
-        });
-        
-        // Close menu when clicking navigation links
-        const navLinks = navMenu.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            });
         });
     }
 }
@@ -1515,14 +1617,14 @@ function setupMobileMenu() {
 // Highlight active navigation links based on current path
 function highlightActiveNavLink() {
     const path = window.location.pathname;
-    const page = path.substring(path.lastIndexOf('/') + 1);
+    const page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
     
-    const navLinks = document.querySelectorAll('.navbar-menu a');
+    const navLinks = document.querySelectorAll('.header-nav .nav-link, .drawer-nav .nav-link');
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href && (page === href || (href === 'index.html' && (page === '' || page === 'index.html')))) {
+        if (href && (href === page || href.endsWith('/' + page) || (page === 'index.html' && (href === 'index.html' || href === '#home')))) {
             link.classList.add('active');
-        } else {
+        } else if (href && !href.startsWith('#')) {
             link.classList.remove('active');
         }
     });
@@ -1534,24 +1636,20 @@ function highlightActiveNavLink() {
 
 function navigateTo(page) {
     if (!page) return;
-    
-    // Normalize page target
-    const cleanPage = page.replace(/^\.?\/?pages\//, '').replace(/^\//, '');
-    
-    // Check if current context is inside pages/
-    const isInPages = window.location.pathname.includes('/pages/') || window.location.href.includes('/pages/');
-    
-    if (isInPages) {
-        if (cleanPage === 'index.html' || cleanPage === '') {
+    const inPages = window.location.pathname.includes('/pages/');
+    if (inPages) {
+        if (page.startsWith('pages/')) {
+            window.location.href = page.replace('pages/', '');
+        } else if (page === 'index.html' || page === '../index.html') {
             window.location.href = '../index.html';
         } else {
-            window.location.href = cleanPage;
+            window.location.href = page;
         }
     } else {
-        if (cleanPage === 'index.html' || cleanPage === '') {
-            window.location.href = 'index.html';
+        if (page.startsWith('pages/') || page === 'index.html') {
+            window.location.href = page;
         } else {
-            window.location.href = 'pages/' + cleanPage;
+            window.location.href = 'pages/' + page;
         }
     }
 }
@@ -2083,117 +2181,13 @@ function toggleDarkMode() {
     showToast(messages[currentLang] || messages.en, 2000);
 }
 
-// Load dark mode preference, forms, and prevent hash-link jumping
+// Load dark mode preference on page load
 document.addEventListener('DOMContentLoaded', function() {
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode === 'enabled') {
         document.body.classList.add('dark-mode');
     }
-
-    // Initialize expert contact form if present
-    if (typeof initializeExpertForm === 'function') {
-        initializeExpertForm();
-    }
-
-    // Ensure AI Chat widget exists on all pages
-    ensureAIChatWidget();
 });
-
-// Auto-inject AI Chat widget if not already in HTML
-function ensureAIChatWidget() {
-    if (!document.getElementById('aiChatBtn')) {
-        const chatBtn = document.createElement('button');
-        chatBtn.className = 'ai-chat-button';
-        chatBtn.id = 'aiChatBtn';
-        chatBtn.title = 'AI Assistant';
-        chatBtn.setAttribute('onclick', 'toggleAIChat()');
-        chatBtn.innerHTML = `
-            <span class="chat-icon">🤖</span>
-            <span class="chat-pulse"></span>
-        `;
-        document.body.appendChild(chatBtn);
-    }
-    
-    if (!document.getElementById('aiChatbox')) {
-        const chatbox = document.createElement('div');
-        chatbox.id = 'aiChatbox';
-        chatbox.className = 'ai-chatbox';
-        chatbox.innerHTML = `
-            <div class="chat-header">
-                <div class="chat-header-left">
-                    <span class="chat-avatar">🤖</span>
-                    <div>
-                        <h3 id="chatTitle">AI Farm Assistant</h3>
-                        <span class="chat-status" id="chatStatus">Online</span>
-                    </div>
-                </div>
-                <div class="chat-header-right">
-                    <button class="chat-lang-btn" onclick="cycleChatLanguage()" id="chatLangBtn" title="Change Language">
-                        <span id="chatLangIcon">🌐</span>
-                    </button>
-                    <button class="chat-minimize-btn" onclick="toggleAIChat()" title="Close">
-                        <span>✕</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="chat-messages" id="chatMessages">
-                <div class="chat-message bot">
-                    <div class="message-avatar">🤖</div>
-                    <div class="message-content">
-                        <p id="welcomeMsg">Hello! I'm your AI farming assistant. How can I help you today?</p>
-                        <span class="message-time">Just now</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="chat-quick-questions">
-                <button class="quick-question" onclick="askQuestion('crop-disease')" id="quickQ1">
-                    🌾 Crop Disease Help
-                </button>
-                <button class="quick-question" onclick="askQuestion('market-price')" id="quickQ2">
-                    💰 Market Prices
-                </button>
-                <button class="quick-question" onclick="askQuestion('weather')" id="quickQ3">
-                    🌤️ Weather Info
-                </button>
-                <button class="quick-question" onclick="askQuestion('fertilizer')" id="quickQ4">
-                    🧪 Fertilizer Advice
-                </button>
-            </div>
-            
-            <div class="chat-input-area">
-                <button class="voice-btn" onclick="toggleVoiceInput()" id="voiceBtn" title="Voice Input">
-                    <span id="voiceIcon">🎤</span>
-                </button>
-                <input type="text" 
-                       id="chatInput" 
-                       placeholder="Type your question..." 
-                       onkeypress="handleChatKeyPress(event)">
-                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
-                    <span>📤</span>
-                </button>
-            </div>
-            
-            <div class="voice-indicator" id="voiceIndicator" style="display: none;">
-                <div class="voice-animation">
-                    <span class="voice-wave"></span>
-                    <span class="voice-wave"></span>
-                    <span class="voice-wave"></span>
-                </div>
-                <p id="voiceListening">Listening...</p>
-            </div>
-        `;
-        document.body.appendChild(chatbox);
-    }
-}
-
-// Also initialize immediately if DOM is already parsed
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    if (typeof initializeExpertForm === 'function') {
-        initializeExpertForm();
-    }
-}
 
 console.log('✅ Dark mode toggle loaded!');
 
