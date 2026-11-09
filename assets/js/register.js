@@ -851,6 +851,8 @@
                     // Check if user already typed manual address
                     if (hasExistingManualAddress()) {
                         state.pendingLocationData = locationData;
+                        setGpsButtonState('success');
+                        showGpsStatus(`Location resolved for (${lat}, ${lon}). Please choose whether to replace your existing address below.`, 'warning');
                         openOverwriteConfirmDialog(locationData, accuracy);
                     } else {
                         mapLocationToForm(locationData);
