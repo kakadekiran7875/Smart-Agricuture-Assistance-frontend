@@ -149,9 +149,9 @@
                 </button>
 
                 <!-- Register Button -->
-                <button class="btn-register-header" onclick="openAuthModal('register')" id="navRegisterBtn">
+                <a href="pages/register.html" class="btn-register-header" id="navRegisterBtn">
                     <i class="fa-solid fa-user-plus" style="margin-right: 0.35rem;"></i> Register
-                </button>
+                </a>
 
                 <!-- Mobile Hamburger Toggle -->
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
@@ -1004,10 +1004,10 @@
                 </div>
 
                 <!-- Login Form -->
-                <form id="loginForm" onsubmit="handleAuthSubmit(event, 'login')">
+                <form id="loginForm" onsubmit="window.handleAuthSubmit(event, 'login'); return false;">
                     <div class="form-group">
                         <label class="form-label" for="loginPhone">Mobile Number or Email</label>
-                        <input type="text" id="loginPhone" class="form-control" placeholder="e.g. 9876543210" required>
+                        <input type="text" id="loginPhone" class="form-control" placeholder="e.g. 9876543210 or farmer@gmail.com" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="loginPass">Password</label>
@@ -1016,38 +1016,26 @@
                     <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i> Login to Farm Dashboard
                     </button>
+                    <div style="text-align:center; margin-top:1rem; font-size:0.85rem; color:#64748B;">
+                        New farmer? <a href="pages/register.html" style="color:#228B22; font-weight:700;">Create Free Account</a>
+                    </div>
+                </form>
                 </form>
 
-                <!-- Register Form -->
-                <form id="registerForm" style="display: none;" onsubmit="handleAuthSubmit(event, 'register')">
-                    <div class="form-group">
-                        <label class="form-label" for="regName">Full Name</label>
-                        <input type="text" id="regName" class="form-control" placeholder="Farmer Name" required>
+                <!-- Full Registration Redirect Prompt -->
+                <div id="registerPromptBox" style="display: none; text-align: center; padding: 1.25rem 0.5rem 0.5rem;">
+                    <div style="width: 52px; height: 52px; border-radius: 50%; background: #EAF7EC; color: #228B22; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; border: 1.5px solid #BBF7D0;">
+                        <i class="fa-solid fa-seedling"></i>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="regPhone">Mobile Number</label>
-                        <input type="tel" id="regPhone" class="form-control" placeholder="10-digit mobile"
-                            pattern="[0-9]{10}" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="regState">State</label>
-                        <select id="regState" class="form-control" required>
-                            <option value="">Select State</option>
-                            <option value="Maharashtra" selected>Maharashtra</option>
-                            <option value="Karnataka">Karnataka</option>
-                            <option value="Gujarat">Gujarat</option>
-                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="regPass">Create Password</label>
-                        <input type="password" id="regPass" class="form-control" placeholder="Min. 6 characters"
-                            minlength="6" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-                        <i class="fa-solid fa-user-plus"></i> Complete Free Registration
-                    </button>
-                </form>
+                    <h4 style="font-size: 1.15rem; font-weight: 700; color: #14532D; margin-bottom: 0.5rem;">Farmer Registration Portal</h4>
+                    <div style="font-size: 0.9rem; font-weight: 600; color: #15803D; margin-bottom: 0.75rem;">शेतकरी नोंदणी पोर्टल</div>
+                    <p style="font-size: 0.86rem; color: #64748B; margin-bottom: 1.5rem; line-height: 1.5;">
+                        To customize crop advisories, soil IoT analytics, live weather alerts and mandi prices for your land, please complete our dedicated 4-step farmer registration.
+                    </p>
+                    <a href="pages/register.html" class="btn btn-primary btn-block" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; font-size: 0.95rem; text-decoration: none;">
+                        <i class="fa-solid fa-user-plus"></i> Open Multi-Step Registration (नोंदणी करा)
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -1111,6 +1099,7 @@
 
     <!-- Scripts -->
     <script src="assets/js/config.js"></script>
+    <script src="assets/js/services/authService.js"></script>
     <script src="assets/js/script.js"></script>
     <script>
         // Interactive UI helpers for Homepage
@@ -1214,46 +1203,121 @@
 
         function switchAuthTab(tab) {
             const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
+            const registerPrompt = document.getElementById('registerPromptBox');
             const tabLoginBtn = document.getElementById('tabLoginBtn');
             const tabRegisterBtn = document.getElementById('tabRegisterBtn');
             const title = document.getElementById('authModalTitle');
 
             if (tab === 'login') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
+                if (loginForm) loginForm.style.display = 'block';
+                if (registerPrompt) registerPrompt.style.display = 'none';
                 tabLoginBtn.classList.add('active');
                 tabRegisterBtn.classList.remove('active');
                 title.textContent = 'Farmer Login';
             } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
+                if (loginForm) loginForm.style.display = 'none';
+                if (registerPrompt) registerPrompt.style.display = 'block';
                 tabLoginBtn.classList.remove('active');
                 tabRegisterBtn.classList.add('active');
                 title.textContent = 'Create Farmer Account';
             }
         }
 
-        function handleAuthSubmit(e, type) {
+        async function handleAuthSubmit(e, type) {
             e.preventDefault();
-            const actionText = type === 'login' ? 'Logged in successfully!' : 'Registration successful! Welcome to Smart Agriculture Assistant.';
-            showToast(actionText);
-            closeAuthModal();
+
+            if (type === 'login') {
+                const identifier = document.getElementById('loginPhone').value.trim();
+                const password   = document.getElementById('loginPass').value.trim();
+                const submitBtn  = document.querySelector('#loginForm button[type="submit"]');
+                const origHtml   = submitBtn ? submitBtn.innerHTML : '';
+
+                if (!identifier || !password) {
+                    if (typeof showToast === 'function') showToast('⚠️ Please enter phone number/email and password');
+                    return;
+                }
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+                }
+
+                try {
+                    // Call production AuthService (connects to /api/auth/login)
+                    if (window.AuthService && typeof window.AuthService.login === 'function') {
+                        await window.AuthService.login(identifier, password);
+                    } else {
+                        const baseUrl = (window.API_CONFIG && window.API_CONFIG.BASE_URL) || 'http://localhost:5001';
+                        const res = await fetch(`${baseUrl}/api/auth/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            credentials: 'include',
+                            body: JSON.stringify({ identifier, password })
+                        });
+                        const data = await res.json().catch(() => ({}));
+                        if (!res.ok || !data.success) {
+                            throw new Error(data.message || 'Invalid credentials');
+                        }
+                        if (data.token && data.user) {
+                            localStorage.setItem('smartAgriToken', data.token);
+                            localStorage.setItem('smartAgriUser', JSON.stringify(data.user));
+                        }
+                    }
+
+                    if (typeof showToast === 'function') {
+                        showToast('✅ Login successful! Redirecting to Dashboard...');
+                    }
+                    closeAuthModal();
+                    setTimeout(() => {
+                        window.location.href = 'pages/dashboard.html';
+                    }, 600);
+
+                } catch (err) {
+                    console.error('Login error:', err);
+                    if (typeof showToast === 'function') {
+                        showToast('❌ ' + (err.message || 'Login failed. Please check your credentials.'));
+                    } else {
+                        alert(err.message || 'Login failed');
+                    }
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = origHtml;
+                    }
+                }
+
+            } else {
+                // If register triggered, navigate to full registration page
+                window.location.href = 'pages/register.html';
+            }
         }
 
-        // Close modal on Escape key or outside click
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeAuthModal();
-                closeMobileDrawer();
+        // ===== EXPOSE ALL AUTH FUNCTIONS ON WINDOW (override any conflicts) =====
+        window.openAuthModal   = openAuthModal;
+        window.closeAuthModal  = closeAuthModal;
+        window.switchAuthTab   = switchAuthTab;
+        window.handleAuthSubmit = handleAuthSubmit;
+
+        // Attach Login submit and check URL queries
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    window.handleAuthSubmit(e, 'login');
+                });
             }
+
+            // Check if page opened with login/register query intent
+            try {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('auth') === 'login' || window.location.hash === '#login') {
+                    openAuthModal('login');
+                } else if (urlParams.get('auth') === 'register' || window.location.hash === '#register') {
+                    window.location.href = 'pages/register.html';
+                }
+            } catch (_) {}
         });
-        const modalBackdrop = document.getElementById('authModalBackdrop');
-        if (modalBackdrop) {
-            modalBackdrop.addEventListener('click', (e) => {
-                if (e.target === modalBackdrop) closeAuthModal();
-            });
-        }
     </script>
 </body>
 

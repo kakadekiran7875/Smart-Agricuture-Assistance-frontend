@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Login | शेतकरी लॉगिन - Smart Agriculture Assistant</title>
+    <meta name="description" content="Login to your Smart Agriculture Assistant (स्मार्ट कृषी सहाय्यक) account to access personalized farm dashboard, soil analytics, weather alerts and market rates.">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Master & Auth Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+
+    <!-- Professional Sticky Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <!-- Brand Logo & Typography -->
+            <a href="../index.html" class="header-brand" aria-label="Smart Agriculture Assistant" title="Smart Agriculture Assistant - स्मार्ट कृषी सहाय्यक">
+                <img src="../assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img">
+                <div class="brand-text-wrap">
+                    <span class="brand-title">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr">स्मार्ट कृषी सहाय्यक</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="header-nav" aria-label="Primary Navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About Us</a>
+                <a href="crop-recommendation.html" class="nav-link">Crop Guide</a>
+                <a href="diagnosis.html" class="nav-link">Disease Doctor</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Mandi Rates</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Theme Switcher -->
+                <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Theme" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+
+                <!-- Register Header Link -->
+                <a href="register.html" class="btn-register-header" id="navRegisterBtn">
+                    <i class="fa-solid fa-user-plus" style="margin-right: 0.35rem;"></i> Register
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Login Content -->
+    <main class="auth-page-wrapper">
+        <div class="auth-card-container" style="max-width: 520px;">
+
+            <!-- Banner Header -->
+            <div class="auth-header-banner" style="text-align: center;">
+                <div class="auth-badge-pill" style="margin: 0 auto 0.9rem;">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secure Access • शेतकरी प्रवेश</span>
+                </div>
+                <h1 class="auth-title" style="font-size: 1.7rem;">Welcome Back Farmer</h1>
+                <div class="auth-title-mr">आपले स्वागत आहे</div>
+                <p class="auth-subtitle" style="margin: 0 auto;">
+                    Login with your registered 10-digit mobile number or email to access your personalized farming dashboard.
+                </p>
+            </div>
+
+            <!-- Login Form Body -->
+            <div class="auth-body">
+
+                <!-- Alert Banner -->
+                <div class="auth-alert-banner" id="loginAlertBanner" role="alert"></div>
+
+                <form id="farmerLoginForm" novalidate onsubmit="return false;">
+                    <!-- Identifier (Phone or Email) -->
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="loginIdentifier" class="form-label">
+                            <span>Mobile Number or Email <span class="required-star">*</span></span>
+                            <span class="label-mr">मोबाईल किंवा ईमेल</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fa-solid fa-user-tag input-icon"></i>
+                            <input type="text" id="loginIdentifier" class="auth-input" placeholder="e.g. 9876543210 or farmer@gmail.com" required autocomplete="username">
+                        </div>
+                        <div class="field-error-message" id="loginIdentifierError"></div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="loginPassword" class="form-label">
+                            <span>Password <span class="required-star">*</span></span>
+                            <span class="label-mr">पासवर्ड</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <input type="password" id="loginPassword" class="auth-input" placeholder="Enter your password" required autocomplete="current-password">
+                            <button type="button" class="btn-password-toggle" data-target="loginPassword" aria-label="Toggle password visibility">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error-message" id="loginPasswordError"></div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-auth-submit" id="btnLoginSubmit" style="width: 100%; justify-content: center; margin: 0; padding: 0.85rem;">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span>Login to Farm Dashboard (लॉगिन करा)</span>
+                    </button>
+                </form>
+
+                <div class="privacy-assurance-badge" style="margin-top: 1.5rem;">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Your session is protected with 256-bit encrypted tokens.</span>
+                </div>
+            </div>
+
+            <!-- Bottom Registration Link -->
+            <div class="auth-bottom-links" style="padding: 0 2rem 2rem; border-top: 1px solid var(--auth-border); padding-top: 1.5rem;">
+                Don't have an account yet? 
+                <a href="register.html"><i class="fa-solid fa-user-plus"></i> Create Free Farmer Account (नवीन नोंदणी करा)</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Professional Site Footer -->
+    <footer class="site-footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Smart Agriculture Assistant (स्मार्ट कृषी सहाय्यक). All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="register.html">Farmer Registration</a>
+                <a href="subsidies.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/services/authService.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Password toggle
+            const toggleBtn = document.querySelector('.btn-password-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    const input = document.getElementById('loginPassword');
+                    const icon = toggleBtn.querySelector('i');
+                    if (!input) return;
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        if (icon) icon.className = 'fa-solid fa-eye-slash';
+                    } else {
+                        input.type = 'password';
+                        if (icon) icon.className = 'fa-solid fa-eye';
+                    }
+                });
+            }
+
+            // Submit handler
+            const form = document.getElementById('farmerLoginForm');
+            const submitBtn = document.getElementById('btnLoginSubmit');
+            const alertBanner = document.getElementById('loginAlertBanner');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const idInput = document.getElementById('loginIdentifier');
+                const passInput = document.getElementById('loginPassword');
+                const idError = document.getElementById('loginIdentifierError');
+                const passError = document.getElementById('loginPasswordError');
+
+                const identifier = idInput.value.trim();
+                const password = passInput.value.trim();
+
+                let valid = true;
+                if (!identifier) {
+                    idInput.classList.add('is-invalid');
+                    idError.textContent = 'Please enter your mobile number or email';
+                    idError.classList.add('active');
+                    valid = false;
+                } else {
+                    idInput.classList.remove('is-invalid');
+                    idError.classList.remove('active');
+                }
+
+                if (!password) {
+                    passInput.classList.add('is-invalid');
+                    passError.textContent = 'Please enter your password';
+                    passError.classList.add('active');
+                    valid = false;
+                } else {
+                    passInput.classList.remove('is-invalid');
+                    passError.classList.remove('active');
+                }
+
+                if (!valid) return;
+
+                const origHtml = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+                alertBanner.className = 'auth-alert-banner';
+                alertBanner.innerHTML = '';
+
+                try {
+                    const data = await window.AuthService.login(identifier, password);
+                    alertBanner.className = 'auth-alert-banner success active';
+                    alertBanner.innerHTML = '<i class="fa-solid fa-circle-check auth-alert-icon"></i> <div>Login successful! Redirecting to dashboard...</div>';
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 800);
+                } catch (err) {
+                    console.error('Login error:', err);
+                    alertBanner.className = 'auth-alert-banner danger active';
+                    alertBanner.innerHTML = `<i class="fa-solid fa-circle-exclamation auth-alert-icon"></i> <div>${err.message || 'Invalid mobile number or password.'}</div>`;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = origHtml;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

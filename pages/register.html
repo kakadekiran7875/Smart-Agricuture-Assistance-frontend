@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration | शेतकरी नोंदणी - Smart Agriculture Assistant</title>
+    <meta name="description" content="Create your free farmer account on Smart Agriculture Assistant (स्मार्ट कृषी सहाय्यक) for personalized crop advisory, weather forecasts, disease detection, and mandi prices.">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Master & Auth Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+
+    <!-- Professional Sticky Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <!-- Brand Logo & Typography -->
+            <a href="../index.html" class="header-brand" aria-label="Smart Agriculture Assistant" title="Smart Agriculture Assistant - स्मार्ट कृषी सहाय्यक">
+                <img src="../assets/images/logo.png" alt="Smart Agriculture Assistant Logo" class="brand-logo-img">
+                <div class="brand-text-wrap">
+                    <span class="brand-title">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr">स्मार्ट कृषी सहाय्यक</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="header-nav" aria-label="Primary Navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About Us</a>
+
+                <!-- Features Dropdown -->
+                <div class="nav-item-dropdown">
+                    <a href="../index.html#features" class="nav-link">
+                        Features <i class="fa-solid fa-chevron-down" style="font-size: 0.68em; margin-left: 0.15rem;"></i>
+                    </a>
+                    <div class="features-submenu" role="menu">
+                        <div class="submenu-grid">
+                            <a href="crop-recommendation.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-wheat-awn"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Crop Recommendation</span>
+                                    <span class="submenu-desc">AI crop selection by soil</span>
+                                </div>
+                            </a>
+                            <a href="diagnosis.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-microscope"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Disease Detection</span>
+                                    <span class="submenu-desc">Leaf photo AI analysis</span>
+                                </div>
+                            </a>
+                            <a href="weather.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-cloud-sun-rain"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Weather Forecast</span>
+                                    <span class="submenu-desc">Rain & temperature radar</span>
+                                </div>
+                            </a>
+                            <a href="market.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-chart-line"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Mandi Prices</span>
+                                    <span class="submenu-desc">Daily agricultural rates</span>
+                                </div>
+                            </a>
+                            <a href="soil-analysis.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-flask"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Soil Health</span>
+                                    <span class="submenu-desc">NPK and pH balance</span>
+                                </div>
+                            </a>
+                            <a href="fertilizer-recommendation.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-spray-can"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Fertilizer Guide</span>
+                                    <span class="submenu-desc">Nutrient dosage calculator</span>
+                                </div>
+                            </a>
+                            <a href="subsidies.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-building-columns"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Government Schemes</span>
+                                    <span class="submenu-desc">Farmer subsidies & grants</span>
+                                </div>
+                            </a>
+                            <a href="chat-expert.html" class="submenu-item">
+                                <span class="submenu-icon"><i class="fa-solid fa-headset"></i></span>
+                                <div class="submenu-text">
+                                    <span class="submenu-title">Consult Agri Expert</span>
+                                    <span class="submenu-desc">Real-time consultation</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="crop-recommendation.html" class="nav-link">Crop Guide</a>
+                <a href="diagnosis.html" class="nav-link">Disease Doctor</a>
+                <a href="weather.html" class="nav-link">Weather</a>
+                <a href="market.html" class="nav-link">Mandi Rates</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Language Selector Dropdown -->
+                <div class="lang-dropdown-wrapper">
+                    <button class="lang-select-btn" id="langSelectBtn" aria-expanded="false" title="Change Language">
+                        <i class="fa-solid fa-globe" style="color: var(--primary);"></i>
+                        <span id="currentLangLabel">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.65em; opacity: 0.7;"></i>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langDropdownMenu" role="menu">
+                        <button class="lang-option-btn active" onclick="changeLanguage('en')" role="menuitem">
+                            <span>English</span>
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('mr')" role="menuitem">
+                            <span>मराठी</span>
+                        </button>
+                        <button class="lang-option-btn" onclick="changeLanguage('hi')" role="menuitem">
+                            <span>हिन्दी</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Switcher -->
+                <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Theme" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+
+                <!-- Login Button -->
+                <a href="login.html" class="btn-login-header" id="navLoginBtn">
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.35rem;"></i> Login
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+        <div class="drawer-header">
+            <div class="header-brand">
+                <img src="../assets/images/logo.png" alt="Logo" class="brand-logo-img" style="height: 38px; width: 38px;">
+                <div class="brand-text-wrap">
+                    <span class="brand-title" style="font-size: 0.95rem;">Smart Agriculture Assistant</span>
+                    <span class="brand-subtitle-mr" style="font-size: 0.7rem;">स्मार्ट कृषी सहाय्यक</span>
+                </div>
+            </div>
+            <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close Navigation">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="crop-recommendation.html" class="nav-link">Crop Recommendation</a>
+            <a href="diagnosis.html" class="nav-link">Plant Disease Detection</a>
+            <a href="weather.html" class="nav-link">Weather Forecast</a>
+            <a href="market.html" class="nav-link">Market Mandi Prices</a>
+            <a href="soil-analysis.html" class="nav-link">Soil Health Analysis</a>
+            <a href="fertilizer-recommendation.html" class="nav-link">Fertilizer Guide</a>
+            <a href="subsidies.html" class="nav-link">Government Schemes</a>
+            <a href="chat-expert.html" class="nav-link">Consult Agri Expert</a>
+        </nav>
+        <div class="drawer-footer">
+            <a href="login.html" class="btn btn-primary btn-block">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Login to Farm Dashboard
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Registration Page Content -->
+    <main class="auth-page-wrapper">
+        <div class="auth-card-container">
+
+            <!-- Banner Header -->
+            <div class="auth-header-banner">
+                <div class="auth-badge-pill">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Farmer Onboarding • शेतकरी नोंदणी</span>
+                </div>
+                <h1 class="auth-title">Create Your Farmer Account</h1>
+                <div class="auth-title-mr">नवीन शेतकरी खाते तयार करा</div>
+                <p class="auth-subtitle">
+                    Register once to access intelligent crop advisories, live weather radar, plant disease diagnostics and real-time mandi prices tailored for your land.
+                </p>
+            </div>
+
+            <!-- Stepper Progress Bar -->
+            <div class="auth-stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+                <div class="stepper-track-line">
+                    <div class="stepper-progress-fill" id="stepperProgressFill"></div>
+                </div>
+
+                <!-- Step 1 Indicator -->
+                <button type="button" class="stepper-step-item active" id="stepperItem1" aria-label="Step 1: Account Details">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Account Details<br><small>खाते माहिती</small></span>
+                </button>
+
+                <!-- Step 2 Indicator -->
+                <button type="button" class="stepper-step-item" id="stepperItem2" aria-label="Step 2: Location">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Location<br><small>स्थान माहिती</small></span>
+                </button>
+
+                <!-- Step 3 Indicator -->
+                <button type="button" class="stepper-step-item" id="stepperItem3" aria-label="Step 3: Farm Profile">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Farm Profile<br><small>शेती माहिती</small></span>
+                </button>
+
+                <!-- Step 4 Indicator -->
+                <button type="button" class="stepper-step-item" id="stepperItem4" aria-label="Step 4: Review and Submit">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Review & Submit<br><small>पडताळणी</small></span>
+                </button>
+            </div>
+
+            <!-- Form Body -->
+            <div class="auth-body">
+
+                <!-- Alert Banner for Feedback -->
+                <div class="auth-alert-banner" id="authAlertBanner" role="alert"></div>
+
+                <!-- FORM CONTAINER -->
+                <form id="farmerRegistrationForm" novalidate onsubmit="return false;">
+
+                    <!-- ========================================================
+                         STEP 1: BASIC ACCOUNT DETAILS
+                    ======================================================== -->
+                    <div class="auth-form-step active" id="authStep1">
+                        <div class="step-heading-wrap">
+                            <h2 class="step-heading-title">
+                                <i class="fa-solid fa-user-shield"></i>
+                                <span>Step 1: Personal & Account Information (वैयक्तिक माहिती)</span>
+                            </h2>
+                            <p class="step-heading-desc">
+                                Enter your name, mobile number and set a secure password for your farm account.
+                            </p>
+                        </div>
+
+                        <div class="auth-form-grid">
+                            <!-- Full Name -->
+                            <div class="form-group full-width">
+                                <label for="fullName" class="form-label">
+                                    <span>Full Name <span class="required-star">*</span></span>
+                                    <span class="label-mr">पूर्ण नाव</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user input-icon"></i>
+                                    <input type="text" id="fullName" class="auth-input" placeholder="e.g. Ramesh Tukaram Patil" required autocomplete="name">
+                                </div>
+                                <div class="field-error-message" id="fullNameError"></div>
+                                <span class="field-hint">Enter your real first and last name</span>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="form-group">
+                                <label for="mobileNumber" class="form-label">
+                                    <span>Mobile Number <span class="required-star">*</span></span>
+                                    <span class="label-mr">मोबाईल नंबर (१० अंकी)</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-phone input-icon"></i>
+                                    <input type="tel" id="mobileNumber" class="auth-input" placeholder="e.g. 9876543210" maxlength="10" required autocomplete="tel">
+                                </div>
+                                <div class="field-error-message" id="mobileNumberError"></div>
+                                <span class="field-hint">Indian 10-digit number used for login</span>
+                            </div>
+
+                            <!-- Email Address (Optional) -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <span>Email Address <small style="color:var(--auth-text-muted); font-weight:normal;">(Optional)</small></span>
+                                    <span class="label-mr">ईमेल (ऐच्छिक)</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-envelope input-icon"></i>
+                                    <input type="email" id="email" class="auth-input" placeholder="e.g. farmer@gmail.com" autocomplete="email">
+                                </div>
+                                <div class="field-error-message" id="emailError"></div>
+                                <span class="field-hint">For digital advisories & password recovery</span>
+                            </div>
+
+                            <!-- Preferred Language -->
+                            <div class="form-group">
+                                <label for="preferredLanguage" class="form-label">
+                                    <span>Preferred Language <span class="required-star">*</span></span>
+                                    <span class="label-mr">प्राधान्य भाषा</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-language input-icon"></i>
+                                    <select id="preferredLanguage" class="auth-select" required>
+                                        <option value="mr" selected>मराठी (Marathi)</option>
+                                        <option value="hi">हिन्दी (Hindi)</option>
+                                        <option value="en">English (इंग्रजी)</option>
+                                    </select>
+                                </div>
+                                <div class="field-error-message" id="preferredLanguageError"></div>
+                            </div>
+
+                            <!-- User Type -->
+                            <div class="form-group">
+                                <label for="userType" class="form-label">
+                                    <span>User Type <span class="required-star">*</span></span>
+                                    <span class="label-mr">वापरकर्ता प्रकार</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-users input-icon"></i>
+                                    <select id="userType" class="auth-select" required>
+                                        <option value="Farmer" selected>Farmer (शेतकरी)</option>
+                                        <option value="Agriculture Student">Agriculture Student (कृषी विद्यार्थी)</option>
+                                        <option value="Agriculture Expert">Agriculture Expert (कृषी तज्ज्ञ)</option>
+                                        <option value="Agriculture Business Owner">Agriculture Business Owner (कृषी व्यावसायिक)</option>
+                                        <option value="Other">Other (इतर)</option>
+                                    </select>
+                                </div>
+                                <div class="field-error-message" id="userTypeError"></div>
+                            </div>
+
+                            <!-- Create Password -->
+                            <div class="form-group">
+                                <label for="password" class="form-label">
+                                    <span>Create Password <span class="required-star">*</span></span>
+                                    <span class="label-mr">पासवर्ड तयार करा</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                    <input type="password" id="password" class="auth-input" placeholder="Min. 8 characters" required autocomplete="new-password">
+                                    <button type="button" class="btn-password-toggle" data-target="password" aria-label="Toggle password visibility">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="field-error-message" id="passwordError"></div>
+
+                                <!-- Live Strength Meter -->
+                                <div class="password-meter-wrap">
+                                    <div class="password-meter-bar">
+                                        <div class="password-meter-fill" id="passwordMeterFill"></div>
+                                    </div>
+                                    <ul class="password-rules-list">
+                                        <li class="rule-item" id="ruleMinLen"><i class="fa-regular fa-circle"></i> At least 8 characters</li>
+                                        <li class="rule-item" id="ruleUpper"><i class="fa-regular fa-circle"></i> Uppercase letter (A-Z)</li>
+                                        <li class="rule-item" id="ruleLower"><i class="fa-regular fa-circle"></i> Lowercase letter (a-z)</li>
+                                        <li class="rule-item" id="ruleNum"><i class="fa-regular fa-circle"></i> Number (0-9)</li>
+                                        <li class="rule-item" id="ruleSpecial"><i class="fa-regular fa-circle"></i> Special symbol (!@#$%^&*)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">
+                                    <span>Confirm Password <span class="required-star">*</span></span>
+                                    <span class="label-mr">पासवर्डची पुष्टी करा</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-check-double input-icon"></i>
+                                    <input type="password" id="confirmPassword" class="auth-input" placeholder="Re-type password" required autocomplete="new-password">
+                                    <button type="button" class="btn-password-toggle" data-target="confirmPassword" aria-label="Toggle password visibility">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="field-error-message" id="confirmPasswordError"></div>
+                                <span class="field-hint">Must match password exactly</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 1 Footer -->
+                        <div class="auth-footer-nav">
+                            <span style="font-size: 0.85rem; color: var(--auth-text-muted);">
+                                Step 1 of 4 • १ / ४
+                            </span>
+                            <button type="button" class="btn-auth-next" data-next="2">
+                                <span>Continue to Location</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         STEP 2: LOCATION DETAILS
+                    ======================================================== -->
+                    <div class="auth-form-step" id="authStep2">
+                        <div class="step-heading-wrap">
+                            <h2 class="step-heading-title">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>Step 2: Farm & Residential Location (स्थान तपशील)</span>
+                            </h2>
+                            <p class="step-heading-desc">
+                                Accurate location enables hyperlocal weather radar warnings and village-level mandi price discovery.
+                            </p>
+                        </div>
+
+                        <!-- Live GPS Detection Box -->
+                        <div class="gps-detection-card">
+                            <div class="gps-card-header">
+                                <div class="gps-info-text">
+                                    <div class="gps-pulse-icon" id="gpsPulseIcon">
+                                        <i class="fa-solid fa-location-crosshairs"></i>
+                                    </div>
+                                    <div>
+                                        <div class="gps-info-title">Hyperlocal Farm GPS (स्थान निश्चित करा)</div>
+                                        <div class="gps-info-subtitle">Detect coordinates and automatically auto-fill your state, district, taluka & village</div>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                                    <button type="button" class="btn-detect-gps" id="btnDetectGps">
+                                        <i class="fa-solid fa-location-crosshairs"></i>
+                                        <span id="btnDetectGpsText">Detect My Current Location</span>
+                                    </button>
+                                    <button type="button" id="btnRetryGps" class="btn-confirm-cancel" style="display:none; padding: 0.65rem 1rem;">
+                                        <i class="fa-solid fa-rotate-right"></i> Try Again
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- GPS Status & Accuracy Readout -->
+                            <div class="gps-status-badge" id="gpsStatusBadge"></div>
+
+                            <!-- Existing Address Overwrite Confirmation Dialog -->
+                            <div class="gps-confirm-overwrite-dialog" id="gpsOverwriteConfirmDialog">
+                                <div class="confirm-dialog-header">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>Existing Address Details Found</span>
+                                </div>
+                                <div class="confirm-dialog-content">
+                                    <p>You have already typed some address information. Would you like to overwrite it with your newly detected GPS location?</p>
+                                    <div class="confirm-dialog-actions">
+                                        <button type="button" class="btn-confirm-replace" id="btnConfirmOverwrite">
+                                            <i class="fa-solid fa-check"></i> Replace with Detected Location
+                                        </button>
+                                        <button type="button" class="btn-confirm-cancel" id="btnCancelOverwrite">
+                                            <i class="fa-solid fa-ban"></i> Keep My Manual Address
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="auth-form-grid">
+                            <!-- State -->
+                            <div class="form-group">
+                                <label for="state" class="form-label">
+                                    <span>State <span class="required-star">*</span></span>
+                                    <span class="label-mr">राज्य</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-landmark input-icon"></i>
+                                    <select id="state" class="auth-select" required>
+                                        <option value="Maharashtra" selected>Maharashtra (महाराष्ट्र)</option>
+                                        <option value="Karnataka">Karnataka (कर्नाटक)</option>
+                                        <option value="Gujarat">Gujarat (गुजरात)</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh (मध्य प्रदेश)</option>
+                                        <option value="Punjab">Punjab (पंजाब)</option>
+                                        <option value="Haryana">Haryana (हरियाणा)</option>
+                                        <option value="Rajasthan">Rajasthan (राजस्थान)</option>
+                                        <option value="Telangana">Telangana (तेलंगणा)</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh (आंध्र प्रदेश)</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh (उत्तर प्रदेश)</option>
+                                        <option value="Other">Other State</option>
+                                    </select>
+                                </div>
+                                <div class="field-error-message" id="stateError"></div>
+                            </div>
+
+                            <!-- District -->
+                            <div class="form-group">
+                                <label for="district" class="form-label">
+                                    <span>District <span class="required-star">*</span></span>
+                                    <span class="label-mr">जिल्हा</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-city input-icon"></i>
+                                    <input type="text" id="district" class="auth-input" list="districtList" placeholder="Select or type District (e.g. Pune)" required>
+                                    <datalist id="districtList"></datalist>
+                                </div>
+                                <div class="field-error-message" id="districtError"></div>
+                                <span class="field-hint">Choose from list or type district name</span>
+                            </div>
+
+                            <!-- Taluka / Tehsil -->
+                            <div class="form-group">
+                                <label for="taluka" class="form-label">
+                                    <span>Taluka / Tehsil <span class="required-star">*</span></span>
+                                    <span class="label-mr">तालुका</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-signs-post input-icon"></i>
+                                    <input type="text" id="taluka" class="auth-input" placeholder="e.g. Haveli, Baramati, Sinnar" required>
+                                </div>
+                                <div class="field-error-message" id="talukaError"></div>
+                            </div>
+
+                            <!-- Village / City -->
+                            <div class="form-group">
+                                <label for="village" class="form-label">
+                                    <span>Village / Town <span class="required-star">*</span></span>
+                                    <span class="label-mr">गाव किंवा शहर</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-house-chimney input-icon"></i>
+                                    <input type="text" id="village" class="auth-input" placeholder="e.g. Hadapsar, Nimgaon" required>
+                                </div>
+                                <div class="field-error-message" id="villageError"></div>
+                            </div>
+
+                            <!-- Full Postal Address -->
+                            <div class="form-group full-width">
+                                <label for="address" class="form-label">
+                                    <span>Full Address <span class="required-star">*</span></span>
+                                    <span class="label-mr">पूर्ण पत्ता (घर / शेत पत्ता)</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-map-pin input-icon" style="top: 1rem;"></i>
+                                    <textarea id="address" class="auth-textarea" placeholder="House/Gat No., Street, Landmark, Post..." required></textarea>
+                                </div>
+                                <div class="field-error-message" id="addressError"></div>
+                            </div>
+
+                            <!-- PIN Code -->
+                            <div class="form-group">
+                                <label for="pincode" class="form-label">
+                                    <span>PIN Code <span class="required-star">*</span></span>
+                                    <span class="label-mr">पिन कोड (६ अंकी)</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-envelope-open-text input-icon"></i>
+                                    <input type="text" id="pincode" class="auth-input" placeholder="e.g. 411028" maxlength="6" required>
+                                </div>
+                                <div class="field-error-message" id="pincodeError"></div>
+                            </div>
+
+                            <!-- Optional GPS Coordinates (Read-only / Auto-filled) -->
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>GPS Latitude & Longitude <small style="color:var(--auth-text-muted); font-weight:normal;">(Auto-filled by GPS)</small></span>
+                                    <span class="label-mr">अक्षांश व रेखांश</span>
+                                </label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                    <input type="number" step="any" id="latitude" class="auth-input no-icon" placeholder="Latitude (e.g. 18.52)" readonly style="background:var(--auth-accent-light); font-size:0.82rem;">
+                                    <input type="number" step="any" id="longitude" class="auth-input no-icon" placeholder="Longitude (e.g. 73.85)" readonly style="background:var(--auth-accent-light); font-size:0.82rem;">
+                                </div>
+                                <span class="field-hint">Filled when you click "Detect My Current Location"</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 Footer -->
+                        <div class="auth-footer-nav">
+                            <button type="button" class="btn-auth-prev" data-prev="1">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Previous</span>
+                            </button>
+                            <button type="button" class="btn-auth-next" data-next="3">
+                                <span>Continue to Farm Profile</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         STEP 3: AGRICULTURE PROFILE
+                    ======================================================== -->
+                    <div class="auth-form-step" id="authStep3">
+                        <div class="step-heading-wrap">
+                            <h2 class="step-heading-title">
+                                <i class="fa-solid fa-tractor"></i>
+                                <span>Step 3: Agriculture Profile (शेती प्रोफाइल - ऐच्छिक)</span>
+                            </h2>
+                            <p class="step-heading-desc">
+                                All fields in this step are optional and can be updated anytime later in your profile settings.
+                            </p>
+                        </div>
+
+                        <div class="auth-form-grid">
+                            <!-- Main Crops Cultivated -->
+                            <div class="form-group full-width">
+                                <label class="form-label">
+                                    <span>Main Crops Cultivated <small style="color:var(--auth-text-muted); font-weight:normal;">(Select multiple)</small></span>
+                                    <span class="label-mr">पिकवली जाणारी मुख्य पिके</span>
+                                </label>
+                                <div class="crop-tags-container" id="cropTagsContainer">
+                                    <!-- Rendered dynamically by register.js -->
+                                </div>
+
+                                <!-- Add custom crop -->
+                                <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
+                                    <input type="text" id="customCropInput" class="auth-input no-icon" placeholder="Other Crop / इतर पीक (e.g. Ginger, Papaya)" style="max-width: 320px; font-size: 0.88rem;">
+                                    <button type="button" id="btnAddCustomCrop" class="btn-auth-prev" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                        <i class="fa-solid fa-plus"></i> Add
+                                    </button>
+                                </div>
+                                <span class="field-hint">Click on crop chips above to select/deselect</span>
+                            </div>
+
+                            <!-- Total Farming Land in acres -->
+                            <div class="form-group">
+                                <label for="landAcres" class="form-label">
+                                    <span>Total Farming Land (in Acres)</span>
+                                    <span class="label-mr">एकूण शेतजमीन (एकरमध्ये)</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-ruler-combined input-icon"></i>
+                                    <input type="number" id="landAcres" class="auth-input" placeholder="e.g. 3.5" min="0" step="0.1">
+                                </div>
+                                <span class="field-hint">Used for fertilizer & seed quantity calculations</span>
+                            </div>
+
+                            <!-- Soil Type -->
+                            <div class="form-group">
+                                <label for="soilType" class="form-label">
+                                    <span>Soil Type</span>
+                                    <span class="label-mr">मातीचा प्रकार</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-mountain input-icon"></i>
+                                    <select id="soilType" class="auth-select">
+                                        <option value="">Select Soil Type (पर्यायी)</option>
+                                        <option value="Black Soil">Black Soil (काळी / रेगुर माती)</option>
+                                        <option value="Red Soil">Red Soil (तांबडी माती)</option>
+                                        <option value="Alluvial Soil">Alluvial Soil (गाळाची माती)</option>
+                                        <option value="Laterite Soil">Laterite Soil (जांभी माती)</option>
+                                        <option value="Sandy Soil">Sandy Soil (रेताड माती)</option>
+                                        <option value="Other">Other / Mixed (इतर)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Irrigation Type -->
+                            <div class="form-group">
+                                <label for="irrigationType" class="form-label">
+                                    <span>Irrigation Type</span>
+                                    <span class="label-mr">सिंचनाची सोय</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-faucet-drip input-icon"></i>
+                                    <select id="irrigationType" class="auth-select">
+                                        <option value="">Select Irrigation Type (पर्यायी)</option>
+                                        <option value="Rainfed">Rainfed / Dryland (कोरडवाहू / पावसावर)</option>
+                                        <option value="Drip Irrigation">Drip Irrigation (ठिबक सिंचन)</option>
+                                        <option value="Sprinkler">Sprinkler Irrigation (तुषार सिंचन)</option>
+                                        <option value="Canal">Canal Irrigation (कालवा)</option>
+                                        <option value="Borewell">Borewell / Well (कूपनलिका / विहीर)</option>
+                                        <option value="Other">Other (इतर)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Farming Experience -->
+                            <div class="form-group">
+                                <label for="farmingExperience" class="form-label">
+                                    <span>Farming Experience</span>
+                                    <span class="label-mr">शेतीचा अनुभव</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-business-time input-icon"></i>
+                                    <select id="farmingExperience" class="auth-select">
+                                        <option value="">Select Experience (पर्यायी)</option>
+                                        <option value="Less than 1 year">Less than 1 year (&lt; १ वर्ष)</option>
+                                        <option value="1–5 years">1–5 years (१–५ वर्षे)</option>
+                                        <option value="5–10 years">5–10 years (५–१० वर्षे)</option>
+                                        <option value="More than 10 years">More than 10 years (१० वर्षांपेक्षा जास्त)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 Footer -->
+                        <div class="auth-footer-nav">
+                            <button type="button" class="btn-auth-prev" data-prev="2">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Previous</span>
+                            </button>
+                            <button type="button" class="btn-auth-next" data-next="4">
+                                <span>Review & Submit</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================
+                         STEP 4: REVIEW AND SUBMIT
+                    ======================================================== -->
+                    <div class="auth-form-step" id="authStep4">
+                        <div class="step-heading-wrap">
+                            <h2 class="step-heading-title">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                                <span>Step 4: Review Details & Submit (पडताळणी आणि नोंदणी)</span>
+                            </h2>
+                            <p class="step-heading-desc">
+                                Please review your details before submitting. Click edit to adjust any section.
+                            </p>
+                        </div>
+
+                        <!-- Card 1: Account Details Review -->
+                        <div class="review-section-card">
+                            <div class="review-card-header">
+                                <div class="review-card-title">
+                                    <i class="fa-solid fa-user-check"></i>
+                                    <span>Account & Personal Information</span>
+                                </div>
+                                <button type="button" class="btn-review-edit" onclick="window.jumpToStep(1)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                </button>
+                            </div>
+                            <div class="review-grid">
+                                <div class="review-item">
+                                    <span class="review-item-label">Full Name</span>
+                                    <span class="review-item-val" id="revFullName">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Mobile Number</span>
+                                    <span class="review-item-val" id="revMobile">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Email Address</span>
+                                    <span class="review-item-val" id="revEmail">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Preferred Language</span>
+                                    <span class="review-item-val" id="revLanguage">—</span>
+                                </div>
+                                <div class="review-item full-width">
+                                    <span class="review-item-label">User Type</span>
+                                    <span class="review-item-val" id="revUserType">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Location Details Review -->
+                        <div class="review-section-card">
+                            <div class="review-card-header">
+                                <div class="review-card-title">
+                                    <i class="fa-solid fa-map-pin"></i>
+                                    <span>Location & Address Information</span>
+                                </div>
+                                <button type="button" class="btn-review-edit" onclick="window.jumpToStep(2)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                </button>
+                            </div>
+                            <div class="review-grid">
+                                <div class="review-item">
+                                    <span class="review-item-label">State</span>
+                                    <span class="review-item-val" id="revState">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">District</span>
+                                    <span class="review-item-val" id="revDistrict">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Taluka / Tehsil</span>
+                                    <span class="review-item-val" id="revTaluka">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Village / Town</span>
+                                    <span class="review-item-val" id="revVillage">—</span>
+                                </div>
+                                <div class="review-item full-width">
+                                    <span class="review-item-label">Address</span>
+                                    <span class="review-item-val" id="revAddress">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">PIN Code</span>
+                                    <span class="review-item-val" id="revPincode">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">GPS Coordinates</span>
+                                    <div id="revGps">—</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Agriculture Profile Review -->
+                        <div class="review-section-card">
+                            <div class="review-card-header">
+                                <div class="review-card-title">
+                                    <i class="fa-solid fa-seedling"></i>
+                                    <span>Agriculture Profile</span>
+                                </div>
+                                <button type="button" class="btn-review-edit" onclick="window.jumpToStep(3)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                </button>
+                            </div>
+                            <div class="review-grid">
+                                <div class="review-item full-width">
+                                    <span class="review-item-label">Main Crops Cultivated</span>
+                                    <div id="revCrops">—</div>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Farming Land</span>
+                                    <span class="review-item-val" id="revLandAcres">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Soil Type</span>
+                                    <span class="review-item-val" id="revSoilType">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Irrigation Type</span>
+                                    <span class="review-item-val" id="revIrrigationType">—</span>
+                                </div>
+                                <div class="review-item">
+                                    <span class="review-item-label">Farming Experience</span>
+                                    <span class="review-item-val" id="revFarmingExperience">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms & Conditions Acceptance -->
+                        <div class="terms-checkbox-wrap">
+                            <input type="checkbox" id="acceptTermsCheckbox" required>
+                            <label for="acceptTermsCheckbox" class="terms-checkbox-label">
+                                I agree to the <a href="subsidies.html" target="_blank">Terms & Conditions</a> and acknowledge the <a href="subsidies.html" target="_blank">Privacy Policy</a> of Smart Agriculture Assistant (स्मार्ट कृषी सहाय्यक). I confirm the details provided are accurate for agricultural advisory services.
+                            </label>
+                        </div>
+
+                        <!-- Step 4 Footer -->
+                        <div class="auth-footer-nav">
+                            <button type="button" class="btn-auth-prev" data-prev="3">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Previous</span>
+                            </button>
+                            <button type="button" class="btn-auth-submit" id="btnSubmitRegistration">
+                                <i class="fa-solid fa-user-plus"></i>
+                                <span>Complete Registration (नोंदणी पूर्ण करा)</span>
+                            </button>
+                        </div>
+
+                        <!-- Privacy Security Assurance -->
+                        <div class="privacy-assurance-badge">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>Data Protection: We never request Aadhaar or banking details. Your agricultural data is kept strictly confidential.</span>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="auth-bottom-links" style="padding: 0 2.5rem 2rem;">
+                Already have a farmer account? <a href="login.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login here (येथे लॉगिन करा)</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Professional Site Footer -->
+    <footer class="site-footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Smart Agriculture Assistant (स्मार्ट कृषी सहाय्यक). All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="login.html">Farmer Login</a>
+                <a href="register.html">Farmer Registration</a>
+                <a href="subsidies.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/services/authService.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/register.js"></script>
+</body>
+</html>

@@ -2140,21 +2140,33 @@ function speakText(text) {
 console.log('✅ AI Chat Assistant loaded with voice support!');
 
 // ============================================
-// TOAST NOTIFICATION
+// TOAST NOTIFICATION (Robust & Self-healing)
 // ============================================
 
-function showToast(message, duration = 5000) {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
+function showToast(message, duration = 4000) {
+    let container = document.getElementById('toastContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;display:flex;flex-direction:column;gap:10px;pointer-events:none;';
+        document.body.appendChild(container);
+    }
     
-    toastMessage.textContent = message;
-    toast.classList.add('show');
+    const toast = document.createElement('div');
+    toast.className = 'custom-toast';
+    toast.style.cssText = 'background:#1B4332;color:#FFFFFF;padding:12px 20px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.25);font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:10px;min-width:260px;max-width:400px;animation:slideInUp 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:auto;border-left:4px solid #52B788;';
+    toast.innerHTML = `<span>${message}</span>`;
     
-    // Auto hide after duration
+    container.appendChild(toast);
+    
     setTimeout(() => {
-        toast.classList.remove('show');
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
     }, duration);
 }
+window.showToast = showToast;
 
 console.log('✅ Toast notification system loaded!');
 
