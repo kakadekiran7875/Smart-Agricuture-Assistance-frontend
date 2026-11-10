@@ -756,16 +756,17 @@
     /**
      * Show Final Location Detected Success Message
      */
-    function showGpsSuccessMessage(accuracy) {
+    function showGpsSuccessMessage(accuracy, lat, lon) {
         let accuracyBadge = '';
         if (accuracy) {
             const isPoor = accuracy > 1000;
             accuracyBadge = `<span class="gps-accuracy-pill ${isPoor ? 'poor' : ''}"><i class="fa-solid fa-bullseye"></i> ±${accuracy}m accuracy</span>`;
             if (isPoor) {
-                accuracyBadge += ` <small style="color:var(--auth-warning); font-weight:600;">(Broad cellular fix — verify address details manually)</small>`;
+                accuracyBadge += ` <small style="color:var(--auth-warning); font-weight:600;">(Broad network fix from PC/Wi-Fi — verify village details below)</small>`;
             }
         }
-        showGpsStatus(`Your current location has been detected successfully. Please verify your address before continuing. ${accuracyBadge}`, 'success');
+        const coordsText = (lat && lon) ? `<strong>(${lat}, ${lon})</strong> • ` : '';
+        showGpsStatus(`Live device location detected ${coordsText}and address auto-filled! Please verify your village/details before continuing. ${accuracyBadge}`, 'success');
     }
 
     /**
@@ -784,23 +785,34 @@
         const dialog = document.getElementById('gpsOverwriteConfirmDialog');
         if (dialog) dialog.classList.remove('active');
 
+        // Check browser permission status if supported
+        if (navigator.permissions && navigator.permissions.query) {
+            navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+                if (result.state === 'denied') {
+                    showGpsStatus('Location permission is blocked in your browser. Click the lock/settings icon near the address bar to Allow location, then try again.', 'error');
+                } else if (result.state === 'prompt') {
+                    showGpsStatus('Please click "Allow" in your browser location popup to detect your live location...', 'warning');
+                }
+            }).catch(() => {});
+        }
+
         // State 1: Requesting Permission
         setGpsButtonState('requesting');
-        showGpsStatus('Requesting browser device location permission...', 'warning');
+        showGpsStatus('Requesting browser device location permission (Please click Allow)...', 'warning');
 
         const geoOptions = {
             enableHighAccuracy: true,
             timeout: 20000,
-            maximumAge: 0
+            maximumAge: 0 // Do not use cached GPS fix - always query live device
         };
 
         // State 2: Detecting Location
         const detectingTimer = setTimeout(() => {
             if (state.isDetectingGps) {
                 setGpsButtonState('detecting');
-                showGpsStatus('Locking GPS satellite/cellular signal...', 'warning');
+                showGpsStatus('Locking live GPS satellite / cellular signal from your device...', 'warning');
             }
-        }, 1200);
+        }, 1000);
 
         navigator.geolocation.getCurrentPosition(
             async (pos) => {
@@ -823,7 +835,7 @@
 
                 // State 3: Fetching Address Details via Reverse-Geocoding API
                 setGpsButtonState('fetching');
-                showGpsStatus(`GPS signal locked (${lat}, ${lon}). Resolving address via reverse-geocoding...`, 'warning');
+                showGpsStatus(`Live coordinates captured (${lat}, ${lon}). Resolving address details...`, 'warning');
 
                 try {
                     let locationData = null;
@@ -848,22 +860,15 @@
                         throw new Error('No address information returned for coordinates.');
                     }
 
-                    // Check if user already typed manual address
-                    if (hasExistingManualAddress()) {
-                        state.pendingLocationData = locationData;
-                        setGpsButtonState('success');
-                        showGpsStatus(`Location resolved for (${lat}, ${lon}). Please choose whether to replace your existing address below.`, 'warning');
-                        openOverwriteConfirmDialog(locationData, accuracy);
-                    } else {
-                        mapLocationToForm(locationData);
-                        setGpsButtonState('success');
-                        showGpsSuccessMessage(accuracy);
-                    }
+                    // Directly and automatically auto-fill all form fields with live location
+                    mapLocationToForm(locationData);
+                    setGpsButtonState('success');
+                    showGpsSuccessMessage(accuracy, lat, lon);
 
                 } catch (apiErr) {
                     console.warn('[GPS Detection] Reverse-geocoding note:', apiErr.message);
                     setGpsButtonState('tryAgain');
-                    showGpsStatus(`GPS coordinates captured (${lat}, ${lon}). Address lookup could not be auto-resolved; please enter your village and district manually below.`, 'warning');
+                    showGpsStatus(`Live GPS coordinates captured (${lat}, ${lon}). Address lookup could not be auto-resolved; please enter your village and district manually below.`, 'warning');
                 }
             },
             (err) => {
@@ -872,11 +877,11 @@
 
                 let msg = 'Location detection could not be completed. You can enter your address details manually below.';
                 if (err.code === err.PERMISSION_DENIED) {
-                    msg = 'GPS permission denied. Registration is not blocked — please enter your location details manually below.';
+                    msg = 'Location permission was denied. Please allow location in your browser settings (lock icon in address bar) and click Try Again.';
                 } else if (err.code === err.TIMEOUT) {
-                    msg = 'Location request timed out (20s). Please check your GPS signal or enter address manually.';
+                    msg = 'Location request timed out (20s). Please check your device GPS signal or enter address manually.';
                 } else if (err.code === err.POSITION_UNAVAILABLE) {
-                    msg = 'GPS position currently unavailable. Please enter your address manually.';
+                    msg = 'Live GPS position currently unavailable on this device. Please enter your address manually.';
                 }
 
                 showGpsStatus(msg, 'warning');
